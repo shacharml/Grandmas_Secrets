@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.GrandmasSecrets"
-        parent="Theme.MaterialComponents.DayNight">
+        parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">#C1AC90</item>
         <item name="colorPrimaryDark">#9B7C57</item>

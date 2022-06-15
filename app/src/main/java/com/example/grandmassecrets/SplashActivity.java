@@ -16,7 +16,6 @@ import com.google.android.material.button.MaterialButton;
 public class SplashActivity extends AppCompatActivity {
 
     VideoView splash_VID_video;
-//    ImageView splash_IMG_screenshot;
     MaterialButton splash_BTN_loginSplash;
 
 
