@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:overScrollMode="never"
     android:scrollbars="none"
-    tools:context=".LoginActivity">
+    tools:context=".Activities.LoginActivity">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/gafata"
-            android:text="@string/verification"
+            android:text="Sign up"
             android:textColor="#3F3733"
             android:textSize="25sp"
             android:textStyle="bold" />
@@ -99,6 +99,10 @@
             android:layout_marginEnd="70dp"
             android:background="#CBC3AF" />
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
         <Button
             android:id="@+id/login_BTN_send"
             android:layout_width="match_parent"
@@ -106,11 +110,18 @@
             android:layout_margin="30dp"
             android:background="@drawable/background_button"
             android:fontFamily="@font/gafata"
-            android:text="Send me code !"
+            android:text="Send code !"
             android:textColor="@color/white"
             android:textSize="17dp"
             android:textStyle="bold" />
 
+            <ProgressBar
+                android:id="@+id/login_PRB_progress_bar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:visibility="gone"/>
+        </FrameLayout>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </ScrollView>

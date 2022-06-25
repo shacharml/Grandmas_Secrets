@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "603225056994",
+    "project_id": "grandma-s-secrets",
+    "storage_bucket": "grandma-s-secrets.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:603225056994:android:c2952c8a9c226801e220bb",
+        "android_client_info": {
+          "package_name": "com.example.grandmassecrets"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "603225056994-ptu0bllcm52hc7u2rt9imt8a49dc6jh5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.grandmassecrets",
+            "certificate_hash": "5e09e2b09515c7d33ae6cd98c45ad7774f528b74"
+          }
+        },
+        {
+          "client_id": "603225056994-keai7v2pjttketuh67o9038ubu2am83o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8-y2T2ulg_4YcSdyOCCrs5_kLU5nqwA4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "603225056994-keai7v2pjttketuh67o9038ubu2am83o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

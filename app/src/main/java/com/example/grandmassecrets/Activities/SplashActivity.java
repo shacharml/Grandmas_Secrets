@@ -1,4 +1,4 @@
-package com.example.grandmassecrets;
+package com.example.grandmassecrets.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.VideoView;
 
+import com.example.grandmassecrets.R;
 import com.google.android.material.button.MaterialButton;
 
 public class SplashActivity extends AppCompatActivity {
