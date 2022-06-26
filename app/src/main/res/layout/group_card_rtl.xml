@@ -8,7 +8,7 @@
     >
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card"
+        android:id="@+id/card1"
         android:layout_width="match_parent"
         android:layout_height="110dp"
         android:layout_marginTop="24dp"
@@ -60,20 +60,20 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/specific_rounded_corner1"
+        android:id="@+id/group_IMG_rounded_corner_background_rtl"
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:shapeAppearanceOverlay="@style/specific_rounded_corner"
-        app:srcCompat="@color/my_text_color_brown"
+        app:srcCompat="@color/white"
         android:elevation="8dp"
-        android:layout_alignStart="@id/card"
+        android:layout_alignStart="@id/card1"
         android:layout_marginStart="9dp"
         android:layout_marginTop="9dp"
         />
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/specific_rounded_corner"
+        android:id="@+id/group_IMG_img_rtl"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:scaleType="centerCrop"
@@ -81,7 +81,7 @@
         app:shapeAppearanceOverlay="@style/specific_rounded_corner"
         app:srcCompat="@drawable/not_sign_up_bar_photo"
         android:elevation="8dp"
-        android:layout_alignStart="@id/card"
+        android:layout_alignStart="@id/card1"
         android:layout_marginStart="18dp"
         android:layout_marginTop="18dp"
         />

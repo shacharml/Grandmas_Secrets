@@ -11,10 +11,16 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <!--  Specific Rounded Corner-->
     <style name="specific_rounded_corner">
         <item name="cornerSizeTopLeft">50dp</item>
         <item name="cornerSizeBottomRight">50dp</item>
         <item name="cornerFamilyTopLeft">rounded</item>
         <item name="cornerFamilyBottomRight">rounded</item>
+    </style>
+
+    <!-- Circle ImageView-->
+    <style name="circle">
+        <item name="cornerSize">50%</item>
     </style>
 </resources>
