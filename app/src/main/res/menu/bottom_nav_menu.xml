@@ -12,9 +12,9 @@
         android:title="OP2"
         />
 
-<!--    <item-->
-<!--        android:id="@+id/placeholder"-->
-<!--        android:title=""/>-->
+    <item
+        android:id="@+id/placeholder"
+        android:title=""/>
 
     <item
         android:id="@+id/menu_ITM_group"

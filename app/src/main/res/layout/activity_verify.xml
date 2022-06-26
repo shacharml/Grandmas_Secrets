@@ -31,7 +31,7 @@
             android:layout_marginTop="50dp"
             android:fontFamily="@font/gafata"
             android:text="@string/verification"
-            android:textColor="#3F3733"
+            android:textColor="@color/my_text_color_brown"
             android:textSize="25sp"
             android:textStyle="bold" />
 
@@ -44,7 +44,7 @@
             android:fontFamily="@font/gafata"
             android:gravity="center"
             android:text="Enter the code sent to"
-            android:textColor="#3F3733"
+            android:textColor="@color/my_text_color_brown"
             android:textSize="15sp" />
 
         <TextView
@@ -56,7 +56,7 @@
             android:layout_marginEnd="50dp"
             android:fontFamily="@font/gafata"
             android:gravity="center"
-            android:textColor="#3F3733"
+            android:textColor="@color/my_text_color_brown"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -76,7 +76,7 @@
                 android:importantForAutofill="no"
                 android:inputType="number"
                 android:maxLength="1"
-                android:textColor="#3F3733"
+                android:textColor="@color/my_text_color_brown"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 tools:ignore="LabelFor" />
@@ -91,7 +91,7 @@
                 android:importantForAutofill="no"
                 android:inputType="number"
                 android:maxLength="1"
-                android:textColor="#3F3733"
+                android:textColor="@color/my_text_color_brown"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 tools:ignore="LabelFor" />
@@ -106,7 +106,7 @@
                 android:importantForAutofill="no"
                 android:inputType="number"
                 android:maxLength="1"
-                android:textColor="#3F3733"
+                android:textColor="@color/my_text_color_brown"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 tools:ignore="LabelFor" />
@@ -121,7 +121,7 @@
                 android:importantForAutofill="no"
                 android:inputType="number"
                 android:maxLength="1"
-                android:textColor="#3F3733"
+                android:textColor="@color/my_text_color_brown"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 tools:ignore="LabelFor" />
@@ -136,7 +136,7 @@
                 android:importantForAutofill="no"
                 android:inputType="number"
                 android:maxLength="1"
-                android:textColor="#3F3733"
+                android:textColor="@color/my_text_color_brown"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 tools:ignore="LabelFor" />
@@ -151,7 +151,7 @@
                 android:importantForAutofill="no"
                 android:inputType="number"
                 android:maxLength="1"
-                android:textColor="#3F3733"
+                android:textColor="@color/my_text_color_brown"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 tools:ignore="LabelFor" />
@@ -172,7 +172,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gafata"
                 android:text="@string/didn_t_receive_the_code"
-                android:textColor="#3F3733"
+                android:textColor="@color/my_text_color_brown"
                 android:textSize="15sp" />
 
             <TextView

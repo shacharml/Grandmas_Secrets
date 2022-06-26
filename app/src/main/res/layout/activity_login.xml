@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/gafata"
             android:text="Sign up"
-            android:textColor="#3F3733"
+            android:textColor="@color/my_text_color_brown"
             android:textSize="25sp"
             android:textStyle="bold" />
 
@@ -41,7 +41,7 @@
             android:fontFamily="@font/gafata"
             android:gravity="center"
             android:text="@string/we_will_send_you_an_one_time_code_on_this_mobile_number"
-            android:textColor="#3F3733"
+            android:textColor="@color/my_text_color_brown"
             android:textSize="15sp" />
 
         <TextView
@@ -53,7 +53,7 @@
             android:fontFamily="@font/gafata"
             android:gravity="center"
             android:text="Enter mobile number"
-            android:textColor="#3F3733"
+            android:textColor="@color/my_text_color_brown"
             android:textSize="20sp" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -70,7 +70,7 @@
                 android:fontFamily="@font/gafata"
                 android:gravity="center"
                 android:text="@string/_972"
-                android:textColor="#3F3733"
+                android:textColor="@color/my_text_color_brown"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 

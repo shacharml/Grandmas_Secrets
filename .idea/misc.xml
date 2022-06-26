@@ -5,18 +5,25 @@
       <map>
         <entry key="..\:/Users/shach/AndroidStudioProjects/Class/GrandmasSecrets/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.158" />
         <entry key="..\:/Users/shach/AndroidStudioProjects/Class/GrandmasSecrets/app/src/main/res/drawable/background_button.xml" value="0.1465" />
+        <entry key="..\:/Users/shach/AndroidStudioProjects/Class/GrandmasSecrets/app/src/main/res/drawable/edit_text_bg.xml" value="0.2125" />
         <entry key="..\:/Users/shach/AndroidStudioProjects/Class/GrandmasSecrets/app/src/main/res/drawable/ic_add.xml" value="0.158" />
         <entry key="..\:/Users/shach/AndroidStudioProjects/Class/GrandmasSecrets/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="..\:/Users/shach/AndroidStudioProjects/Class/GrandmasSecrets/app/src/main/res/drawable/ic_person_outline.xml" value="0.156" />
         <entry key="..\:/Users/shach/AndroidStudioProjects/Class/GrandmasSecrets/app/src/main/res/drawable/item_selector.xml" value="0.1475" />
         <entry key="..\:/Users/shach/AndroidStudioProjects/Class/GrandmasSecrets/app/src/main/res/drawable/round_corner.xml" value="0.1475" />
         <entry key="..\:/Users/shach/AndroidStudioProjects/Class/GrandmasSecrets/app/src/main/res/drawable/transparent_background.xml" value="0.1" />
+        <entry key="..\:/Users/shach/AndroidStudioProjects/Class/GrandmasSecrets/app/src/main/res/drawable/vie_bg.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/shach/AndroidStudioProjects/Class/GrandmasSecrets/app/src/main/res/font/gafata.xml" value="0.23459915611814347" />
         <entry key="..\:/Users/shach/AndroidStudioProjects/Class/GrandmasSecrets/app/src/main/res/layout/activity_exampel.xml" value="0.2128205128205128" />
         <entry key="..\:/Users/shach/AndroidStudioProjects/Class/GrandmasSecrets/app/src/main/res/layout/activity_login.xml" value="0.22" />
-        <entry key="..\:/Users/shach/AndroidStudioProjects/Class/GrandmasSecrets/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/shach/AndroidStudioProjects/Class/GrandmasSecrets/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/shach/AndroidStudioProjects/Class/GrandmasSecrets/app/src/main/res/layout/activity_sign_up.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/shach/AndroidStudioProjects/Class/GrandmasSecrets/app/src/main/res/layout/activity_splash.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/shach/AndroidStudioProjects/Class/GrandmasSecrets/app/src/main/res/layout/activity_verify.xml" value="0.22" />
         <entry key="..\:/Users/shach/AndroidStudioProjects/Class/GrandmasSecrets/app/src/main/res/layout/fragment_profile.xml" value="0.2128205128205128" />
         <entry key="..\:/Users/shach/AndroidStudioProjects/Class/GrandmasSecrets/app/src/main/res/layout/fragment_recips.xml" value="0.2128205128205128" />
+        <entry key="..\:/Users/shach/AndroidStudioProjects/Class/GrandmasSecrets/app/src/main/res/layout/fragment_sign_up.xml" value="0.1134453781512605" />
+        <entry key="..\:/Users/shach/AndroidStudioProjects/Class/GrandmasSecrets/app/src/main/res/layout/sign_up_fragment.xml" value="0.19914529914529913" />
         <entry key="..\:/Users/shach/AndroidStudioProjects/Class/GrandmasSecrets/app/src/main/res/menu/bottom_nav_menu.xml" value="0.22" />
         <entry key="..\:/Users/shach/AndroidStudioProjects/Class/GrandmasSecrets/app/src/main/res/menu/item_menu.xml" value="0.2128205128205128" />
       </map>
