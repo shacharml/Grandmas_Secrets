@@ -4,29 +4,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@null"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    >
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:layout_marginTop="14dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="4dp"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="4dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="8dp"
         android:elevation="7dp"
         app:cardElevation="3dp"
         app:cardCornerRadius="18dp"
-        app:strokeWidth="1dp"
-        app:strokeColor="@color/light_perpel">
+        app:strokeWidth="1.5dp"
+        app:strokeColor="@color/dark_parpel"
+        app:cardPreventCornerOverlap="false"
 
-<!--        Background picture      -->
+        >
+
+        <!--        Background picture      -->
         <ImageView
-            android:src="@drawable/circle_scatter_haikei"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:src="@drawable/circle_scatter_haikei"
+            android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             />
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,6 +56,8 @@
                     android:id="@+id/ingredients_card_TIL_name"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
+                    android:textColorHint="#C930275C"
+                    app:boxStrokeColor="#C930275C"
                     android:layout_height="match_parent"
                     android:hint="Ingredients Name"
                     app:boxCornerRadiusBottomEnd="15dp"
@@ -62,7 +73,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/gafata"
                         android:inputType="text"
-                        android:textColor="#30275c"
+                        android:textColor="@color/dark_parpel"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -99,7 +110,9 @@
                         android:gravity="center"
                         android:insetTop="0dp"
                         android:insetBottom="0dp"
-                        android:text="0.0"
+                        android:text="00.00"
+                        android:maxLength="5"
+                        android:maxLines="1"
                         android:textColor="#30275C"
                         android:textSize="18sp" />
 
@@ -124,65 +137,84 @@
                 android:id="@+id/linear_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                >
 
                 <RadioGroup
                     android:id="@+id/ingredients_card_BTN_radioGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:checkedButton="@+id/radio_button_1"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    >
 
                     <RadioButton
                         android:id="@+id/radio_button_1"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="Cup"
                         android:fontFamily="@font/gafata"
-                        android:textSize="15dp"
-                        android:buttonTint="#30275C"/>
+                        android:textSize="14sp"
+                        android:buttonTint="#30275C"
+                        android:scaleX="0.8"
+                        android:scaleY="0.8"
+                        android:paddingLeft="-2dp"
+                        android:layout_marginStart="-8dp"
+                        />
 
                     <RadioButton
                         android:id="@+id/radio_button_2"
-                        android:layout_marginLeft="3dp"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="Teaspoon"
                         android:fontFamily="@font/gafata"
-                        android:textSize="15dp"
-                        android:buttonTint="#30275C"/>
+                        android:textSize="14sp"
+                        android:buttonTint="#30275C"
+                        android:scaleX="0.8"
+                        android:scaleY="0.8"
+                        android:paddingLeft="-2dp"
+                        android:layout_marginStart="-8dp"
+                        />
 
                     <RadioButton
                         android:id="@+id/radio_button_3"
-                        android:layout_marginLeft="3dp"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="Tablespoon"
                         android:fontFamily="@font/gafata"
-                        android:textSize="15dp"
-                        android:buttonTint="#30275C"/>
+                        android:textSize="14sp"
+                        android:buttonTint="#30275C"
+                        android:scaleX="0.8"
+                        android:scaleY="0.8"
+                        android:paddingLeft="-2dp"
+                        android:layout_marginStart="-8dp"
+                        />
 
                     <RadioButton
                         android:id="@+id/radio_button_4"
-                        android:layout_marginLeft="3dp"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="Once"
                         android:fontFamily="@font/gafata"
-                        android:textSize="15dp"
-                        android:buttonTint="#30275C"/>
+                        android:textSize="14sp"
+                        android:buttonTint="#30275C"
+                        android:scaleX="0.8"
+                        android:scaleY="0.8"
+                        android:paddingLeft="-2dp"
+                        android:layout_marginStart="-8dp"/>
 
                 </RadioGroup>
 
                 <ImageButton
+                    android:id="@+id/ingredients_card_BTN_delete"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/ic_delete"
                     android:background="@null"
                     android:layout_weight="1"
-                    android:layout_marginLeft="20dp"
                     android:elevation="3dp"
-                    android:scaleType="center"
+                    android:scaleType="fitEnd"
+                    android:layout_marginEnd="5dp"
                     />
 
         </androidx.appcompat.widget.LinearLayoutCompat>

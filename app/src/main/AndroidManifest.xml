@@ -20,27 +20,31 @@
         android:windowSoftInputMode="adjustResize"
         tools:targetApi="31">
         <activity
-            android:name=".CreateRecipeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CreateGroupActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activities.SignUpActivity"
-            android:exported="true">
+            android:name=".Activities.CreateRecipeActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            />
         </activity>
+
+        <activity
+            android:name=".Activities.CreateGroupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.SignUpActivity"
+            android:exported="true">
+        </activity>
+
         <activity
             android:name=".Activities.SplashActivity"
             android:exported="false" />
+
         <activity
             android:name=".Activities.LoginActivity"
             android:exported="false" />
+
         <activity
             android:name=".Activities.VerifyActivity"
             android:exported="false" />
