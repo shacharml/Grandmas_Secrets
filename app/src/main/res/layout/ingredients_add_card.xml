@@ -9,31 +9,45 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="90dp"
         android:layout_marginTop="14dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="10dp"
         android:elevation="7dp"
         app:cardElevation="3dp"
         app:cardCornerRadius="18dp"
-        android:background="">
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/light_perpel">
+
+<!--        Background picture      -->
+        <ImageView
+            android:src="@drawable/circle_scatter_haikei"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="5dp">
+            android:layout_gravity="center"
+            android:padding="5dp"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:orientation="horizontal"
-                android:padding="5dp">
+                android:layout_marginBottom="6dp">
 
                 <!--  Ingredients Name  -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/ingredients_card_TIL_name"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:hint="Ingredients Name"
                     app:boxCornerRadiusBottomEnd="15dp"
                     app:boxCornerRadiusBottomStart="15dp"
@@ -57,10 +71,9 @@
                 <!--    Plus minus-->
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_gravity="end"
+                    android:layout_height="35dp"
                     android:gravity="center"
-                    android:layout_marginRight="6dp"
+                    android:layout_gravity="bottom"
                     android:layout_marginLeft="6dp"
                     android:background="@drawable/shape_rounded_stroke"
                     android:orientation="horizontal">
@@ -82,11 +95,11 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/ingredients_card_LBL_amount"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="30dp"
                         android:gravity="center"
                         android:insetTop="0dp"
                         android:insetBottom="0dp"
-                        android:text="00"
+                        android:text="0.0"
                         android:textColor="#30275C"
                         android:textSize="18sp" />
 
@@ -108,6 +121,7 @@
             </LinearLayout>
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linear_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -117,8 +131,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:checkedButton="@+id/radio_button_1"
-                    android:orientation="horizontal"
-                    >
+                    android:orientation="horizontal">
 
                     <RadioButton
                         android:id="@+id/radio_button_1"
@@ -160,10 +173,21 @@
                         android:buttonTint="#30275C"/>
 
                 </RadioGroup>
-            </androidx.appcompat.widget.LinearLayoutCompat>
 
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_delete"
+                    android:background="@null"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="20dp"
+                    android:elevation="3dp"
+                    android:scaleType="center"
+                    />
 
+        </androidx.appcompat.widget.LinearLayoutCompat>
         </LinearLayout>
+
     </com.google.android.material.card.MaterialCardView>
 
 
