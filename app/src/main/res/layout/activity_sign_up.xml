@@ -52,7 +52,7 @@
                     app:useCompatPadding="false" />
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/signup_IMG_user"
+                    android:id="@+id/recipe_item_IMG_card"
                     android:layout_width="130dp"
                     android:layout_height="130dp"
                     android:layout_gravity="center_horizontal"

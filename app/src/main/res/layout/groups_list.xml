@@ -42,7 +42,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:clipToPadding="false"
-                android:paddingBottom="57dp" />
+                android:paddingBottom="60dp" />
 
         </RelativeLayout>
 
