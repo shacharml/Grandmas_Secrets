@@ -44,7 +44,7 @@
                     android:layout_gravity="right|bottom"
                     android:background="@color/black"
                     android:backgroundTint="#CEBBA3"
-                    app:borderWidth="2dp"
+                    app:borderWidth="0dp"
                     app:elevation="8dp"
                     app:fabCustomSize="40dp"
                     app:srcCompat="@drawable/ic_add"

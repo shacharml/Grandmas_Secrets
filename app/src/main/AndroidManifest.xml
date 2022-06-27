@@ -10,6 +10,7 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -17,25 +18,26 @@
         android:supportsRtl="false"
         android:theme="@style/Theme.GrandmasSecrets"
         android:windowSoftInputMode="adjustResize"
-
-        android:hardwareAccelerated="false"
-
         tools:targetApi="31">
-
+        <activity
+            android:name=".CreateRecipeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CreateGroupActivity"
+            android:exported="false" />
         <activity
             android:name=".Activities.SignUpActivity"
             android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>/>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            />
         </activity>
-
-
         <activity
             android:name=".Activities.SplashActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".Activities.LoginActivity"
             android:exported="false" />
