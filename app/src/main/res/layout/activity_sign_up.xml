@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".Activities.SignUpActivity">
 
-
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="200dp"
@@ -42,7 +41,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right|bottom"
-                    android:background="@color/black"
                     android:backgroundTint="#CEBBA3"
                     app:borderWidth="0dp"
                     app:elevation="8dp"

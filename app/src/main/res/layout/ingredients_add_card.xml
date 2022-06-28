@@ -23,18 +23,18 @@
         app:cardCornerRadius="18dp"
         app:strokeWidth="1.5dp"
         app:strokeColor="@color/dark_parpel"
+        android:backgroundTint="@color/white"
         app:cardPreventCornerOverlap="false"
-
         >
 
-        <!--        Background picture      -->
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/circle_scatter_haikei"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            />
+<!--        &lt;!&ndash;        Background picture      &ndash;&gt;-->
+<!--        <ImageView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:src="@drawable/circle_scatter_haikei"-->
+<!--            android:adjustViewBounds="true"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            />-->
 
 
         <LinearLayout

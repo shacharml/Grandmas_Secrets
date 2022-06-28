@@ -1,37 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.MainActivity">
 
+
+
+
+
+
+
+    <!-- Bottom Bar -->
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/main_BAP_bottom_app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:fabCradleMargin="10dp"
-        app:fabCradleVerticalOffset="10dp"
         app:fabCradleRoundedCornerRadius="10dp"
-        >
-        //the bottom menu
+        app:fabCradleVerticalOffset="10dp">
+
+        <!-- the bottom menu-->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/main_BNV_bottom_nav"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:menu="@menu/bottom_nav_menu"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/transparent_background"/>
+            android:background="@drawable/transparent_background"
+            app:menu="@menu/bottom_nav_menu" />
 
     </com.google.android.material.bottomappbar.BottomAppBar>
 
-    //Floating button
+    <!-- Floating button-->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/main_FAB_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/light_pink"
         android:src="@drawable/ic_add"
-        app:layout_anchor="@id/main_BAP_bottom_app_bar"/>
+        app:layout_anchor="@id/main_BAP_bottom_app_bar"
+        app:maxImageSize="33dp" />
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -17,14 +17,14 @@
         android:screenOrientation="portrait"
         android:supportsRtl="false"
         android:theme="@style/Theme.GrandmasSecrets"
-        android:windowSoftInputMode="adjustResize"
         tools:targetApi="31">
+
         <activity
             android:name=".Activities.CreateRecipeActivity"
+            android:windowSoftInputMode="stateVisible|adjustPan"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

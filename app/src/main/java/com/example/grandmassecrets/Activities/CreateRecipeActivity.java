@@ -5,6 +5,7 @@ import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -23,7 +24,8 @@ import java.util.List;
 public class CreateRecipeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private LinearLayoutCompat create_recipe_LAY_ingredients_list;
-    private Button create_recipe_BTN_add;
+    private MaterialButton create_recipe_BTN_add;
+    private TextInputEditText create_recipe_EDT_recipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +36,29 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
 
         create_recipe_BTN_add.setOnClickListener(this);
 
-        // TODO: 27/06/2022 Connect database data
 
+        // TODO: 27/06/2022 Connect database data
+        create_recipe_EDT_recipe.setOnTouchListener(new View.OnTouchListener() {
+
+            public boolean onTouch(View v, MotionEvent event) {
+                if (create_recipe_EDT_recipe.hasFocus()) {
+                    v.getParent().requestDisallowInterceptTouchEvent(true);
+                    switch (event.getAction() & MotionEvent.ACTION_MASK){
+                        case MotionEvent.ACTION_SCROLL:
+                            v.getParent().requestDisallowInterceptTouchEvent(false);
+                            return true;
+                    }
+                }
+                return false;
+            }
+        });
     }
 
 
     private void findViews() {
         create_recipe_BTN_add = findViewById(R.id.create_recipe_BTN_add);
         create_recipe_LAY_ingredients_list = findViewById(R.id.create_recipe_LAY_ingredients_list);
+        create_recipe_EDT_recipe = findViewById(R.id.create_recipe_EDT_recipe);
     }
 
     @Override
