@@ -52,14 +52,14 @@
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/nutrition_IMG_organic"
+                android:id="@+id/nutrition_IMG_nut1"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_organic_food" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/nutrition_IMG_carbohydrates"
+                android:id="@+id/nutrition_IMG_nut2"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="4dp"
@@ -67,7 +67,7 @@
                 android:src="@drawable/ic_carbohydrates" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/nutrition_IMG_peanut"
+                android:id="@+id/nutrition_IMG_nut3"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="4dp"
@@ -75,7 +75,7 @@
                 android:src="@drawable/ic_no_peanut" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/nutrition_IMG_dairy"
+                android:id="@+id/nutrition_IMG_nut4"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="4dp"
@@ -83,7 +83,7 @@
                 android:src="@drawable/ic_dairy" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/nutrition_IMG_egg"
+                android:id="@+id/nutrition_IMG_nut5"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="4dp"
