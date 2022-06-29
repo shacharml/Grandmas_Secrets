@@ -2,6 +2,7 @@ package com.example.grandmassecrets.Objects;
 
 import com.google.firebase.database.Exclude;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,24 +13,28 @@ public class User {
     private String firstName;
     private String lastName;
     private String phoneNumber;
+    private ArrayList<String> groupsIds;
 
 
     public User() {}
 
     public User(String uid, String firstName, String lastName, String phoneNumber) {
         this.uid = uid;
-        this.img = "url";
+        this.img = "UrlImg"; // TODO: 29/06/2022 add a Url from fire storage
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
+        this.groupsIds = new ArrayList<>();
     }
 
     public String getUid() {
         return uid;
     }
 
-// ------- Builder --------
-
+//    public User setUid(String uid) {
+//        this.uid = uid;
+//        return this;
+//    }
 
     public String getImg() {
         return img;
@@ -67,15 +72,13 @@ public class User {
         return this;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "uid='" + uid + '\'' +
-                ", img='" + img + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                '}';
+    public ArrayList<String> getGroupsIds() {
+        return groupsIds;
+    }
+
+    public User setGroupsIds(ArrayList<String> groupsIds) {
+        this.groupsIds = groupsIds;
+        return this;
     }
 
     @Exclude
@@ -86,7 +89,7 @@ public class User {
         mapRes.put("firstName", firstName);
         mapRes.put("lastName", lastName);
         mapRes.put("phoneNumber", phoneNumber);
+        //todo add the list groupsIds
         return mapRes;
     }
-
 }

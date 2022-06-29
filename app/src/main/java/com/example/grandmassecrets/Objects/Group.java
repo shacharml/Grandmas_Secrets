@@ -10,16 +10,22 @@ public class Group {
     private String description;
     private String imgGroup;
     private ArrayList<String> recipesIds;
+    private String groupCreator; //who create the group
+    private ArrayList<String> usersIds; //list of all the users that the group share with them
 
 
     public Group() { }
 
-    public Group(String name, String description) {
+    public Group(String name, String description, String groupCreator) {
         this.idGroup = UUID.randomUUID().toString();
         this.name = name;
         this.description = description;
         this.imgGroup = "url"; // TODO: 29/06/2022 change to url from fire base storage
         this.recipesIds = new ArrayList<>();
+        this.groupCreator = groupCreator;
+        this.usersIds = new ArrayList<>();
+        this.usersIds.add(groupCreator);
+
     }
 
     public String getIdGroup() {
@@ -68,6 +74,24 @@ public class Group {
 //    }
 
 
+    public String getGroupCreator() {
+        return groupCreator;
+    }
+
+    public Group setGroupCreator(String groupCreator) {
+        this.groupCreator = groupCreator;
+        return this;
+    }
+
+    public ArrayList<String> getUsersIds() {
+        return usersIds;
+    }
+
+    public Group setUsersIds(ArrayList<String> usersIds) {
+        this.usersIds = usersIds;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "Group{" +
@@ -76,6 +100,8 @@ public class Group {
                 ", description='" + description + '\'' +
                 ", imgGroup='" + imgGroup + '\'' +
                 ", recipesIds=" + recipesIds +
+                ", groupCreator='" + groupCreator + '\'' +
+                ", usersIds=" + usersIds +
                 '}';
     }
 }
