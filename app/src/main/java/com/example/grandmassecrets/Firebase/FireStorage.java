@@ -42,7 +42,7 @@ public class FireStorage {
         return single_instance;
     }
 
-    public void setCallBack_uploadImg(CallBack_ImageUpload callBack_Image_upload) {
+    public void setCallBack_imageUpload(CallBack_ImageUpload callBack_Image_upload) {
         this.callBack_Image_upload = callBack_Image_upload;
     }
 

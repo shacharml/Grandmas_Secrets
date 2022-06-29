@@ -50,7 +50,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         fireStorage = FireStorage.getInstance();
-        fireStorage.setCallBack_uploadImg(callBack_Image_upload);
+        fireStorage.setCallBack_imageUpload(callBack_Image_upload);
 
         findViews();
         initButtons();
