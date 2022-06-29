@@ -30,24 +30,25 @@ public class LoginActivity extends AppCompatActivity {
     // variable for FirebaseAuth class
     private FirebaseAuth myAuth;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         findViews();
 
+        // On Click Send Code -OTP-
         login_BTN_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Check not Empty
                 if (TextUtils.isEmpty(login_EDT_phone_number.getText().toString()))
                     Toast.makeText(LoginActivity.this,"Invalid phone number",Toast.LENGTH_SHORT).show();
-
+                // Check valid phone number  - length
                 else if (login_EDT_phone_number.getText().toString().length() != 9)
                              Toast.makeText(LoginActivity.this, "Type valid Phone Number", Toast.LENGTH_SHORT).show();
                 else {
-                    String number = login_EDT_phone_number.getText().toString();
+                    login_PRB_progress_bar.setVisibility(View.VISIBLE); // Show progress bar
+                    String number = login_EDT_phone_number.getText().toString(); // Get the phone number that insert
                     sendVerificationCode(number);
                 }
             }
@@ -56,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
 
     /*
         this method is used for getting
-        OTP on user phone number.
+        OTP (code) on user phone number.
      */
     private void sendVerificationCode(String number) {
         PhoneAuthOptions options =
@@ -77,11 +78,13 @@ public class LoginActivity extends AppCompatActivity {
         // below method is used when OTP is sent from Firebase
         @Override
         public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+
             login_PRB_progress_bar.setVisibility(View.GONE);
             Toast.makeText(LoginActivity.this, "OTP is successfully send.", Toast.LENGTH_SHORT).show();
+
             // Move to verify activity
             Intent intent = new Intent(LoginActivity.this, VerifyActivity.class);
-            intent.putExtra(getString(R.string.LBL_phone), getString(R.string.IL_num)+ login_EDT_phone_number.getText().toString().trim());
+            intent.putExtra(getString(R.string.LBL_phone),  login_EDT_phone_number.getText().toString().trim());
             intent.putExtra(getString(R.string.LBL_verification_Id), s);
             startActivity(intent);
             finish();

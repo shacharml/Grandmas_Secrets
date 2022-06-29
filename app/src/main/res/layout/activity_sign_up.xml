@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="200dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/not_sign_up_bar_photo" />
+        android:src="@drawable/ic_logout" />
 
     <RelativeLayout
         android:id="@+id/sign_up_RLY_cont_layout"
@@ -37,7 +37,7 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/signup_FAB_profile_pic"
+                    android:id="@+id/signup_FAB_profile_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right|bottom"
@@ -50,7 +50,7 @@
                     app:useCompatPadding="false" />
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/recipe_item_IMG_card"
+                    android:id="@+id/sign_up_IMG_profile"
                     android:layout_width="130dp"
                     android:layout_height="130dp"
                     android:layout_gravity="center_horizontal"
@@ -74,6 +74,7 @@
                 android:fontFamily="@font/gafata"
                 android:hint="Enter first name"
                 android:padding="8dp"
+                android:textColor="@color/my_text_color_brown"
                 android:textColorHint="@color/my_text_color_brown" />
 
             <EditText
@@ -88,13 +89,14 @@
                 android:fontFamily="@font/gafata"
                 android:hint="Enter last name"
                 android:padding="8dp"
+                android:textColor="@color/my_text_color_brown"
                 android:textColorHint="@color/my_text_color_brown" />
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <Button
-            android:id="@+id/verify_BTN_send"
+            android:id="@+id/sign_up_BTN_sign"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

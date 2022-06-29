@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,10 +18,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.google.firebase.database.annotations.NotNull;
 
 public class VerifyActivity extends AppCompatActivity {
 
@@ -32,8 +29,8 @@ public class VerifyActivity extends AppCompatActivity {
 
     // string for storing our verification ID
     private String verificationId;
-    private String code;
     private FirebaseAuth myAuth;
+//    private String code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +42,14 @@ public class VerifyActivity extends AppCompatActivity {
         verify_TXT_text_mobile.setText(String.format(
                 "+972%s",getIntent().getStringExtra(getString(R.string.LBL_phone))
         ));
+
+
         verificationId = getIntent().getStringExtra(getString(R.string.LBL_verification_Id));
 
         verify_BTN_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                binding.progressBarVerify.setVisibility(View.VISIBLE);
-//                binding.btnVerify.setVisibility(View.INVISIBLE);
+//                progressBarVerify.setVisibility(View.VISIBLE);
                 if (verify_EDT_code1.getText().toString().trim().isEmpty() ||
                         verify_EDT_code2.getText().toString().trim().isEmpty() ||
                         verify_EDT_code3.getText().toString().trim().isEmpty() ||
@@ -65,7 +63,6 @@ public class VerifyActivity extends AppCompatActivity {
                         String code = getCode();
                         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
                         signInWithCredential(credential);
-
                     }
                 }
             }
@@ -88,8 +85,15 @@ public class VerifyActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-//                            // Sign in success, update UI with the signed-in user's information
-//                            Log.d("pttt", "signInWithCredential:success");
+                            // Sign in success, update UI with the signed-in user's information
+                            Toast.makeText(VerifyActivity.this, "Authentication Success", Toast.LENGTH_LONG).show();
+
+                            // Now need to check if the user is already in the database or need to sign up
+
+
+
+
+
 //                            FirebaseUser user = task.getResult().getUser();
 //                            // Update UI
 
@@ -103,7 +107,7 @@ public class VerifyActivity extends AppCompatActivity {
                             finish();
                         } else {
                             // if the code is not correct then we are displaying an error message to the user.
-                            Toast.makeText(VerifyActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(VerifyActivity.this, "Authentication Failed", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -117,7 +121,7 @@ public class VerifyActivity extends AppCompatActivity {
         verify_EDT_code5 = findViewById(R.id.verify_EDT_code5);
         verify_EDT_code6 = findViewById(R.id.verify_EDT_code6);
         verify_TXT_text_mobile = findViewById(R.id.verify_TXT_text_mobile);
-        verify_BTN_send = findViewById(R.id.verify_BTN_send);
+        verify_BTN_send = findViewById(R.id.sign_up_BTN_sign);
         myAuth =  FirebaseAuth.getInstance();
     }
 

@@ -118,7 +118,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/verify_BTN_send"
+                android:id="@+id/sign_up_BTN_sign"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/create_group_TIL_input_description"
