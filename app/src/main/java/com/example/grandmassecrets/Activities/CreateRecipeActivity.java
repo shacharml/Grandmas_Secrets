@@ -266,6 +266,14 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
         //get the description (can be Empty)
         tempRecipe.setDescription(create_recipe_EDT_sub_title.getText().toString());
 
+        //Check the recipe steps methods
+        if (create_recipe_EDT_name.getText().toString().isEmpty()){
+            Toast.makeText(this, "Recipe steps methods be empty ", Toast.LENGTH_SHORT).show();
+            return;
+        }else
+            tempRecipe.setSteps(create_recipe_EDT_name.getText().toString());
+
+
         //Handel Image Picker & upload image to the Storage  and save the url
         if (urlImg != null)
             tempRecipe.setImg(urlImg);

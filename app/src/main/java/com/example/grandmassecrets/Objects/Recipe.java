@@ -9,16 +9,18 @@ public class Recipe {
     private String name;
     private String description;
     private String img;
+    private String steps;
     private ArrayList<Ingredient> ingredients;
     private ArrayList<NutritionFacts> nutritionFacts;
 
     public Recipe() {    }
 
-    public Recipe(String name, String description, String img, ArrayList<Ingredient> ingredients, ArrayList<NutritionFacts> nutritionFacts) {
+    public Recipe(String name, String description, String img,String steps, ArrayList<Ingredient> ingredients, ArrayList<NutritionFacts> nutritionFacts) {
         this.idRecipe = UUID.randomUUID().toString();
         this.name = name;
         this.description = description;
         this.img = img;
+        this.steps = steps;
         this.ingredients = ingredients;
         this.nutritionFacts = nutritionFacts;
     }
@@ -78,6 +80,15 @@ public class Recipe {
         return this;
     }
 
+    public String getSteps() {
+        return steps;
+    }
+
+    public Recipe setSteps(String steps) {
+        this.steps = steps;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "Recipe{" +
@@ -85,6 +96,7 @@ public class Recipe {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", img='" + img + '\'' +
+                ", steps='" + steps + '\'' +
                 ", ingredients=" + ingredients +
                 ", nutritionFacts=" + nutritionFacts +
                 '}';
