@@ -1,6 +1,7 @@
 package com.example.grandmassecrets.Objects;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class Recipe {
 
@@ -13,8 +14,8 @@ public class Recipe {
 
     public Recipe() {    }
 
-    public Recipe(String idRecipe, String name, String description, String img, ArrayList<Ingredient> ingredients, ArrayList<NutritionFacts> nutritionFacts) {
-        this.idRecipe = idRecipe;
+    public Recipe(String name, String description, String img, ArrayList<Ingredient> ingredients, ArrayList<NutritionFacts> nutritionFacts) {
+        this.idRecipe = UUID.randomUUID().toString();
         this.name = name;
         this.description = description;
         this.img = img;

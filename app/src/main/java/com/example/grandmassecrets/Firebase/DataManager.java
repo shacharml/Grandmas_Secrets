@@ -8,12 +8,13 @@ import com.google.firebase.storage.FirebaseStorage;
 
 public class DataManager {
 
+    //Singleton
     private static DataManager single_instance = null;
 
-    private final FirebaseAuth firebaseAuth;
-    private final FirebaseFirestore dbFireStore; // ??
-    private final FirebaseStorage storage;
-    private final FirebaseDatabase realTimeDB;
+    //Firebase
+    private final FirebaseAuth firebaseAuth;    // for the login with phone number
+    private final FirebaseStorage storage;      // for pictures and videos
+    private final FirebaseDatabase realTimeDB;  // for save objects data
 
 
     private User currentUser;
@@ -26,7 +27,6 @@ public class DataManager {
 
     public DataManager() {
         firebaseAuth = FirebaseAuth.getInstance();
-        dbFireStore = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
         realTimeDB = FirebaseDatabase.getInstance("https://superme-e69d5-default-rtdb.europe-west1.firebasedatabase.app/");
     }
@@ -39,9 +39,6 @@ public class DataManager {
     }
 
     //Firebase Getters
-    public FirebaseFirestore getDbFireStore() {
-        return dbFireStore;
-    }
 
     public static DataManager getInstance() {
         return single_instance;

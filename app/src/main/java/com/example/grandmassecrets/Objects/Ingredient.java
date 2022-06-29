@@ -4,24 +4,24 @@ import com.example.grandmassecrets.Constants.UnitOfMeasure;
 
 public class Ingredient {
 
-    private String idIngredient;
+//    private String idIngredient;
     private String nameIngredient;
     private double amount;
     private UnitOfMeasure unitOfMeasure;
 
     public Ingredient() {}
 
-    public Ingredient(String idIngredient, String nameIngredient, double amount, UnitOfMeasure unitOfMeasure) {
-        this.idIngredient = idIngredient;
+    public Ingredient( String nameIngredient, double amount, UnitOfMeasure unitOfMeasure) {
+//        this.idIngredient = idIngredient;
         this.nameIngredient = nameIngredient;
         this.amount = amount;
         this.unitOfMeasure = unitOfMeasure;
     }
 
 
-    public String getIdIngredient() {
-        return idIngredient;
-    }
+//    public String getIdIngredient() {
+//        return idIngredient;
+//    }
 
 //    public Ingredient setIdIngredient(String idIngredient) {
 //        this.idIngredient = idIngredient;
@@ -79,7 +79,7 @@ public class Ingredient {
     @Override
     public String toString() {
         return "Ingredient{" +
-                "idIngredient='" + idIngredient + '\'' +
+//                "idIngredient='" + idIngredient + '\'' +
                 ", nameIngredient='" + nameIngredient + '\'' +
                 ", amount=" + amount +
                 ", unitOfMeasure=" + unitOfMeasure +

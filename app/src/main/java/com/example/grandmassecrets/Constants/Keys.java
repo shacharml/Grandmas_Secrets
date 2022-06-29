@@ -14,4 +14,6 @@ public class Keys {
     //KEYS
     public static final String KEY_PHONE_TO_UID = "Phone";
     public static final String KEY_USERS = "users";
+    public static final String KEY_RECIPES = "recipes";
+    public static final String KEY_GROUPS = "groups";
 }

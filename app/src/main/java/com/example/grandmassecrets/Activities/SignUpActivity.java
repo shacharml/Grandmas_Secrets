@@ -79,8 +79,8 @@ public class SignUpActivity extends AppCompatActivity {
                     //Create a temp user from the data (after getting the photo insert to data base)
                     tempUser = new User(userID, userFirstName, userLastName, userPhoneNumber);
 
-                    if (uriImg != null)
-                        tempUser.setImg(uriImg);
+                    if (urlImg != null)
+                        tempUser.setImg(urlImg);
 
                     // TODO: 28/06/2022 finish
                     dataManager.setCurrentUser(tempUser);

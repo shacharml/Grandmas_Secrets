@@ -4,21 +4,21 @@ import com.example.grandmassecrets.Constants.NutritionFactsNames;
 
 public class NutritionFacts {
 
-    private String idNutrition;
+//    private String idNutrition;
     private NutritionFactsNames nameNutrition;
     private String imgNutrition;
 
     public NutritionFacts() { }
 
-    public NutritionFacts(String idNutrition, NutritionFactsNames nameNutrition, String imgNutrition) {
-        this.idNutrition = idNutrition;
+    public NutritionFacts( NutritionFactsNames nameNutrition, String imgNutrition) {
+//        this.idNutrition = idNutrition;
         this.nameNutrition = nameNutrition;
         this.imgNutrition = imgNutrition;
     }
 
-    public String getIdNutrition() {
-        return idNutrition;
-    }
+//    public String getIdNutrition() {
+//        return idNutrition;
+//    }
 
 //    public NutritionFacts setIdNutrition(String idNutrition) {
 //        this.idNutrition = idNutrition;
@@ -26,7 +26,6 @@ public class NutritionFacts {
 //    }
 
 // ------- Builder --------
-
 
     public NutritionFactsNames getNameNutrition() {
         return nameNutrition;
@@ -49,7 +48,7 @@ public class NutritionFacts {
     @Override
     public String toString() {
         return "NutritionFacts{" +
-                "idNutrition='" + idNutrition + '\'' +
+//                "idNutrition='" + idNutrition + '\'' +
                 ", nameNutrition=" + nameNutrition +
                 ", imgNutrition='" + imgNutrition + '\'' +
                 '}';
