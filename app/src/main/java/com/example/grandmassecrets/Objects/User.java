@@ -1,5 +1,6 @@
 package com.example.grandmassecrets.Objects;
 
+import com.example.grandmassecrets.Constants.Keys;
 import com.google.firebase.database.Exclude;
 
 import java.util.ArrayList;
@@ -81,15 +82,16 @@ public class User {
         return this;
     }
 
-    @Exclude
-    public Map<String, Object> toMap() {
-        HashMap<String, Object> mapRes = new HashMap<>();
-        mapRes.put("uid", uid);
-        mapRes.put("img", img);
-        mapRes.put("firstName", firstName);
-        mapRes.put("lastName", lastName);
-        mapRes.put("phoneNumber", phoneNumber);
-        //todo add the list groupsIds
-        return mapRes;
-    }
+    //Marks a field as excluded from the Database.
+//    @Exclude
+//    public Map<String, Object> toMap() {
+//        HashMap<String, Object> mapRes = new HashMap<>();
+//        mapRes.put("uid", uid);
+//        mapRes.put("img", img);
+//        mapRes.put("firstName", firstName);
+//        mapRes.put("lastName", lastName);
+//        mapRes.put("phoneNumber", phoneNumber);
+//        mapRes.put(Keys.KEY_USER_GROUPS_IDS, groupsIds);
+//        return mapRes;
+//    }
 }

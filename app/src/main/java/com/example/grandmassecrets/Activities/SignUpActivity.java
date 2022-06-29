@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,11 +18,8 @@ import com.example.grandmassecrets.Constants.Keys;
 import com.example.grandmassecrets.Objects.User;
 import com.example.grandmassecrets.R;
 import com.github.dhaval2404.imagepicker.ImagePicker;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.imageview.ShapeableImageView;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -31,14 +27,14 @@ public class SignUpActivity extends AppCompatActivity {
 
     // Firebase
     private final DataManager dataManager = DataManager.getInstance();
-//    private final FirebaseFirestore db = dataManager.getDbFireStore();
     private FireStorage fireStorage ;
-
     private final FirebaseDatabase realtimeDB = dataManager.getRealTimeDB();
+
     // Attributes
     private Button sign_up_BTN_sign;
     private EditText sign_upf_EDT_first_name;
     private EditText sign_upf_EDT_last_name;
+
     // Profile Picture
     private FloatingActionButton signup_FAB_profile_edit;
     private ShapeableImageView sign_up_IMG_profile;
@@ -47,7 +43,6 @@ public class SignUpActivity extends AppCompatActivity {
     private String urlImg;
 
     // TODO: 28/06/2022 Add Validator
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,12 +50,9 @@ public class SignUpActivity extends AppCompatActivity {
 
         fireStorage = FireStorage.getInstance();
         fireStorage.setCallBack_uploadImg(callBack_uploadImg);
-        //getSupportFragmentManager().beginTransaction().replace(R.id.sign_up_RLY_cont_layout, new SignUpFragment()).commit();
-
 
         findViews();
         initButtons();
-
     }
 
     private void initButtons() {
@@ -69,12 +61,12 @@ public class SignUpActivity extends AppCompatActivity {
         sign_up_BTN_sign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 // TODO: 28/06/2022 Add validators
                 if (!sign_upf_EDT_first_name.getText().toString().isEmpty() && !sign_upf_EDT_last_name.getText().toString().isEmpty()) {
-
                     String userID = dataManager.getFirebaseAuth().getCurrentUser().getUid();
-                    String userLastName = sign_upf_EDT_last_name.getText().toString();
                     String userFirstName = sign_upf_EDT_first_name.getText().toString();
+                    String userLastName = sign_upf_EDT_last_name.getText().toString();
                     String userPhoneNumber = dataManager.getFirebaseAuth().getCurrentUser().getPhoneNumber();
                     //Create a temp user from the data (after getting the photo insert to data base)
                     tempUser = new User(userID, userFirstName, userLastName, userPhoneNumber);
@@ -83,8 +75,9 @@ public class SignUpActivity extends AppCompatActivity {
                         tempUser.setImg(urlImg);
 
                     // TODO: 28/06/2022 finish
+                    //Save the new temp User to database
                     dataManager.setCurrentUser(tempUser);
-                    storeUserInDB(tempUser);
+                    saveUserToDatabase(tempUser);
 
                 } else { //the fields are Empty
                     Toast.makeText(SignUpActivity.this, "All Fields are Required", Toast.LENGTH_SHORT).show();
@@ -110,41 +103,31 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     // TODO: 28/06/2022 Check if i can do it otherwise
-    private void storeUserInDB(User tempUser) {
+    private void saveUserToDatabase(User tempUser) {
 
-        //Store the user UID by Phone number
-        DatabaseReference myRef = realtimeDB.getReference(Keys.KEY_PHONE_TO_UID).child(tempUser.getPhoneNumber());
-        myRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (task.isSuccessful()) {
-                    myRef.setValue(tempUser.getUid());
-                }
-            }
-        });
+        //Save to User List
+        DatabaseReference ref = dataManager.getRealTimeDB().getReference(Keys.KEY_USERS).child(tempUser.getUid());
+        ref.child(Keys.KEY_USER_ID).setValue(tempUser.getUid());
+        ref.child(Keys.KEY_USER_FIRST_NAME).setValue(tempUser.getFirstName());
+        ref.child(Keys.KEY_USER_LAST_NAME).setValue(tempUser.getLastName());
+        ref.child(Keys.KEY_USER_PHONE).setValue(tempUser.getPhoneNumber());
+        ref.child(Keys.KEY_USER_IMG).setValue(tempUser.getImg());
+        // TODO: 29/06/2022 Check if possible to save arrayList Like  that
+        ref.child(Keys.KEY_USER_GROUPS_IDS).setValue(tempUser.getGroupsIds());
 
-        //Store the user in Firestore by UID when stored successfully move to Main Activity
+        //save to get Uid By phone number List
+        //phone_to_uid --> PhoneNumber : Uid
+        DatabaseReference refPhone = dataManager.getRealTimeDB().getReference(Keys.KEY_PHONE_TO_UID).child(tempUser.getPhoneNumber());
+        refPhone.setValue(tempUser.getUid());
 
+        //Move to the Next Activity in the application
+        nextActivity();
 
-//        db.collection(Keys.KEY_USERS)
-//                .document(tempUser.getUid())
-//                .set(tempUser)
-//                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void unused) {
-//                        Log.d("pttt", "DocumentSnapshot Successfully written!");
-//                        startActivity(new Intent(SignUpActivity.this, MainActivity.class));
-//                        finish();
-//                    }
-//
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.w("pttt", "Error adding document", e);
-//                    }
-//                });
+    }
 
+    private void nextActivity() {
+        startActivity(new Intent(SignUpActivity.this , MainActivity.class));
+        finish();
     }
 
     private void findViews() {
