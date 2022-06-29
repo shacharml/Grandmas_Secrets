@@ -8,6 +8,19 @@
     android:background="@color/my_off_white"
     tools:context=".Activities.CreateGroupActivity">
 
+    <!--    Back button -->
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/create_group_BTN_back"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="25dp"
+        android:background="@null"
+        android:backgroundTint="@null"
+        android:elevation="2dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_back" />
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/create_group_TXV_title"
         android:layout_width="wrap_content"
@@ -54,7 +67,7 @@
                     app:tint="@color/black" />
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/recipe_item_IMG_img"
+                    android:id="@+id/create_group_IMG_img"
                     android:layout_width="130dp"
                     android:layout_height="130dp"
                     android:layout_gravity="center_horizontal"
@@ -118,7 +131,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/sign_up_BTN_sign"
+                android:id="@+id/create_group_BTN_save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/create_group_TIL_input_description"
