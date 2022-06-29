@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.example.grandmassecrets.Constants.Keys;
@@ -31,6 +32,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
+import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 
@@ -38,13 +40,18 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
 
     //Fire base
     private final DataManager dataManager = DataManager.getInstance();
-    private FireStorage fireStorage ;
-    private String urlImg;
-
     //Attributes
     private final ArrayList<Ingredient> ingredients = new ArrayList<>(); //List of the ingredients
     private final ArrayList<NutritionFacts> facts = new ArrayList<>(); //List of the NutritionFacts
-
+    private FireStorage fireStorage;
+    private String urlImg;
+    //CallBack
+    CallBack_ImageUpload callBack_Image_upload = new CallBack_ImageUpload() {
+        @Override
+        public void imageUrlAvailable(String url, Activity activity) {
+            urlImg = url;
+        }
+    };
     //Views
     private LinearLayoutCompat create_recipe_LAY_ingredients_list;
     private MaterialButton create_recipe_BTN_add;
@@ -54,6 +61,7 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
     private TextInputEditText create_recipe_EDT_sub_title;
     private ImageButton button1, button2, button3, button4, button5;
     private ImageButton create_recipe_BTN_edit;
+    private AppCompatImageButton create_recipe_BTN_back;
     private ImageView nutrition_IMG_nut1;
     private ImageView nutrition_IMG_nut2;
     private ImageView nutrition_IMG_nut3;
@@ -68,8 +76,9 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_create_recipe);
 
         findViews();
+        //Init fireStorage
         fireStorage = FireStorage.getInstance();
-        fireStorage.setCallBack_uploadImg(callBack_Image_upload);
+        fireStorage.setCallBack_imageUpload(callBack_Image_upload);
 
         initNutritionFacts();
 
@@ -82,9 +91,9 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
         button4.setOnClickListener(this);
         button5.setOnClickListener(this);
         create_recipe_BTN_edit.setOnClickListener(this);
+        create_recipe_BTN_back.setOnClickListener(this);
 
-
-        //Open the option to scroll in a text view
+        //Add the option to scroll in a text view
         create_recipe_EDT_recipe.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 if (create_recipe_EDT_recipe.hasFocus()) {
@@ -99,12 +108,13 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
         });
     }
 
+    //Add Nutrition Facts to the array
     private void initNutritionFacts() {
-        facts.add(new NutritionFacts(NutritionFactsNames.ORGANIC , String.valueOf(R.drawable.ic_organic_food)));
-        facts.add(new NutritionFacts(NutritionFactsNames.CARBOHYDRATES , String.valueOf(R.drawable.ic_carbohydrates)));
-        facts.add(new NutritionFacts(NutritionFactsNames.NO_PEANUT , String.valueOf(R.drawable.ic_no_peanut)));
-        facts.add(new NutritionFacts(NutritionFactsNames.DAIRY , String.valueOf(R.drawable.ic_dairy)));
-        facts.add(new NutritionFacts(NutritionFactsNames.NO_EGG , String.valueOf(R.drawable.ic_no_eggs)));
+        facts.add(new NutritionFacts(NutritionFactsNames.ORGANIC, String.valueOf(R.drawable.ic_organic_food)));
+        facts.add(new NutritionFacts(NutritionFactsNames.CARBOHYDRATES, String.valueOf(R.drawable.ic_carbohydrates)));
+        facts.add(new NutritionFacts(NutritionFactsNames.NO_PEANUT, String.valueOf(R.drawable.ic_no_peanut)));
+        facts.add(new NutritionFacts(NutritionFactsNames.DAIRY, String.valueOf(R.drawable.ic_dairy)));
+        facts.add(new NutritionFacts(NutritionFactsNames.NO_EGG, String.valueOf(R.drawable.ic_no_eggs)));
     }
 
     private void findViews() {
@@ -126,6 +136,7 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
         nutrition_IMG_nut5 = findViewById(R.id.nutrition_IMG_nut5);
         create_recipe_IMG_dish = findViewById(R.id.create_recipe_IMG_dish);
         create_recipe_BTN_edit = findViewById(R.id.create_recipe_BTN_edit);
+        create_recipe_BTN_back = findViewById(R.id.create_recipe_BTN_back);
     }
 
     /*
@@ -165,9 +176,13 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
                 button5.setVisibility(View.GONE);
                 facts.remove(4);
                 break;
-                case R.id.create_recipe_BTN_edit:
+            case R.id.create_recipe_BTN_edit:
                 imagePick();
                 break;
+            case R.id.create_recipe_BTN_back:
+                finish();
+                break;
+
         }
     }
 
@@ -190,7 +205,7 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
         Uri resultUri = data.getData();
         //Change the view to the new image
         create_recipe_IMG_dish.setImageURI(resultUri);
-        fireStorage.uploadImgToStorage(resultUri,dataManager.getCurrentUser().getUid(), Keys.KEY_PROFILE_PICTURES,this);
+        fireStorage.uploadImgToStorage(resultUri, dataManager.getCurrentUser().getUid(), Keys.KEY_PROFILE_PICTURES, this);
 
         /*
         //View Indicates the process of the image uploading by Disabling the button
@@ -244,7 +259,7 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
         Save the recipe into the firebase
      */
     private void saveNewRecipe() {
-
+        //Create Temp Recipe
         Recipe tempRecipe = new Recipe();
 
         //Check the Ingredient data
@@ -258,32 +273,61 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
 
 // TODO: 29/06/2022 Add validator
         //Check the recipe data
-        if (create_recipe_EDT_name.getText().toString().isEmpty()){
+        if (create_recipe_EDT_name.getText().toString().isEmpty()) {
             Toast.makeText(this, "Recipe Name can't be empty ", Toast.LENGTH_SHORT).show();
             return;
-        }else
+        } else
             tempRecipe.setName(create_recipe_EDT_name.getText().toString());
 
         //get the description (can be Empty)
         tempRecipe.setDescription(create_recipe_EDT_sub_title.getText().toString());
 
         //Check the recipe steps methods
-        if (create_recipe_EDT_name.getText().toString().isEmpty()){
+        if (create_recipe_EDT_name.getText().toString().isEmpty()) {
             Toast.makeText(this, "Recipe steps methods be empty ", Toast.LENGTH_SHORT).show();
             return;
-        }else
+        } else
             tempRecipe.setSteps(create_recipe_EDT_name.getText().toString());
 
 
         //Handel Image Picker & upload image to the Storage  and save the url
         if (urlImg != null)
             tempRecipe.setImg(urlImg);
+        else {
+            Toast.makeText(this, "U need to upload IMG ", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
+
+        SaveNewRecipeToDatabase(tempRecipe);
 
         // TODO: 27/06/2022 Connect to data base data = save the data
 
 
         // TODO: 29/06/2022 Move to the next Intent(page)
+    }
+
+    //Save New Recipe To Database -Realtime
+    private void SaveNewRecipeToDatabase(Recipe tempRecipe) {
+        //Save tempRecipe to Recipe List
+        DatabaseReference ref = dataManager.getRealTimeDB().getReference(Keys.KEY_RECIPES).child(tempRecipe.getIdRecipe());
+        ref.child(Keys.KEY_RECIPE_ID).setValue(tempRecipe.getIdRecipe());
+        ref.child(Keys.KEY_RECIPE_NAME).setValue(tempRecipe.getName());
+        ref.child(Keys.KEY_RECIPE_DESCRIPTION).setValue(tempRecipe.getDescription());
+        ref.child(Keys.KEY_RECIPE_IMG).setValue(tempRecipe.getImg());
+        ref.child(Keys.KEY_RECIPE_STEPS).setValue(tempRecipe.getSteps());
+        ref.child(Keys.KEY_RECIPE_INGREDIENTS_LIST).setValue(tempRecipe.getIngredients());
+        ref.child(Keys.KEY_RECIPE_FACTS_LIST).setValue(tempRecipe.getNutritionFacts());
+
+        //Move to the Next Activity in the application
+        nextActivity();
+
+    }
+
+    // TODO: 29/06/2022 Change next activity if needed
+    private void nextActivity() {
+        startActivity(new Intent(CreateRecipeActivity.this, MainActivity.class));
+        finish();
     }
 
     private boolean checkIngredient() {
@@ -292,7 +336,7 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
 
             //get the ingredient Card on the position i
             View ingredientCard = create_recipe_LAY_ingredients_list.getChildAt(i);
-
+            //Find Views in the Ingredient Card in i index
             TextInputEditText ingredientName = ingredientCard.findViewById(R.id.ingredients_card_EDT_name);
             RadioGroup radioGroup = ingredientCard.findViewById(R.id.ingredients_card_BTN_radioGroup);
             MaterialTextView amount = ingredientCard.findViewById(R.id.ingredients_card_LBL_amount);
@@ -339,17 +383,19 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
         return true;
     }
 
+    // UI Updates
     private void addView() {
 
         final View ingredientCard = getLayoutInflater().inflate(R.layout.ingredients_add_card, null, false);
         // Attributes In Card Ingredient Add
-        TextInputEditText ingredientName = ingredientCard.findViewById(R.id.ingredients_card_EDT_name);
-        RadioGroup radioGroup = ingredientCard.findViewById(R.id.ingredients_card_BTN_radioGroup);
+//        TextInputEditText ingredientName = ingredientCard.findViewById(R.id.ingredients_card_EDT_name);
+//        RadioGroup radioGroup = ingredientCard.findViewById(R.id.ingredients_card_BTN_radioGroup);
         MaterialTextView amount = ingredientCard.findViewById(R.id.ingredients_card_LBL_amount);
         ImageButton deleteBtn = ingredientCard.findViewById(R.id.ingredients_card_BTN_delete);
         MaterialButton plusBtn = ingredientCard.findViewById(R.id.ingredients_card_BTN_plus);
         MaterialButton minusBtn = ingredientCard.findViewById(R.id.ingredients_card_BTN_minus);
 
+        //Remove View Ingredient
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -357,13 +403,14 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
             }
         });
 
+        //Minus Amount Ingredient
         minusBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-// TODO: 27/06/2022 add all the options
+                // TODO: 27/06/2022 add all the options
                 double min = Double.parseDouble(amount.getText().toString());
                 if (min > 0.0) {
-                    amount.setText("" + (min - 0.25));
+                    amount.setText(String.valueOf(min - 0.25));
                 }
             }
         });
@@ -371,10 +418,10 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
         plusBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-// TODO: 27/06/2022 add all the options
+                // TODO: 27/06/2022 add all the options
                 double max = Double.parseDouble(amount.getText().toString());
                 if (max < 99.9) {
-                    amount.setText("" + (max + 0.25));
+                    amount.setText(String.valueOf(max + 0.25));
                 }
             }
         });
@@ -387,10 +434,4 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
     }
 
 
-    CallBack_ImageUpload callBack_Image_upload =new CallBack_ImageUpload() {
-        @Override
-        public void imageUrlAvailable(String url, Activity activity) {
-            urlImg=url;
-        }
-    };
 }
