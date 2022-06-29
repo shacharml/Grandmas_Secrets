@@ -9,12 +9,13 @@ public class Group {
     private String name;
     private String description;
     private String imgGroup;
-    private ArrayList<String> recipesIds;
     private String groupCreator; //who create the group
+    private ArrayList<String> recipesIds;
     private ArrayList<String> usersIds; //list of all the users that the group share with them
 
 
-    public Group() { }
+    public Group() {
+    }
 
     public Group(String name, String description, String groupCreator) {
         this.idGroup = UUID.randomUUID().toString();
