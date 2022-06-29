@@ -38,13 +38,15 @@ import java.util.ArrayList;
 
 public class CreateRecipeActivity extends AppCompatActivity implements View.OnClickListener {
 
-    //Fire base
+    //Firebase
     private final DataManager dataManager = DataManager.getInstance();
+    private FireStorage fireStorage;
+
     //Attributes
     private final ArrayList<Ingredient> ingredients = new ArrayList<>(); //List of the ingredients
     private final ArrayList<NutritionFacts> facts = new ArrayList<>(); //List of the NutritionFacts
-    private FireStorage fireStorage;
     private String urlImg;
+
     //CallBack
     CallBack_ImageUpload callBack_Image_upload = new CallBack_ImageUpload() {
         @Override
@@ -52,6 +54,7 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
             urlImg = url;
         }
     };
+
     //Views
     private LinearLayoutCompat create_recipe_LAY_ingredients_list;
     private MaterialButton create_recipe_BTN_add;
@@ -196,7 +199,7 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
     }
 
     /**
-     * This function Handel the Date Picker Result
+     * This function Handel the Image Picker Result
      * The image will be store in the Firebase Storage.
      */
     @Override
@@ -298,13 +301,8 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
             return;
         }
 
-
+        //Save and move to the next Activity
         SaveNewRecipeToDatabase(tempRecipe);
-
-        // TODO: 27/06/2022 Connect to data base data = save the data
-
-
-        // TODO: 29/06/2022 Move to the next Intent(page)
     }
 
     //Save New Recipe To Database -Realtime
