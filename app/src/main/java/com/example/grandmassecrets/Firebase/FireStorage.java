@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.grandmassecrets.Listeners.CallBack_ImageUpload;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -19,15 +20,11 @@ import com.google.firebase.storage.UploadTask;
 
 public class FireStorage {
 
-    public interface CallBack_UploadImg {
-        void urlReady(String url, Activity activity);
-    }
-
     private static FireStorage single_instance; //singleton
     public StorageReference storageReferenceImg;
     private Context context;
     private FirebaseStorage myStorage;
-    private CallBack_UploadImg callBack_uploadImg;
+    private CallBack_ImageUpload callBack_Image_upload;
 
     private FireStorage(Context context) {
         myStorage = FirebaseStorage.getInstance();
@@ -45,8 +42,8 @@ public class FireStorage {
         return single_instance;
     }
 
-    public void setCallBack_uploadImg(CallBack_UploadImg callBack_uploadImg) {
-        this.callBack_uploadImg = callBack_uploadImg;
+    public void setCallBack_uploadImg(CallBack_ImageUpload callBack_Image_upload) {
+        this.callBack_Image_upload = callBack_Image_upload;
     }
 
     public void uploadImgToStorage(Uri uri, String id, String key, Activity activity) {
@@ -72,7 +69,7 @@ public class FireStorage {
                                 storageReferenceImg.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
                                     public void onSuccess(Uri uri) {
-                                        callBack_uploadImg.urlReady(uri.toString(), activity);
+                                        callBack_Image_upload.imageUrlAvailable(uri.toString(), activity);
                                     }
                                 });
                             }

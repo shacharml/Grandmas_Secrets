@@ -21,6 +21,7 @@ import com.example.grandmassecrets.Constants.NutritionFactsNames;
 import com.example.grandmassecrets.Constants.UnitOfMeasure;
 import com.example.grandmassecrets.Firebase.DataManager;
 import com.example.grandmassecrets.Firebase.FireStorage;
+import com.example.grandmassecrets.Listeners.CallBack_ImageUpload;
 import com.example.grandmassecrets.Objects.Ingredient;
 import com.example.grandmassecrets.Objects.NutritionFacts;
 import com.example.grandmassecrets.Objects.Recipe;
@@ -68,7 +69,7 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
 
         findViews();
         fireStorage = FireStorage.getInstance();
-        fireStorage.setCallBack_uploadImg(callBack_uploadImg);
+        fireStorage.setCallBack_uploadImg(callBack_Image_upload);
 
         initNutritionFacts();
 
@@ -386,9 +387,9 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
     }
 
 
-    FireStorage.CallBack_UploadImg callBack_uploadImg=new FireStorage.CallBack_UploadImg() {
+    CallBack_ImageUpload callBack_Image_upload =new CallBack_ImageUpload() {
         @Override
-        public void urlReady(String url, Activity activity) {
+        public void imageUrlAvailable(String url, Activity activity) {
             urlImg=url;
         }
     };

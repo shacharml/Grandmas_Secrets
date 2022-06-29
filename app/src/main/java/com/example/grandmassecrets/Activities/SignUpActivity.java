@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.grandmassecrets.Firebase.DataManager;
 import com.example.grandmassecrets.Firebase.FireStorage;
 import com.example.grandmassecrets.Constants.Keys;
+import com.example.grandmassecrets.Listeners.CallBack_ImageUpload;
 import com.example.grandmassecrets.Objects.User;
 import com.example.grandmassecrets.R;
 import com.github.dhaval2404.imagepicker.ImagePicker;
@@ -49,7 +50,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         fireStorage = FireStorage.getInstance();
-        fireStorage.setCallBack_uploadImg(callBack_uploadImg);
+        fireStorage.setCallBack_uploadImg(callBack_Image_upload);
 
         findViews();
         initButtons();
@@ -201,9 +202,9 @@ public class SignUpActivity extends AppCompatActivity {
 */
     }
 
-    FireStorage.CallBack_UploadImg callBack_uploadImg=new FireStorage.CallBack_UploadImg() {
+    CallBack_ImageUpload callBack_Image_upload =new CallBack_ImageUpload() {
         @Override
-        public void urlReady(String url, Activity activity) {
+        public void imageUrlAvailable(String url, Activity activity) {
             urlImg=url;
         }
     };
