@@ -8,7 +8,7 @@ public class Keys {
     public static final String KEY_GROUP_PICTURES = "group_pictures";
 
     //Find User by Phone number - LIST
-    public static final String KEY_PHONE_TO_UID = "phone_to_uid";
+    public static final String KEY_PHONE_TO_UID = "Tokens";
 
     //User Key
     public static final String KEY_USERS = "users";

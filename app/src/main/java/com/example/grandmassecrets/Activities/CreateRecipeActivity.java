@@ -35,6 +35,7 @@ import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CreateRecipeActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -43,9 +44,12 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
     private FireStorage fireStorage;
 
     //Attributes
-    private final ArrayList<Ingredient> ingredients = new ArrayList<>(); //List of the ingredients
-    private final ArrayList<NutritionFacts> facts = new ArrayList<>(); //List of the NutritionFacts
-    private String urlImg;
+    private final HashMap<String,Ingredient> ingredients = new HashMap<>(); //List of the ingredients
+    private final HashMap<String,NutritionFacts> facts = new HashMap<>(); //List of the NutritionFacts
+//    private final ArrayList<Ingredient> ingredients = new ArrayList<>(); //List of the ingredients
+//    private final ArrayList<NutritionFacts> facts = new ArrayList<>(); //List of the NutritionFacts
+    private String urlImg; // TODO: 29/06/2022 Add defulte url
+    private Recipe tempRecipe;
 
     //CallBack
     CallBack_ImageUpload callBack_Image_upload = new CallBack_ImageUpload() {
@@ -113,11 +117,17 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
 
     //Add Nutrition Facts to the array
     private void initNutritionFacts() {
-        facts.add(new NutritionFacts(NutritionFactsNames.ORGANIC, String.valueOf(R.drawable.ic_organic_food)));
-        facts.add(new NutritionFacts(NutritionFactsNames.CARBOHYDRATES, String.valueOf(R.drawable.ic_carbohydrates)));
-        facts.add(new NutritionFacts(NutritionFactsNames.NO_PEANUT, String.valueOf(R.drawable.ic_no_peanut)));
-        facts.add(new NutritionFacts(NutritionFactsNames.DAIRY, String.valueOf(R.drawable.ic_dairy)));
-        facts.add(new NutritionFacts(NutritionFactsNames.NO_EGG, String.valueOf(R.drawable.ic_no_eggs)));
+        facts.put(NutritionFactsNames.ORGANIC.toString(),new NutritionFacts(NutritionFactsNames.ORGANIC, String.valueOf(R.drawable.ic_organic_food)));
+        facts.put(NutritionFactsNames.CARBOHYDRATES.toString(),new NutritionFacts(NutritionFactsNames.CARBOHYDRATES, String.valueOf(R.drawable.ic_carbohydrates)));
+        facts.put(NutritionFactsNames.NO_PEANUT.toString(),new NutritionFacts(NutritionFactsNames.NO_PEANUT, String.valueOf(R.drawable.ic_no_peanut)));
+        facts.put(NutritionFactsNames.DAIRY.toString(),new NutritionFacts(NutritionFactsNames.DAIRY, String.valueOf(R.drawable.ic_dairy)));
+        facts.put(NutritionFactsNames.NO_EGG.toString(),new NutritionFacts(NutritionFactsNames.NO_EGG, String.valueOf(R.drawable.ic_no_eggs)));
+
+//        facts.add(new NutritionFacts(NutritionFactsNames.ORGANIC, String.valueOf(R.drawable.ic_organic_food)));
+//        facts.add(new NutritionFacts(NutritionFactsNames.CARBOHYDRATES, String.valueOf(R.drawable.ic_carbohydrates)));
+//        facts.add(new NutritionFacts(NutritionFactsNames.NO_PEANUT, String.valueOf(R.drawable.ic_no_peanut)));
+//        facts.add(new NutritionFacts(NutritionFactsNames.DAIRY, String.valueOf(R.drawable.ic_dairy)));
+//        facts.add(new NutritionFacts(NutritionFactsNames.NO_EGG, String.valueOf(R.drawable.ic_no_eggs)));
     }
 
     private void findViews() {
@@ -258,12 +268,25 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
 */
     }
 
-    /*
+    /**
         Save the recipe into the firebase
      */
     private void saveNewRecipe() {
-        //Create Temp Recipe
-        Recipe tempRecipe = new Recipe();
+
+        if (create_recipe_EDT_name.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Recipe Name can't be empty ", Toast.LENGTH_SHORT).show();
+            return;
+        } else
+            tempRecipe = new Recipe(create_recipe_EDT_name.getText().toString());
+
+
+        //Handel Image Picker & upload image to the Storage  and save the url
+        if (urlImg != null)
+            tempRecipe.setImg(urlImg);
+        else {
+            Toast.makeText(this, "U need to upload IMG ", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         //Check the Ingredient data
         if (!checkIngredient()) {
@@ -276,36 +299,28 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
 
 // TODO: 29/06/2022 Add validator
         //Check the recipe data
-        if (create_recipe_EDT_name.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Recipe Name can't be empty ", Toast.LENGTH_SHORT).show();
+
+        //Check the recipe steps methods
+        if (create_recipe_EDT_recipe.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Recipe steps methods be empty ", Toast.LENGTH_SHORT).show();
             return;
         } else
-            tempRecipe.setName(create_recipe_EDT_name.getText().toString());
+            tempRecipe.setSteps(create_recipe_EDT_recipe.getText().toString());
 
         //get the description (can be Empty)
         tempRecipe.setDescription(create_recipe_EDT_sub_title.getText().toString());
 
-        //Check the recipe steps methods
-        if (create_recipe_EDT_name.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Recipe steps methods be empty ", Toast.LENGTH_SHORT).show();
-            return;
-        } else
-            tempRecipe.setSteps(create_recipe_EDT_name.getText().toString());
+        //Check NutritionFacts
+        tempRecipe.setNutritionFacts(facts);
 
-
-        //Handel Image Picker & upload image to the Storage  and save the url
-        if (urlImg != null)
-            tempRecipe.setImg(urlImg);
-        else {
-            Toast.makeText(this, "U need to upload IMG ", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        //current recipe save on data manager
+        dataManager.setCurrentIdRecipe(tempRecipe.getIdRecipe());
 
         //Save and move to the next Activity
         SaveNewRecipeToDatabase(tempRecipe);
     }
 
-    //Save New Recipe To Database -Realtime
+    /** Save New Recipe To Database -Realtime */
     private void SaveNewRecipeToDatabase(Recipe tempRecipe) {
         //Save tempRecipe to Recipe List
         DatabaseReference ref = dataManager.getRealTimeDB().getReference(Keys.KEY_RECIPES).child(tempRecipe.getIdRecipe());
@@ -316,6 +331,9 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
         ref.child(Keys.KEY_RECIPE_STEPS).setValue(tempRecipe.getSteps());
         ref.child(Keys.KEY_RECIPE_INGREDIENTS_LIST).setValue(tempRecipe.getIngredients());
         ref.child(Keys.KEY_RECIPE_FACTS_LIST).setValue(tempRecipe.getNutritionFacts());
+
+        //Add the recipe Id to the current Group recipes ids list
+// TODO: 30/06/2022 get back
 
         //Move to the Next Activity in the application
         nextActivity();
@@ -370,7 +388,7 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
             }
 
             //Add to ingredients list
-            ingredients.add(temp);
+            ingredients.put(temp.getNameIngredient(),temp);
         }
 
         if (ingredients.size() == 0) {

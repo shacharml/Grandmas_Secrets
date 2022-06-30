@@ -96,7 +96,7 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <Button
-            android:id="@+id/sign_up_BTN_sign"
+            android:id="@+id/create_group_BTN_save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

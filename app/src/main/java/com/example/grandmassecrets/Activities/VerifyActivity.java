@@ -121,7 +121,7 @@ public class VerifyActivity extends AppCompatActivity {
         verify_EDT_code5 = findViewById(R.id.verify_EDT_code5);
         verify_EDT_code6 = findViewById(R.id.verify_EDT_code6);
         verify_TXT_text_mobile = findViewById(R.id.verify_TXT_text_mobile);
-        verify_BTN_send = findViewById(R.id.sign_up_BTN_sign);
+        verify_BTN_send = findViewById(R.id.create_group_BTN_save);
         myAuth =  FirebaseAuth.getInstance();
     }
 

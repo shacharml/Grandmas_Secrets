@@ -1,6 +1,7 @@
 package com.example.grandmassecrets.Objects;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class Recipe {
@@ -10,19 +11,24 @@ public class Recipe {
     private String description;
     private String img;
     private String steps;
-    private ArrayList<Ingredient> ingredients;
-    private ArrayList<NutritionFacts> nutritionFacts;
+    private HashMap<String,Ingredient> ingredients;
+    private HashMap<String,NutritionFacts> nutritionFacts;
 
-    public Recipe() {    }
+//    private ArrayList<Ingredient> ingredients;
+//    private ArrayList<NutritionFacts> nutritionFacts;
 
-    public Recipe(String name, String description, String img,String steps, ArrayList<Ingredient> ingredients, ArrayList<NutritionFacts> nutritionFacts) {
+    public Recipe() { }
+
+    public Recipe(String name) {
         this.idRecipe = UUID.randomUUID().toString();
         this.name = name;
-        this.description = description;
-        this.img = img;
-        this.steps = steps;
-        this.ingredients = ingredients;
-        this.nutritionFacts = nutritionFacts;
+        this.description = "description";
+        this.img = "defultUrl";
+        this.steps = "steps";
+        this.ingredients = new HashMap<>();
+        this.nutritionFacts = new HashMap<>();
+//        this.ingredients = new ArrayList<>();
+//        this.nutritionFacts = new ArrayList<>();
     }
 
     public String getIdRecipe() {
@@ -62,20 +68,39 @@ public class Recipe {
         return this;
     }
 
-    public ArrayList<Ingredient> getIngredients() {
+//    public ArrayList<Ingredient> getIngredients() {
+//        return ingredients;
+//    }
+//
+//    public Recipe setIngredients(ArrayList<Ingredient> ingredients) {
+//        this.ingredients = ingredients;
+//        return this;
+//    }
+//
+//    public ArrayList<NutritionFacts> getNutritionFacts() {
+//        return nutritionFacts;
+//    }
+//
+//    public Recipe setNutritionFacts(ArrayList<NutritionFacts> nutritionFacts) {
+//        this.nutritionFacts = nutritionFacts;
+//        return this;
+//    }
+
+
+    public HashMap<String, Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public Recipe setIngredients(ArrayList<Ingredient> ingredients) {
+    public Recipe setIngredients(HashMap<String, Ingredient> ingredients) {
         this.ingredients = ingredients;
         return this;
     }
 
-    public ArrayList<NutritionFacts> getNutritionFacts() {
+    public HashMap<String, NutritionFacts> getNutritionFacts() {
         return nutritionFacts;
     }
 
-    public Recipe setNutritionFacts(ArrayList<NutritionFacts> nutritionFacts) {
+    public Recipe setNutritionFacts(HashMap<String, NutritionFacts> nutritionFacts) {
         this.nutritionFacts = nutritionFacts;
         return this;
     }

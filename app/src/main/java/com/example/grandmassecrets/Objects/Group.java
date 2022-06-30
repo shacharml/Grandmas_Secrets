@@ -1,6 +1,7 @@
 package com.example.grandmassecrets.Objects;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class Group {
@@ -10,8 +11,11 @@ public class Group {
     private String description;
     private String imgGroup;
     private String groupCreator; //who create the group
-    private ArrayList<String> recipesIds;
-    private ArrayList<String> usersIds; //list of all the users that the group share with them
+    private HashMap<String,Boolean> recipesIds;
+    private HashMap<String,Boolean> usersIds; //list of all the users that the group share with them
+
+//    private ArrayList<String> recipesIds;
+//    private ArrayList<String> usersIds; //list of all the users that the group share with them
 
 
     public Group() {
@@ -22,10 +26,13 @@ public class Group {
         this.name = name;
         this.description = description;
         this.imgGroup = "url"; // TODO: 29/06/2022 change to url from fire base storage
-        this.recipesIds = new ArrayList<>();
+        this.recipesIds = new HashMap<>();
+//        this.recipesIds = new ArrayList<>();
         this.groupCreator = groupCreator;
-        this.usersIds = new ArrayList<>();
-        this.usersIds.add(groupCreator);
+        this.usersIds = new HashMap<>();
+//        this.usersIds = new ArrayList<>();
+        this.usersIds.put(groupCreator,true);
+//        this.usersIds.add(groupCreator);
 
     }
 
@@ -65,9 +72,9 @@ public class Group {
         return this;
     }
 
-    public ArrayList<String> getRecipesIds() {
-        return recipesIds;
-    }
+//    public ArrayList<String> getRecipesIds() {
+//        return recipesIds;
+//    }
 
 //    public Group setRecipesIds(ArrayList<String> recipesIds) {
 //        this.recipesIds = recipesIds;
@@ -84,11 +91,29 @@ public class Group {
         return this;
     }
 
-    public ArrayList<String> getUsersIds() {
+//    public ArrayList<String> getUsersIds() {
+//        return usersIds;
+//    }
+//
+//    public Group setUsersIds(ArrayList<String> usersIds) {
+//        this.usersIds = usersIds;
+//        return this;
+//    }
+
+    public HashMap<String, Boolean> getRecipesIds() {
+        return recipesIds;
+    }
+
+    public Group setRecipesIds(HashMap<String, Boolean> recipesIds) {
+        this.recipesIds = recipesIds;
+        return this;
+    }
+
+    public HashMap<String, Boolean> getUsersIds() {
         return usersIds;
     }
 
-    public Group setUsersIds(ArrayList<String> usersIds) {
+    public Group setUsersIds(HashMap<String, Boolean> usersIds) {
         this.usersIds = usersIds;
         return this;
     }
@@ -100,8 +125,8 @@ public class Group {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", imgGroup='" + imgGroup + '\'' +
-                ", recipesIds=" + recipesIds +
                 ", groupCreator='" + groupCreator + '\'' +
+                ", recipesIds=" + recipesIds +
                 ", usersIds=" + usersIds +
                 '}';
     }

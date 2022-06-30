@@ -66,7 +66,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         //Temp Group Creation
         tempGroup = new Group();
         tempGroup.setGroupCreator(dataManager.getCurrentUser().getUid());
-        tempGroup.getUsersIds().add(dataManager.getCurrentUser().getUid());
+        tempGroup.getUsersIds().put(dataManager.getCurrentUser().getUid(),true);
 
     }
 
@@ -216,7 +216,7 @@ public class CreateGroupActivity extends AppCompatActivity {
 
         //After The Save - need to add this Group to the User (creator) Group List
         //Add the Group to Current User
-        dataManager.getCurrentUser().getGroupsIds().add(tempGroup.getIdGroup());
+        dataManager.getCurrentUser().getGroupsIds().put(tempGroup.getIdGroup(),tempGroup.getName());
         DatabaseReference refUser = dataManager.getRealTimeDB()
                 .getReference(Keys.KEY_USERS)
                 .child(dataManager.getCurrentUser().getUid())

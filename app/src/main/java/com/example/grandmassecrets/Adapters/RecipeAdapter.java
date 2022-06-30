@@ -9,6 +9,8 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.grandmassecrets.Constants.NutritionFactsNames;
+import com.example.grandmassecrets.Objects.Ingredient;
 import com.example.grandmassecrets.Objects.NutritionFacts;
 import com.example.grandmassecrets.Objects.Recipe;
 import com.example.grandmassecrets.R;
@@ -16,6 +18,8 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -24,13 +28,20 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
 
     private Activity activity;
-    private ArrayList<Recipe> recipes = new ArrayList<>();
+    private HashMap<String,Recipe> recipes = new HashMap<>();
+//    private ArrayList<Recipe> recipes = new ArrayList<>(); Fore arrayList
     private RecipeListener listener;
 
     //Constructor
-    public RecipeAdapter(Activity activity, ArrayList<Recipe> Recipes) {
+//    public RecipeAdapter(Activity activity, ArrayList<Recipe> Recipes) {
+//        this.activity = activity;
+//        this.recipes = Recipes;
+//    }
+
+
+    public RecipeAdapter(Activity activity, HashMap<String, Recipe> recipes) {
         this.activity = activity;
-        this.recipes = Recipes;
+        this.recipes = recipes;
     }
 
     public RecipeAdapter setListener(RecipeListener listener) {
@@ -59,25 +70,26 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         Glide.with(activity).load(recipe.getImg()).into(holder.recipe_item_IMG_img);
 
         //get the Images of the nutrition facts (not from data Storage
-        for (NutritionFacts facts : recipe.getNutritionFacts()) {
-            switch (facts.getNameNutrition()) {
-                case ORGANIC:
+//        for (NutritionFacts facts : recipe.getNutritionFacts()) { for arrayList
+        for (Map.Entry<String, NutritionFacts> entry : recipe.getNutritionFacts().entrySet() ) {
+            switch (entry.getKey()) {
+                case "ORGANIC":
                     holder.nutrition_IMG_nut1.setImageResource(R.drawable.ic_organic_food);
                     holder.nutrition_IMG_nut1.setVisibility(View.VISIBLE);
                     break;
-                case CARBOHYDRATES:
+                case "CARBOHYDRATES":
                     holder.nutrition_IMG_nut2.setImageResource(R.drawable.ic_carbohydrates);
                     holder.nutrition_IMG_nut2.setVisibility(View.VISIBLE);
                     break;
-                case DAIRY:
+                case "DAIRY":
                     holder.nutrition_IMG_nut3.setImageResource(R.drawable.ic_dairy);
                     holder.nutrition_IMG_nut3.setVisibility(View.VISIBLE);
                     break;
-                case NO_EGG:
+                case "NO_EGG":
                     holder.nutrition_IMG_nut4.setImageResource(R.drawable.ic_no_eggs);
                     holder.nutrition_IMG_nut4.setVisibility(View.VISIBLE);
                     break;
-                case NO_PEANUT:
+                case "NO_PEANUT":
                     holder.nutrition_IMG_nut5.setImageResource(R.drawable.ic_no_peanut);
                     holder.nutrition_IMG_nut5.setVisibility(View.VISIBLE);
                     break;
@@ -122,6 +134,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             nutrition_IMG_nut2 = itemView.findViewById(R.id.nutrition_IMG_nut2);
             nutrition_IMG_nut3 = itemView.findViewById(R.id.nutrition_IMG_nut3);
             nutrition_IMG_nut4 = itemView.findViewById(R.id.nutrition_IMG_nut4);
+            nutrition_IMG_nut5 = itemView.findViewById(R.id.nutrition_IMG_nut5);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

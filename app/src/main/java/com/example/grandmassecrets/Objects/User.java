@@ -14,7 +14,8 @@ public class User {
     private String firstName;
     private String lastName;
     private String phoneNumber;
-    private ArrayList<String> groupsIds;
+    private HashMap<String ,String > groupsIds;
+//    private ArrayList<String> groupsIds;
 
 
     public User() {}
@@ -25,7 +26,8 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
-        this.groupsIds = new ArrayList<>();
+        this.groupsIds = new HashMap<>();
+//        this.groupsIds = new ArrayList<>();
     }
 
     public String getUid() {
@@ -73,14 +75,35 @@ public class User {
         return this;
     }
 
-    public ArrayList<String> getGroupsIds() {
+    public HashMap<String, String> getGroupsIds() {
         return groupsIds;
     }
 
-    public User setGroupsIds(ArrayList<String> groupsIds) {
+    public User setGroupsIds(HashMap<String, String> groupsIds) {
         this.groupsIds = groupsIds;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "uid='" + uid + '\'' +
+                ", img='" + img + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", groupsIds=" + groupsIds +
+                '}';
+    }
+
+    //    public ArrayList<String> getGroupsIds() {
+//        return groupsIds;
+//    }
+//
+//    public User setGroupsIds(ArrayList<String> groupsIds) {
+//        this.groupsIds = groupsIds;
+//        return this;
+//    }
 
     //Marks a field as excluded from the Database.
 //    @Exclude

@@ -25,14 +25,6 @@ public class DataManager {
     private String currentIdGroup;
     private String currentIdRecipe;
     private String currentGroupCreator;
-//    private String currentListUid;
-//    private MyItem currentItem;
-//    private String currentCategoryUid;
-//    private String currentListTitle;
-//    private String token;
-
-    //Data Collections
-
 
     //Constructor
     public DataManager() {
@@ -106,20 +98,5 @@ public class DataManager {
 
     //DataBase Functions
 
-
-    public void addNewGroup(Group newGroup){
-        //Create new referents to this group by her id
-        DatabaseReference ref = realTimeDB.getReference(Keys.KEY_GROUPS).child(newGroup.getIdGroup());
-        //now insert to this group(id) the newGroup attributes
-        ref.child(Keys.KEY_GROUP_ID).setValue(newGroup.getIdGroup());
-        ref.child(Keys.KEY_GROUP_NAME).setValue(newGroup.getName());
-        ref.child(Keys.KEY_GROUP_DESCRIPTION).setValue(newGroup.getDescription());
-        ref.child(Keys.KEY_GROUP_IMG).setValue(newGroup.getImgGroup());
-        ref.child(Keys.KEY_GROUP_CREATOR).setValue(newGroup.getGroupCreator());
-
-        ref.child(Keys.KEY_GROUP_RECIPES_LIST).setValue(newGroup.getIdGroup());
-        ref.child(Keys.KEY_GROUP_USERS_LIST).setValue(newGroup.getIdGroup());
-
-    }
 
 }

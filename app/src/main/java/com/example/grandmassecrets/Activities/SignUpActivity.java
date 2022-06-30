@@ -132,7 +132,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void findViews() {
-        sign_up_BTN_sign = findViewById(R.id.sign_up_BTN_sign);
+        sign_up_BTN_sign = findViewById(R.id.create_group_BTN_save);
         sign_upf_EDT_first_name = findViewById(R.id.sign_upf_EDT_first_name);
         sign_upf_EDT_last_name = findViewById(R.id.sign_upf_EDT_last_name);
         signup_FAB_profile_edit = findViewById(R.id.signup_FAB_profile_edit);
