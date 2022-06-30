@@ -1,6 +1,8 @@
 package com.example.grandmassecrets.Firebase;
 
 import com.example.grandmassecrets.Constants.Keys;
+import com.example.grandmassecrets.Listeners.Callback_getUserFromDatabase;
+import com.example.grandmassecrets.Listeners.Callback_isUserExist;
 import com.example.grandmassecrets.Objects.Group;
 import com.example.grandmassecrets.Objects.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +27,10 @@ public class DataManager {
     private String currentIdGroup;
     private String currentIdRecipe;
     private String currentGroupCreator;
+
+    //CallBacks
+    private Callback_isUserExist callback_isUserExist;
+    private Callback_getUserFromDatabase callback_getUserFromDatabase;
 
     //Constructor
     public DataManager() {
@@ -95,8 +101,15 @@ public class DataManager {
         return this;
     }
 
+    //CallBack Setters
 
-    //DataBase Functions
+    public DataManager setCallback_isUserExist(Callback_isUserExist callback_isUserExist) {
+        this.callback_isUserExist = callback_isUserExist;
+        return this;
+    }
 
-
+    public DataManager setCallback_getUserFromDatabase(Callback_getUserFromDatabase callback_getUserFromDatabase) {
+        this.callback_getUserFromDatabase = callback_getUserFromDatabase;
+        return this;
+    }
 }

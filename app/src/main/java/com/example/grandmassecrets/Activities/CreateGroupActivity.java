@@ -101,7 +101,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         create_group_FAB_edit = findViewById(R.id.create_group_FAB_edit);
         create_group_EDT_name = findViewById(R.id.create_group_EDT_name);
         create_group_EDT_description = findViewById(R.id.create_group_EDT_description);
-        create_group_BTN_save = findViewById(R.id.create_group_BTN_save);
+        create_group_BTN_save = findViewById(R.id.verify_BTN_verify);
         create_group_BTN_back = findViewById(R.id.create_group_BTN_back);
     }
 

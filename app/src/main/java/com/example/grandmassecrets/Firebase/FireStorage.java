@@ -99,4 +99,7 @@ public class FireStorage {
     }
 
 
+    public StorageReference getReference() {
+        return storageReferenceImg;
+    }
 }
