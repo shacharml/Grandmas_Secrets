@@ -24,6 +24,15 @@
         tools:targetApi="31">
 
         <activity
+            android:name=".Activities.SplashActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".Activities.CreateRecipeActivity"
             android:windowSoftInputMode="stateVisible|adjustPan"
             android:exported="false" >
@@ -35,16 +44,7 @@
 
         <activity
             android:name=".Activities.SignUpActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".Activities.SplashActivity"
-            android:exported="false" />
+            android:exported="false"/>
 
         <activity
             android:name=".Activities.LoginActivity"
@@ -53,6 +53,7 @@
         <activity
             android:name=".Activities.VerifyActivity"
             android:exported="false" />
+
         <activity
             android:name=".Activities.MainActivity"
             android:exported="false" />

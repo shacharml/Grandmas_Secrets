@@ -20,6 +20,8 @@
             android:layout_height="280dp"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
             app:lottie_rawRes="@raw/lottie_send1"
             tools:ignore="ImageContrastCheck" />
 
@@ -48,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="35dp"
             android:layout_marginEnd="30dp"
             android:fontFamily="@font/gafata"
             android:gravity="center"
@@ -116,7 +118,7 @@
             android:textStyle="bold" />
 
             <ProgressBar
-                android:id="@+id/login_PRB_progress_bar"
+                android:id="@+id/verify_PRB_progress_bar"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"

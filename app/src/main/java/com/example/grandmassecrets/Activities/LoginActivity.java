@@ -1,8 +1,5 @@
 package com.example.grandmassecrets.Activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,6 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.grandmassecrets.R;
 import com.google.firebase.FirebaseException;
@@ -29,6 +29,49 @@ public class LoginActivity extends AppCompatActivity {
 
     // variable for FirebaseAuth class
     private FirebaseAuth myAuth;
+    // callback method is called on Phone auth provider.
+    private PhoneAuthProvider.OnVerificationStateChangedCallbacks
+            // initializing our callbacks for on verification callback method.
+            mCallBack = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+
+        /**
+         *    below method is used when OTP is sent from Firebase
+         *    after the code sent Moving to Verify Page
+         */
+        @Override
+        public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+            login_BTN_send.setVisibility(View.VISIBLE);
+            login_PRB_progress_bar.setVisibility(View.GONE);
+            Toast.makeText(LoginActivity.this, "OTP is successfully send.", Toast.LENGTH_SHORT).show();
+
+            // Move to verify activity
+            Intent intent = new Intent(LoginActivity.this, VerifyActivity.class);
+            intent.putExtra(getString(R.string.LBL_phone), login_EDT_phone_number.getText().toString().trim()); //pass the phone number
+            intent.putExtra(getString(R.string.LBL_verification_Id), s); //pass the unique id
+            startActivity(intent);
+            finish();
+
+        }
+
+        // this method is called when user receive OTP from Firebase.
+        @Override
+        public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
+            login_BTN_send.setVisibility(View.GONE);
+            login_PRB_progress_bar.setVisibility(View.VISIBLE);
+        }
+
+        /**
+         this method is called when firebase doesn't
+         sends our OTP code due to any error or issue.
+         */
+        @Override
+        public void onVerificationFailed(FirebaseException e) {
+            // displaying error message with firebase exception.
+            login_PRB_progress_bar.setVisibility(View.GONE);
+            login_BTN_send.setVisibility(View.VISIBLE);
+            Toast.makeText(LoginActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +85,10 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Check not Empty
                 if (TextUtils.isEmpty(login_EDT_phone_number.getText().toString()))
-                    Toast.makeText(LoginActivity.this,"Invalid phone number",Toast.LENGTH_SHORT).show();
-                // Check valid phone number  - length
+                    Toast.makeText(LoginActivity.this, "Invalid phone number", Toast.LENGTH_SHORT).show();
+                    // Check valid phone number  - length
                 else if (login_EDT_phone_number.getText().toString().length() != 9)
-                             Toast.makeText(LoginActivity.this, "Type valid Phone Number", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Type valid Phone Number", Toast.LENGTH_SHORT).show();
                 else {
                     login_PRB_progress_bar.setVisibility(View.VISIBLE); // Show progress bar
                     String number = login_EDT_phone_number.getText().toString(); // Get the phone number that insert
@@ -62,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
     private void sendVerificationCode(String number) {
         PhoneAuthOptions options =
                 PhoneAuthOptions.newBuilder(myAuth)
-                        .setPhoneNumber(getString(R.string.IL_num) +number)      // Phone number to verify
+                        .setPhoneNumber(getString(R.string.IL_num) + number)      // Phone number to verify
                         .setTimeout(60L, TimeUnit.SECONDS)    // Timeout and unit
                         .setActivity(this)                          // Activity (for callback binding)
                         .setCallbacks(mCallBack)                  // OnVerificationStateChangedCallbacks
@@ -70,65 +113,10 @@ public class LoginActivity extends AppCompatActivity {
         PhoneAuthProvider.verifyPhoneNumber(options);
     }
 
-    // callback method is called on Phone auth provider.
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks
-            // initializing our callbacks for on verification callback method.
-            mCallBack = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-
-        // below method is used when OTP is sent from Firebase
-        @Override
-        public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-
-            login_PRB_progress_bar.setVisibility(View.GONE);
-            Toast.makeText(LoginActivity.this, "OTP is successfully send.", Toast.LENGTH_SHORT).show();
-
-            // Move to verify activity
-            Intent intent = new Intent(LoginActivity.this, VerifyActivity.class);
-            intent.putExtra(getString(R.string.LBL_phone),  login_EDT_phone_number.getText().toString().trim());
-            intent.putExtra(getString(R.string.LBL_verification_Id), s);
-            startActivity(intent);
-            finish();
-//            super.onCodeSent(s, forceResendingToken);
-//            // when we receive the OTP it contains a unique id which
-//            // we are storing in our string which we have already created.
-//            verificationId = s;
-        }
-
-        // this method is called when user receive OTP from Firebase.
-        @Override
-        public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
-//            // getting OTP code which is sent in phone auth credentials.
-//            code = phoneAuthCredential.getSmsCode();
-//
-//            // checking if the code
-//            // is null or not.
-//            if (code != null) {
-//
-//                // TODO: 23/06/2022 need to move data to verify the code
-//                //need to move verify layout
-//                Intent intent = new Intent(LoginActivity.this,VerifyActivity.class);
-//                startActivity(intent);
-//
-//            }
-        }
-
-        /*
-             this method is called when firebase doesn't
-             sends our OTP code due to any error or issue.
-         */
-        @Override
-        public void onVerificationFailed(FirebaseException e) {
-            // displaying error message with firebase exception.
-            login_PRB_progress_bar.setVisibility(View.GONE);
-            Toast.makeText(LoginActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-        }
-    };
-
-
     private void findViews() {
         login_EDT_phone_number = findViewById(R.id.login_EDT_phone_number);
         login_BTN_send = findViewById(R.id.login_BTN_send);
-        login_PRB_progress_bar = findViewById(R.id.login_PRB_progress_bar);
+        login_PRB_progress_bar = findViewById(R.id.verify_PRB_progress_bar);
         myAuth = FirebaseAuth.getInstance();
     }
 
@@ -136,10 +124,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
     }
+
     @Override
     protected void onResume() {
         super.onResume();
