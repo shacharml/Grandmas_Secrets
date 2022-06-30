@@ -96,7 +96,7 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <Button
-            android:id="@+id/create_group_BTN_save"
+            android:id="@+id/verify_BTN_verify"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

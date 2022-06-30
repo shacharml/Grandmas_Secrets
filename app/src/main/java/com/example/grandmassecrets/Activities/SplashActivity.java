@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.VideoView;
 
+import com.example.grandmassecrets.Firebase.DataManager;
+import com.example.grandmassecrets.Listeners.Callback_isUserExist;
 import com.example.grandmassecrets.R;
 import com.google.android.material.button.MaterialButton;
 
@@ -28,6 +30,11 @@ public class SplashActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
         setContentView(R.layout.activity_splash);
+
+        //Check if the user is already existing
+//        DataManager dataManager = DataManager.getInstance();
+//        dataManager.setCallback_isUserExist(Callback_isUserExist);
+
 
         splash_BTN_loginSplash = findViewById(R.id.splash_BTN_loginSplash);
         splash_VID_video = findViewById(R.id.splash_VID_video);
@@ -60,4 +67,17 @@ public class SplashActivity extends AppCompatActivity {
         });
 
     }
+
+//    Callback_isUserExist callback_isUserExist = new Callback_isUserExist() {
+//        @Override
+//        public void isExist() {
+//            moveActivity(MainActivity.class);
+//        }
+//
+//        @Override
+//        public void createUser() {
+//            moveActivity(SignUpActivity.class);
+//        }
+//    } ;
+
 }

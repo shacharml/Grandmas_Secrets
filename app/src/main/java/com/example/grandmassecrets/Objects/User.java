@@ -10,7 +10,7 @@ import java.util.Map;
 public class User {
 
     private String uid;
-    private String img; //todo url to fire store
+    private String img;
     private String firstName;
     private String lastName;
     private String phoneNumber;
@@ -22,7 +22,7 @@ public class User {
 
     public User(String uid, String firstName, String lastName, String phoneNumber) {
         this.uid = uid;
-        this.img = "UrlImg"; // TODO: 29/06/2022 add a Url from fire storage
+        this.img = "https://firebasestorage.googleapis.com/v0/b/grandma-s-secrets.appspot.com/o/userPng.png?alt=media&token=3fa265c9-66f4-42ed-81d5-390177206207";
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
