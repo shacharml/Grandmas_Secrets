@@ -4,13 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,24 +16,13 @@ import com.example.grandmassecrets.Firebase.DataManager;
 import com.example.grandmassecrets.Firebase.FireStorage;
 import com.example.grandmassecrets.Constants.Keys;
 import com.example.grandmassecrets.Listeners.CallBack_ImageUpload;
-import com.example.grandmassecrets.Objects.Group;
 import com.example.grandmassecrets.Objects.User;
 import com.example.grandmassecrets.R;
 import com.github.dhaval2404.imagepicker.ImagePicker;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.HashMap;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -90,6 +77,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                     //Save the new temp User to database
                     dataManager.setCurrentUser(tempUser);
+                    dataManager.currentUserChangeListener();
                     saveUserToDatabase(tempUser);
 
                 } else { //the fields are Empty

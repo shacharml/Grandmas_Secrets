@@ -27,6 +27,8 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DatabaseReference;
 
+import java.util.HashMap;
+
 public class CreateGroupActivity extends AppCompatActivity {
 
     //Firebase
@@ -62,11 +64,6 @@ public class CreateGroupActivity extends AppCompatActivity {
         fireStorage = FireStorage.getInstance();
         fireStorage.setCallBack_imageUpload(callBack_Image_upload);
         initButtons();
-
-        //Temp Group Creation
-        tempGroup = new Group();
-        tempGroup.setGroupCreator(dataManager.getCurrentUser().getUid());
-        tempGroup.getUsersIds().put(dataManager.getCurrentUser().getUid(),true);
 
     }
 
@@ -177,6 +174,10 @@ public class CreateGroupActivity extends AppCompatActivity {
     //create  the new Group to database
     private void createNewGroup() {
 
+        //Temp Group Creation
+        tempGroup = new Group("","",dataManager.getCurrentUser().getUid());
+        tempGroup.setGroupCreator(dataManager.getCurrentUser().getUid());
+        tempGroup.getUsersIds().put(dataManager.getCurrentUser().getUid(),true);
         //current Group save on data manager and creator (IDS)
         dataManager.setCurrentIdGroup(tempGroup.getIdGroup());
         dataManager.setCurrentGroupCreator(dataManager.getCurrentUser().getUid());
@@ -184,10 +185,10 @@ public class CreateGroupActivity extends AppCompatActivity {
         //Handel Image Picker & upload image to the Storage  and save the url
         if (urlImg != null)
             tempGroup.setImgGroup(urlImg);
-        else {
-            Toast.makeText(this, "U need to upload IMG ", Toast.LENGTH_SHORT).show();
-            return;
-        }
+//        else {
+//            Toast.makeText(this, "U need to upload IMG ", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
         // TODO: 29/06/2022 Add Validator 
         //Get Group Name
         if (create_group_EDT_name.getText().toString().isEmpty()) {
@@ -214,27 +215,43 @@ public class CreateGroupActivity extends AppCompatActivity {
         ref.child(Keys.KEY_GROUP_RECIPES_LIST).setValue(tempGroup.getRecipesIds());
         ref.child(Keys.KEY_GROUP_USERS_LIST).setValue(tempGroup.getUsersIds());
 
-        //After The Save - need to add this Group to the User (creator) Group List
-        //Add the Group to Current User
+        /**
+         * After The Save - need to add this Group to the User (creator) Group List
+         * Add the Group to Current User
+         */
+        if(dataManager.getCurrentUser().getGroupsIds() == null){
+            dataManager.getCurrentUser().setGroupsIds(new HashMap<>()) ;
+        }
         dataManager.getCurrentUser().getGroupsIds().put(tempGroup.getIdGroup(),tempGroup.getName());
         DatabaseReference refUser = dataManager.getRealTimeDB()
                 .getReference(Keys.KEY_USERS)
                 .child(dataManager.getCurrentUser().getUid())
                 .child(Keys.KEY_USER_GROUPS_IDS);
 
-        refUser.child(dataManager.getCurrentUser().getGroupsIds().size() + "")
-                .setValue(tempGroup.getIdGroup())
+        refUser.child(tempGroup.getIdGroup())
+                .setValue(tempGroup.getName())
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(CreateGroupActivity.this, "new Group added to User creator DB",Toast.LENGTH_SHORT).show();
+                /**
+                 * if the group was added successfully
+                 * this layout will close and get back ro Main layout
+                 * and see the new group there
+                 */
+
+                finish();
+//                //Move to the Next Activity in the application
+//                nextActivity();
+
             }
         });
 
 
-        //Move to the Next Activity in the application
-        nextActivity();
+
     }
+
+
 
     // TODO: 29/06/2022 Change next activity if needed
     private void nextActivity() {

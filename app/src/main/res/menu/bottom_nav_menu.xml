@@ -1,29 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_ITM_profile"
+        android:id="@+id/menu_ITM_itm1"
         android:icon="@drawable/ic_user_profile"
         android:title="PROFILE"
         />
     <item
-        android:id="@+id/menu_ITM_profile1"
-        android:icon="@drawable/ic_user_profile"
-        android:title="OP2"
-        />
+        android:id="@+id/menu_ITM_itm2"
+        android:title=""
+        app:showAsAction="never"/>
+<!--        android:icon="@drawable/ic_user_profile"-->
+<!--        android:title="OP2"-->
+
 
     <item
         android:id="@+id/placeholder"
-        android:title=""/>
+        android:title=""
+        app:showAsAction="never"/>
 
     <item
-        android:id="@+id/menu_ITM_group"
-        android:icon="@drawable/ic_groups"
-        android:title="GROUPS"
-        />
+        android:id="@+id/menu_ITM_itm3"
+        android:title=""
+        app:showAsAction="never"/>
+<!--        android:icon="@drawable/ic_groups"-->
+<!--        android:title="GROUPS"-->
+
 
     <item
-        android:id="@+id/menu_ITM_group1"
+        android:id="@+id/menu_ITM_itm4"
         android:icon="@drawable/ic_groups"
         android:title="OP2"
         />

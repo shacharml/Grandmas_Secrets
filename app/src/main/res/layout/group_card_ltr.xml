@@ -24,7 +24,7 @@
             >
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/group_TXV_group_name"
+                android:id="@+id/group_TXV_group_name_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -36,17 +36,17 @@
                 android:textStyle="bold" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/group_TXV_subtitle_description"
+                android:id="@+id/group_TXV_subtitle_description_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" ---Description----"
-                android:textSize="18sp"
-                android:layout_below="@id/group_TXV_group_name"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:fontFamily="@font/gafata"
+                android:layout_below="@id/group_TXV_group_name_list"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="4dp"
-                android:layout_marginLeft="10dp"/>
+                android:fontFamily="@font/gafata"
+                android:text=" ---Description----"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
 
 
@@ -57,23 +57,21 @@
         android:id="@+id/group_IMG_rounded_corner_background_ltr"
         android:layout_width="140dp"
         android:layout_height="140dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="parent"
-        app:shapeAppearanceOverlay="@style/specific_rounded_corner"
-        app:srcCompat="@color/white"
-        android:elevation="8dp"
         android:layout_alignEnd="@id/card1"
-        android:layout_marginEnd="9dp"
         android:layout_marginTop="9dp"
-        />
+        android:layout_marginEnd="9dp"
+        android:elevation="8dp"
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/specific_rounded_corner"
+        app:srcCompat="@color/white" />
+
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/group_IMG_img_ltr"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="parent"
         app:shapeAppearanceOverlay="@style/specific_rounded_corner"
-        app:srcCompat="@drawable/not_sign_up_bar_photo"
+        app:srcCompat="@drawable/img_profile"
         android:elevation="8dp"
         android:layout_alignEnd="@id/card1"
         android:layout_marginEnd="18dp"

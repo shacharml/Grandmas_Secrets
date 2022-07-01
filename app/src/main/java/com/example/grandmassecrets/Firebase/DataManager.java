@@ -1,16 +1,19 @@
 package com.example.grandmassecrets.Firebase;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
 import com.example.grandmassecrets.Constants.Keys;
-import com.example.grandmassecrets.Listeners.Callback_getUserFromDatabase;
-import com.example.grandmassecrets.Listeners.Callback_isUserExist;
-import com.example.grandmassecrets.Objects.Group;
 import com.example.grandmassecrets.Objects.User;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
-
-import java.security.Key;
 
 public class DataManager {
 
@@ -27,10 +30,6 @@ public class DataManager {
     private String currentIdGroup;
     private String currentIdRecipe;
     private String currentGroupCreator;
-
-    //CallBacks
-    private Callback_isUserExist callback_isUserExist;
-    private Callback_getUserFromDatabase callback_getUserFromDatabase;
 
     //Constructor
     public DataManager() {
@@ -71,6 +70,7 @@ public class DataManager {
 
     public DataManager setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
+        Log.d("manager",currentUser.toString());
         return this;
     }
 
@@ -101,15 +101,57 @@ public class DataManager {
         return this;
     }
 
-    //CallBack Setters
 
-    public DataManager setCallback_isUserExist(Callback_isUserExist callback_isUserExist) {
-        this.callback_isUserExist = callback_isUserExist;
-        return this;
+    // Help Data Functions
+
+    /**
+     * GET REFERENCES
+     */
+    public DatabaseReference usersListReference(){
+        return realTimeDB.getReference(Keys.KEY_USERS);
     }
 
-    public DataManager setCallback_getUserFromDatabase(Callback_getUserFromDatabase callback_getUserFromDatabase) {
-        this.callback_getUserFromDatabase = callback_getUserFromDatabase;
-        return this;
+    public DatabaseReference groupsListReference(){
+        return realTimeDB.getReference(Keys.KEY_GROUPS);
+    }
+
+    public DatabaseReference recipesListReference(){
+        return realTimeDB.getReference(Keys.KEY_RECIPES);
+    }
+    /**
+     * READ FUNCTIONS
+     */
+
+    /**
+     * every time the cuurent user from the auth
+     * change in the database -> modify the data manager current user
+     */
+    public void currentUserChangeListener(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference myRef = usersListReference().child(user.getUid());
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User u = snapshot.getValue(User.class);
+                Log.d("manager", "data changed" + u.toString());
+                setCurrentUser(u);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // calling on cancelled method when we receive
+                // any error or we are not able to get the data.
+            }
+        });
+    }
+
+    /**
+     * Write functions
+     */
+
+    //Function write user changes
+    public void updateUserDatabase(){
+        DatabaseReference myRef = usersListReference().child(currentUser.getUid());
+        myRef.updateChildren(currentUser.toMap());
     }
 }

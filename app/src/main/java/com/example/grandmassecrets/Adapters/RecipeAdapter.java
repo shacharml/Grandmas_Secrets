@@ -20,6 +20,7 @@ import com.google.android.material.textview.MaterialTextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -28,21 +29,21 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
 
     private Activity activity;
-    private HashMap<String,Recipe> recipes = new HashMap<>();
-//    private ArrayList<Recipe> recipes = new ArrayList<>(); Fore arrayList
+//    private HashMap<String,Recipe> recipes = new HashMap<>();
+    private ArrayList<Recipe> recipes = new ArrayList<>(); //Fore arrayList
     private RecipeListener listener;
 
     //Constructor
-//    public RecipeAdapter(Activity activity, ArrayList<Recipe> Recipes) {
-//        this.activity = activity;
-//        this.recipes = Recipes;
-//    }
-
-
-    public RecipeAdapter(Activity activity, HashMap<String, Recipe> recipes) {
+    public RecipeAdapter(Activity activity, ArrayList<Recipe> Recipes) {
         this.activity = activity;
-        this.recipes = recipes;
+        this.recipes = Recipes;
     }
+
+
+//    public RecipeAdapter(Activity activity, HashMap<String, Recipe> recipes) {
+//        this.activity = activity;
+//        this.recipes = recipes;
+//    }
 
     public RecipeAdapter setListener(RecipeListener listener) {
         this.listener = listener;
@@ -69,31 +70,57 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             // TODO: 29/06/2022 Check if glide work with thr uri/l image
         Glide.with(activity).load(recipe.getImg()).into(holder.recipe_item_IMG_img);
 
+        ArrayList<NutritionFacts> nutFactsRecipe = recipe.getNutritionFacts().values().stream().collect(Collectors.toCollection(ArrayList::new));
         //get the Images of the nutrition facts (not from data Storage
-//        for (NutritionFacts facts : recipe.getNutritionFacts()) { for arrayList
-        for (Map.Entry<String, NutritionFacts> entry : recipe.getNutritionFacts().entrySet() ) {
-            switch (entry.getKey()) {
-                case "ORGANIC":
-                    holder.nutrition_IMG_nut1.setImageResource(R.drawable.ic_organic_food);
-                    holder.nutrition_IMG_nut1.setVisibility(View.VISIBLE);
-                    break;
-                case "CARBOHYDRATES":
-                    holder.nutrition_IMG_nut2.setImageResource(R.drawable.ic_carbohydrates);
-                    holder.nutrition_IMG_nut2.setVisibility(View.VISIBLE);
-                    break;
-                case "DAIRY":
-                    holder.nutrition_IMG_nut3.setImageResource(R.drawable.ic_dairy);
-                    holder.nutrition_IMG_nut3.setVisibility(View.VISIBLE);
-                    break;
-                case "NO_EGG":
-                    holder.nutrition_IMG_nut4.setImageResource(R.drawable.ic_no_eggs);
-                    holder.nutrition_IMG_nut4.setVisibility(View.VISIBLE);
-                    break;
-                case "NO_PEANUT":
-                    holder.nutrition_IMG_nut5.setImageResource(R.drawable.ic_no_peanut);
-                    holder.nutrition_IMG_nut5.setVisibility(View.VISIBLE);
-                    break;
-            }
+        for (NutritionFacts facts : nutFactsRecipe) { //for arrayList
+             switch (facts.getNameNutrition()) {
+                 case ORGANIC:
+                        holder.nutrition_IMG_nut1.setImageResource(R.drawable.ic_organic_food);
+                        holder.nutrition_IMG_nut1.setVisibility(View.VISIBLE);
+                        break;
+                    case CARBOHYDRATES:
+                        holder.nutrition_IMG_nut2.setImageResource(R.drawable.ic_carbohydrates);
+                        holder.nutrition_IMG_nut2.setVisibility(View.VISIBLE);
+                        break;
+                    case DAIRY:
+                        holder.nutrition_IMG_nut3.setImageResource(R.drawable.ic_dairy);
+                        holder.nutrition_IMG_nut3.setVisibility(View.VISIBLE);
+                        break;
+                    case NO_EGG:
+                        holder.nutrition_IMG_nut4.setImageResource(R.drawable.ic_no_eggs);
+                        holder.nutrition_IMG_nut4.setVisibility(View.VISIBLE);
+                        break;
+                    case NO_PEANUT:
+                        holder.nutrition_IMG_nut5.setImageResource(R.drawable.ic_no_peanut);
+                        holder.nutrition_IMG_nut5.setVisibility(View.VISIBLE);
+                        break;
+                }
+
+
+
+//        for (Map.Entry<String, NutritionFacts> entry : recipe.getNutritionFacts().entrySet() ) {
+//            switch (entry.getKey()) {
+//                case "ORGANIC":
+//                    holder.nutrition_IMG_nut1.setImageResource(R.drawable.ic_organic_food);
+//                    holder.nutrition_IMG_nut1.setVisibility(View.VISIBLE);
+//                    break;
+//                case "CARBOHYDRATES":
+//                    holder.nutrition_IMG_nut2.setImageResource(R.drawable.ic_carbohydrates);
+//                    holder.nutrition_IMG_nut2.setVisibility(View.VISIBLE);
+//                    break;
+//                case "DAIRY":
+//                    holder.nutrition_IMG_nut3.setImageResource(R.drawable.ic_dairy);
+//                    holder.nutrition_IMG_nut3.setVisibility(View.VISIBLE);
+//                    break;
+//                case "NO_EGG":
+//                    holder.nutrition_IMG_nut4.setImageResource(R.drawable.ic_no_eggs);
+//                    holder.nutrition_IMG_nut4.setVisibility(View.VISIBLE);
+//                    break;
+//                case "NO_PEANUT":
+//                    holder.nutrition_IMG_nut5.setImageResource(R.drawable.ic_no_peanut);
+//                    holder.nutrition_IMG_nut5.setVisibility(View.VISIBLE);
+//                    break;
+//            }
         }
 
 //                Check if don't work otherwise

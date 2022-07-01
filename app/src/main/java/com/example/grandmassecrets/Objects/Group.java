@@ -10,9 +10,9 @@ public class Group {
     private String name;
     private String description;
     private String imgGroup;
-    private String groupCreator; //who create the group
-    private HashMap<String,Boolean> recipesIds;
-    private HashMap<String,Boolean> usersIds; //list of all the users that the group share with them
+    private String groupCreator;                    //who create the group
+    private HashMap<String,Boolean> recipesIds ;
+    private HashMap<String,Boolean> usersIds ;       //list of all the users that the group share with them
 
 //    private ArrayList<String> recipesIds;
 //    private ArrayList<String> usersIds; //list of all the users that the group share with them
@@ -25,7 +25,7 @@ public class Group {
         this.idGroup = UUID.randomUUID().toString();
         this.name = name;
         this.description = description;
-        this.imgGroup = "url"; // TODO: 29/06/2022 change to url from fire base storage
+        this.imgGroup = "https://firebasestorage.googleapis.com/v0/b/grandma-s-secrets.appspot.com/o/userPng.png?alt=media&token=3fa265c9-66f4-42ed-81d5-390177206207"; // TODO: 29/06/2022 change to url from fire base storage
         this.recipesIds = new HashMap<>();
 //        this.recipesIds = new ArrayList<>();
         this.groupCreator = groupCreator;

@@ -10,8 +10,12 @@ import android.view.ViewGroup;
 
 import com.example.grandmassecrets.R;
 
-
-public class AllListsFragment extends Fragment {
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link RecipListFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class RecipListFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,7 +26,7 @@ public class AllListsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public AllListsFragment() {
+    public RecipListFragment() {
         // Required empty public constructor
     }
 
@@ -32,11 +36,11 @@ public class AllListsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment AllListsFragment.
+     * @return A new instance of fragment RecipListFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AllListsFragment newInstance(String param1, String param2) {
-        AllListsFragment fragment = new AllListsFragment();
+    public static RecipListFragment newInstance(String param1, String param2) {
+        RecipListFragment fragment = new RecipListFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -57,6 +61,6 @@ public class AllListsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_all_lists, container, false);
+        return inflater.inflate(R.layout.fragment_recip_list, container, false);
     }
 }

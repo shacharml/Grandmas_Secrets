@@ -11,10 +11,11 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.VideoView;
 
+import com.example.grandmassecrets.App;
 import com.example.grandmassecrets.Firebase.DataManager;
-import com.example.grandmassecrets.Listeners.Callback_isUserExist;
 import com.example.grandmassecrets.R;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -31,6 +32,9 @@ public class SplashActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(Color.TRANSPARENT);
         setContentView(R.layout.activity_splash);
 
+        if(FirebaseAuth.getInstance().getCurrentUser() != null){
+            DataManager.getInstance().currentUserChangeListener();
+        }
         //Check if the user is already existing
 //        DataManager dataManager = DataManager.getInstance();
 //        dataManager.setCallback_isUserExist(Callback_isUserExist);
@@ -46,6 +50,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onPrepared(MediaPlayer mediaPlayer) {
                 mediaPlayer.start();
+
             }
         });
 

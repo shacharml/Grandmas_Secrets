@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +15,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.grandmassecrets.Constants.Keys;
+import com.example.grandmassecrets.Firebase.DataManager;
+import com.example.grandmassecrets.Objects.User;
 import com.example.grandmassecrets.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -21,14 +25,21 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 
 import java.util.concurrent.TimeUnit;
 
 public class VerifyActivity extends AppCompatActivity {
+
+    private final DataManager dataManager = DataManager.getInstance();
 
     private EditText verify_EDT_code1, verify_EDT_code2, verify_EDT_code3, verify_EDT_code4, verify_EDT_code5, verify_EDT_code6;
     private TextView verify_TXT_text_mobile;
@@ -110,7 +121,6 @@ public class VerifyActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(VerifyActivity.this, "Authentication Success", Toast.LENGTH_LONG).show();
-
                             /** Now need to check if the user is already in the database or need to sign up */
                             boolean isNew = task.getResult().getAdditionalUserInfo().isNewUser();
                             if(isNew){
@@ -120,6 +130,8 @@ public class VerifyActivity extends AppCompatActivity {
                                 startActivity(intent);
                                 finish();
                             }else {
+                                FirebaseUser user = task.getResult().getUser();
+                                loadUserData(user.getUid());
                                 // if the code is correct and the user exist
                                 Intent i = new Intent(VerifyActivity.this, MainActivity.class);
                                 startActivity(i);
@@ -130,8 +142,29 @@ public class VerifyActivity extends AppCompatActivity {
                             Toast.makeText(VerifyActivity.this, "Authentication Failed - Enter the Correct OTP", Toast.LENGTH_LONG).show();
                         }
                     }
+
+
                 });
     }
+
+    private void loadUserData(String uid) {
+        Log.d("verify", "uid: "+uid);
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference = dataManager.getRealTimeDB().getReference(Keys.KEY_USERS).child(uid);
+        reference.get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+            @Override
+            public void onSuccess(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    User u = dataSnapshot.getValue(User.class);
+                    Log.d("verify","U user: "+ u.toString());
+                    dataManager.setCurrentUser(u);
+                    Log.d("verify", "data manager: "+dataManager.getCurrentUser().toString());
+                }
+            }
+        });
+    }
+
+
 
     private void findViews() {
         verify_EDT_code1 = findViewById(R.id.verify_EDT_code1);

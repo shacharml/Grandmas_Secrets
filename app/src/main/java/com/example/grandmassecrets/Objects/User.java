@@ -14,7 +14,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String phoneNumber;
-    private HashMap<String ,String > groupsIds;
+    private HashMap<String ,String > groupsIds = new HashMap<>();
 //    private ArrayList<String> groupsIds;
 
 
@@ -106,15 +106,15 @@ public class User {
 //    }
 
     //Marks a field as excluded from the Database.
-//    @Exclude
-//    public Map<String, Object> toMap() {
-//        HashMap<String, Object> mapRes = new HashMap<>();
-//        mapRes.put("uid", uid);
-//        mapRes.put("img", img);
-//        mapRes.put("firstName", firstName);
-//        mapRes.put("lastName", lastName);
-//        mapRes.put("phoneNumber", phoneNumber);
-//        mapRes.put(Keys.KEY_USER_GROUPS_IDS, groupsIds);
-//        return mapRes;
-//    }
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> mapRes = new HashMap<>();
+        mapRes.put(Keys.KEY_USER_ID, uid);
+        mapRes.put(Keys.KEY_USER_IMG, img);
+        mapRes.put(Keys.KEY_USER_FIRST_NAME, firstName);
+        mapRes.put(Keys.KEY_USER_LAST_NAME, lastName);
+        mapRes.put(Keys.KEY_USER_PHONE, phoneNumber);
+        mapRes.put(Keys.KEY_USER_GROUPS_IDS, groupsIds);
+        return mapRes;
+    }
 }

@@ -74,7 +74,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/not_sign_up_bar_photo"
+                    android:src="@drawable/img_profile"
                     app:shapeAppearanceOverlay="@style/specific_rounded_corner"
                     app:strokeColor="#B2000000"
                     app:strokeWidth="2dp" />
