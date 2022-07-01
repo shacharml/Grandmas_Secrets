@@ -12,9 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.grandmassecrets.Constants.Keys;
 import com.example.grandmassecrets.Firebase.DataManager;
-import com.example.grandmassecrets.Objects.Group;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,10 +31,9 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Try1Fragment extends Fragment {
 
-
-    public interface CallBack_GroupClicked {
-        void GroupClicked(Group Group, int position);
-    }
+//    public interface CallBack_GroupClicked {
+//        void GroupClicked(Group Group, int position);
+//    }
 
     private View view;
     private RecyclerView listRecycler;
@@ -46,13 +43,6 @@ public class Try1Fragment extends Fragment {
 
     public Try1Fragment() {
         // Required empty public constructor
-    }
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -130,10 +120,13 @@ public class Try1Fragment extends Fragment {
                                holder.itemView.setOnClickListener(new View.OnClickListener() {
                                    @Override
                                    public void onClick(View view) {
-                                       Intent intent = new Intent(getContext(),RecipListFragment.class);
-                                       intent.putExtra("Group_id", groupIDs);
-                                       intent.putExtra("Group_name", name);
-                                       startActivity(intent);
+//                                       Intent intent = new Intent(getContext(), RecipeListFragment.class);
+                                       dataManager.setCurrentIdGroup(groupIDs);
+                                       getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_FRG_container,new RecipeListFragment())
+                                               .addToBackStack(null).commit();
+//                                       intent.putExtra("Group_id", groupIDs);
+//                                       intent.putExtra("Group_name", name);
+//                                       startActivity(intent);
 
                                    }
                                });

@@ -139,7 +139,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     // External class - HOLDER
-    class RecipeHolder extends RecyclerView.ViewHolder {
+    public class RecipeHolder extends RecyclerView.ViewHolder {
 
         private ShapeableImageView recipe_item_IMG_img;
         private MaterialTextView recipe_item_LBL_title;
@@ -163,12 +163,12 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             nutrition_IMG_nut4 = itemView.findViewById(R.id.nutrition_IMG_nut4);
             nutrition_IMG_nut5 = itemView.findViewById(R.id.nutrition_IMG_nut5);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    listener.recipeClicked(getRecipe(getAdapterPosition()), getAdapterPosition());
-                }
-            });
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    listener.recipeClicked(getRecipe(getAdapterPosition()), getAdapterPosition());
+//                }
+//            });
         }
     }
 }

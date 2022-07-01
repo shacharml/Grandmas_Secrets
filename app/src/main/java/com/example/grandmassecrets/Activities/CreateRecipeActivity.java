@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -28,12 +29,15 @@ import com.example.grandmassecrets.Objects.NutritionFacts;
 import com.example.grandmassecrets.Objects.Recipe;
 import com.example.grandmassecrets.R;
 import com.github.dhaval2404.imagepicker.ImagePicker;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.database.DatabaseReference;
 
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -167,27 +171,27 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
             case R.id.button1:
                 nutrition_IMG_nut1.setVisibility(View.GONE);
                 button1.setVisibility(View.GONE);
-                facts.remove(0);
+                facts.remove(NutritionFactsNames.ORGANIC.toString());
                 break;
             case R.id.button2:
                 nutrition_IMG_nut2.setVisibility(View.GONE);
                 button2.setVisibility(View.GONE);
-                facts.remove(1);
+                facts.remove(NutritionFactsNames.CARBOHYDRATES.toString());
                 break;
             case R.id.button3:
                 nutrition_IMG_nut3.setVisibility(View.GONE);
                 button3.setVisibility(View.GONE);
-                facts.remove(2);
+                facts.remove(NutritionFactsNames.NO_PEANUT.toString());
                 break;
             case R.id.button4:
                 nutrition_IMG_nut4.setVisibility(View.GONE);
                 button4.setVisibility(View.GONE);
-                facts.remove(3);
+                facts.remove(NutritionFactsNames.DAIRY.toString());
                 break;
             case R.id.button5:
                 nutrition_IMG_nut5.setVisibility(View.GONE);
                 button5.setVisibility(View.GONE);
-                facts.remove(4);
+                facts.remove(NutritionFactsNames.NO_EGG.toString());
                 break;
             case R.id.create_recipe_BTN_edit:
                 imagePick();
@@ -283,10 +287,10 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
         //Handel Image Picker & upload image to the Storage  and save the url
         if (urlImg != null)
             tempRecipe.setImg(urlImg);
-        else {
-            Toast.makeText(this, "U need to upload IMG ", Toast.LENGTH_SHORT).show();
-            return;
-        }
+//        else {
+//            Toast.makeText(this, "U need to upload IMG ", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
 
         //Check the Ingredient data
         if (!checkIngredient()) {
@@ -334,9 +338,22 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
 
         //Add the recipe Id to the current Group recipes ids list
 // TODO: 30/06/2022 get back
+        // TODO: 02/07/2022 do finish just after add listener successes
 
+
+//        if (dataManager.getCurrentIdRecipe().isEmpty())
+
+        dataManager.groupsListReference().child(dataManager.getCurrentIdGroup())
+                .child(Keys.KEY_GROUP_RECIPES_LIST).child(tempRecipe.getIdRecipe()).setValue(tempRecipe.getName()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                       dataManager.setCurrentIdRecipe(tempRecipe.getIdRecipe());
+                        finish();
+                    }
+                });
         //Move to the Next Activity in the application
-        nextActivity();
+//        finish();
+//        nextActivity();
 
     }
 

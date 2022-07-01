@@ -114,6 +114,9 @@ public class DataManager {
     public DatabaseReference groupsListReference(){
         return realTimeDB.getReference(Keys.KEY_GROUPS);
     }
+    public DatabaseReference recipessListReference(){
+        return realTimeDB.getReference(Keys.KEY_RECIPES);
+    }
 
     public DatabaseReference recipesListReference(){
         return realTimeDB.getReference(Keys.KEY_RECIPES);

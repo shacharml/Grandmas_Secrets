@@ -23,7 +23,7 @@ public class Recipe {
         this.idRecipe = UUID.randomUUID().toString();
         this.name = name;
         this.description = "description";
-        this.img = "defultUrl";
+        this.img = "https://firebasestorage.googleapis.com/v0/b/grandma-s-secrets.appspot.com/o/userPng.png?alt=media&token=3fa265c9-66f4-42ed-81d5-390177206207";// TODO: 02/07/2022 Change image
         this.steps = "steps";
         this.ingredients = new HashMap<>();
         this.nutritionFacts = new HashMap<>();

@@ -1,15 +1,11 @@
 package com.example.grandmassecrets.Fragments;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,17 +17,13 @@ import android.widget.Toast;
 
 import com.example.grandmassecrets.Activities.CreateGroupActivity;
 import com.example.grandmassecrets.Adapters.GroupAdapter;
-import com.example.grandmassecrets.Constants.Keys;
 import com.example.grandmassecrets.Firebase.DataManager;
 import com.example.grandmassecrets.Firebase.FireStorage;
 import com.example.grandmassecrets.Objects.Group;
 import com.example.grandmassecrets.Objects.User;
 import com.example.grandmassecrets.R;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -213,7 +205,7 @@ public class GroupListFragment extends Fragment {
                 dataManager.setCurrentGroupCreator(group.getGroupCreator());
                 getParentFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.main_FRG_container, RecipListFragment.class, null)
+                        .replace(R.id.main_FRG_container, RecipeListFragment.class, null)
                         .addToBackStack("tag")
                         .commit();
             }
