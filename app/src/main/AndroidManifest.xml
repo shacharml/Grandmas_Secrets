@@ -11,8 +11,6 @@
     <application
         android:name=".App"
         android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
@@ -35,11 +33,11 @@
         <activity
             android:name=".Activities.CreateRecipeActivity"
             android:exported="false"
-            android:windowSoftInputMode="stateVisible|adjustPan" />
+             />
         <activity
             android:name=".Activities.CreateGroupActivity"
             android:exported="false"
-            android:windowSoftInputMode="stateVisible|adjustPan"
+
             />
         <activity
             android:name=".Activities.SignUpActivity"
