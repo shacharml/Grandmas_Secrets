@@ -10,7 +10,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:overScrollMode="ifContentScrolls"
         android:scrollbars="none">
 
@@ -107,47 +107,10 @@
                             android:src="@drawable/ic_remove" />
                     </RelativeLayout>
 
-
-                    <!--                <FrameLayout-->
-                    <!--                    android:layout_width="30dp"-->
-                    <!--                    android:layout_height="30dp">-->
-
-                    <!--                    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-                    <!--                        android:id="@+id/create_recipe_FAB_remove"-->
-                    <!--                        android:layout_width="wrap_content"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        android:backgroundTint="@color/light_pink"-->
-                    <!--                        android:clickable="true"-->
-                    <!--                        android:elevation="4dp"-->
-                    <!--                        android:focusable="true"-->
-                    <!--                        android:scaleType="centerCrop"-->
-                    <!--                        app:borderWidth="0dp"-->
-                    <!--                        app:fabCustomSize="10dp"-->
-                    <!--                        app:maxImageSize="10dp"-->
-                    <!--                        app:srcCompat="@drawable/ic_remove"-->
-                    <!--                        app:useCompatPadding="false" />-->
-
-                    <!--                    <androidx.appcompat.widget.AppCompatImageView-->
-                    <!--                        android:id="@+id/nutrition_IMG_organic"-->
-                    <!--                        android:layout_width="30dp"-->
-                    <!--                        android:layout_height="30dp"-->
-                    <!--                        android:scaleType="centerCrop"-->
-                    <!--                        android:src="@drawable/ic_organic_food" />-->
-
-                    <!--                </FrameLayout>-->
-
-
                     <RelativeLayout
                         android:layout_width="35dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="3dp">
-
-                        <!--                    <androidx.appcompat.widget.AppCompatImageView-->
-                        <!--                        android:id="@+id/nutrition_IMG_carbohydrates"-->
-                        <!--                        android:layout_width="30dp"-->
-                        <!--                        android:layout_height="30dp"-->
-                        <!--                        android:scaleType="centerCrop"-->
-                        <!--                        android:src="@drawable/ic_carbohydrates" />-->
                         <ImageView
                             android:id="@+id/nutrition_IMG_nut2"
                             android:layout_width="30dp"
@@ -192,14 +155,6 @@
                             android:src="@drawable/ic_remove" />
                     </RelativeLayout>
 
-                    <!--                <androidx.appcompat.widget.AppCompatImageView-->
-                    <!--                    android:id="@+id/nutrition_IMG_peanut"-->
-                    <!--                    android:layout_width="30dp"-->
-                    <!--                    android:layout_height="30dp"-->
-                    <!--                    android:layout_marginLeft="8dp"-->
-                    <!--                    android:scaleType="centerCrop"-->
-                    <!--                    android:src="@drawable/ic_no_peanut" />-->
-
                     <RelativeLayout
                         android:layout_width="35dp"
                         android:layout_height="match_parent"
@@ -223,13 +178,6 @@
                             android:scaleType="centerCrop"
                             android:src="@drawable/ic_remove" />
                     </RelativeLayout>
-                    <!--                <androidx.appcompat.widget.AppCompatImageView-->
-                    <!--                    android:id="@+id/nutrition_IMG_dairy"-->
-                    <!--                    android:layout_width="30dp"-->
-                    <!--                    android:layout_height="30dp"-->
-                    <!--                    android:layout_marginLeft="8dp"-->
-                    <!--                    android:scaleType="centerCrop"-->
-                    <!--                    android:src="@drawable/ic_dairy" />-->
 
                     <RelativeLayout
                         android:layout_width="35dp"
@@ -254,14 +202,6 @@
                             android:scaleType="centerCrop"
                             android:src="@drawable/ic_remove" />
                     </RelativeLayout>
-                    <!--                <androidx.appcompat.widget.AppCompatImageView-->
-                    <!--                    android:id="@+id/nutrition_IMG_egg"-->
-                    <!--                    android:layout_width="30dp"-->
-                    <!--                    android:layout_height="30dp"-->
-                    <!--                    android:layout_marginLeft="8dp"-->
-                    <!--                    android:scaleType="centerCrop"-->
-                    <!--                    android:src="@drawable/ic_no_eggs" />-->
-
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <!--  Recipe Name  -->
@@ -283,10 +223,10 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/create_recipe_EDT_name"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
+                        android:layout_height="wrap_content"
                         android:fontFamily="@font/gafata"
                         android:inputType="text"
-                        android:textColor="#30275c"
+                        android:textColor="@color/dark_parpel"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -311,7 +251,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/create_recipe_EDT_sub_title"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
+                        android:layout_height="wrap_content"
                         android:fontFamily="@font/gafata"
                         android:inputType="text"
                         android:textColor="#30275c"
@@ -325,7 +265,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1.5dp"
                     android:layout_marginTop="12dp"
-                    android:background="#DCDFEA" />
+                    android:background="@color/dark_parpel" />
 
                 <!--  Ingredients (sub title)  -->
                 <com.google.android.material.textview.MaterialTextView
@@ -339,7 +279,7 @@
                     android:maxLines="1"
                     android:minLines="1"
                     android:text="Ingredients"
-                    android:textColor="#30275c"
+                    android:textColor="@color/dark_parpel"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -358,8 +298,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:background="@null"
-                        android:orientation="vertical"
-                        >
+                        android:orientation="vertical">
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -386,7 +325,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1.5dp"
                     android:layout_marginTop="12dp"
-                    android:background="#DCDFEA" />
+                    android:background="@color/dark_parpel" />
 
                 <!--  Recipe Description (sub title)  -->
                 <com.google.android.material.textfield.TextInputLayout
@@ -397,7 +336,7 @@
                     android:layout_below="@+id/frame"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="8dp"
-                    android:hint="Recipe - How to do ?"
+                    android:hint="How to do ?"
                     app:boxCornerRadiusBottomEnd="15dp"
                     app:boxCornerRadiusBottomStart="15dp"
                     app:boxCornerRadiusTopEnd="15dp"

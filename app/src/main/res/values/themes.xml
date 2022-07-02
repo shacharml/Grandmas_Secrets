@@ -22,7 +22,7 @@
     <!--  Specific image Corner-->
     <style name="roundedImageView" parent="">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">18dp</item>
+        <item name="cornerSize">8dp</item>
     </style>
 
     <!--  Specific Rounded Corner-->

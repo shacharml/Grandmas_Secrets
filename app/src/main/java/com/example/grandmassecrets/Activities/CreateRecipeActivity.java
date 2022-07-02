@@ -9,7 +9,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -31,15 +30,15 @@ import com.example.grandmassecrets.Objects.Recipe;
 import com.example.grandmassecrets.R;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.SuccessContinuation;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 
-import java.security.Key;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CreateRecipeActivity extends AppCompatActivity implements View.OnClickListener {
@@ -51,9 +50,7 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
     //Attributes
     private final HashMap<String,Ingredient> ingredients = new HashMap<>(); //List of the ingredients
     private final HashMap<String,NutritionFacts> facts = new HashMap<>(); //List of the NutritionFacts
-//    private final ArrayList<Ingredient> ingredients = new ArrayList<>(); //List of the ingredients
-//    private final ArrayList<NutritionFacts> facts = new ArrayList<>(); //List of the NutritionFacts
-    private String urlImg; // TODO: 29/06/2022 Add defulte url
+    private String urlImg;
     private Recipe tempRecipe;
 
     //CallBack
@@ -61,6 +58,7 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
         @Override
         public void imageUrlAvailable(String url, Activity activity) {
             urlImg = url;
+
         }
     };
 
@@ -127,12 +125,6 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
         facts.put(NutritionFactsNames.NO_PEANUT.toString(),new NutritionFacts(NutritionFactsNames.NO_PEANUT, String.valueOf(R.drawable.ic_no_peanut)));
         facts.put(NutritionFactsNames.DAIRY.toString(),new NutritionFacts(NutritionFactsNames.DAIRY, String.valueOf(R.drawable.ic_dairy)));
         facts.put(NutritionFactsNames.NO_EGG.toString(),new NutritionFacts(NutritionFactsNames.NO_EGG, String.valueOf(R.drawable.ic_no_eggs)));
-
-//        facts.add(new NutritionFacts(NutritionFactsNames.ORGANIC, String.valueOf(R.drawable.ic_organic_food)));
-//        facts.add(new NutritionFacts(NutritionFactsNames.CARBOHYDRATES, String.valueOf(R.drawable.ic_carbohydrates)));
-//        facts.add(new NutritionFacts(NutritionFactsNames.NO_PEANUT, String.valueOf(R.drawable.ic_no_peanut)));
-//        facts.add(new NutritionFacts(NutritionFactsNames.DAIRY, String.valueOf(R.drawable.ic_dairy)));
-//        facts.add(new NutritionFacts(NutritionFactsNames.NO_EGG, String.valueOf(R.drawable.ic_no_eggs)));
     }
 
     private void findViews() {
@@ -157,7 +149,7 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
         create_recipe_BTN_back = findViewById(R.id.create_recipe_BTN_back);
     }
 
-    /*
+    /**
         On click  of all the Buttons in this form
      */
     @Override
@@ -223,7 +215,7 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
         Uri resultUri = data.getData();
         //Change the view to the new image
         create_recipe_IMG_dish.setImageURI(resultUri);
-        fireStorage.uploadImgToStorage(resultUri, dataManager.getCurrentUser().getUid(), Keys.KEY_PROFILE_PICTURES, this);
+        fireStorage.uploadImgToStorage(resultUri, dataManager.getCurrentIdRecipe(), Keys.KEY_RECIPE_PICTURES, this);
     }
 
     /**
@@ -237,14 +229,9 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
         } else
             tempRecipe = new Recipe(create_recipe_EDT_name.getText().toString());
 
-
         //Handel Image Picker & upload image to the Storage  and save the url
         if (urlImg != null)
             tempRecipe.setImg(urlImg);
-//        else {
-//            Toast.makeText(this, "U need to upload IMG ", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
 
         //Check the Ingredient data
         if (!checkIngredient()) {
@@ -257,7 +244,6 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
 
 // TODO: 29/06/2022 Add validator
         //Check the recipe data
-
         //Check the recipe steps methods
         if (create_recipe_EDT_recipe.getText().toString().isEmpty()) {
             Toast.makeText(this, "Recipe steps methods be empty ", Toast.LENGTH_SHORT).show();
@@ -281,14 +267,38 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
     /** Save New Recipe To Database -Realtime */
     private void SaveNewRecipeToDatabase(Recipe tempRecipe) {
         //Save tempRecipe to Recipe List
-        DatabaseReference ref = dataManager.getRealTimeDB().getReference(Keys.KEY_RECIPES).child(tempRecipe.getIdRecipe());
-        ref.child(Keys.KEY_RECIPE_ID).setValue(tempRecipe.getIdRecipe());
-        ref.child(Keys.KEY_RECIPE_NAME).setValue(tempRecipe.getName());
-        ref.child(Keys.KEY_RECIPE_DESCRIPTION).setValue(tempRecipe.getDescription());
-        ref.child(Keys.KEY_RECIPE_IMG).setValue(tempRecipe.getImg());
-        ref.child(Keys.KEY_RECIPE_STEPS).setValue(tempRecipe.getSteps());
-        ref.child(Keys.KEY_RECIPE_INGREDIENTS_LIST).setValue(tempRecipe.getIngredients());
-        ref.child(Keys.KEY_RECIPE_FACTS_LIST).setValue(tempRecipe.getNutritionFacts());
+        DatabaseReference ref = dataManager.recipesListReference();
+        ref.child(tempRecipe.getIdRecipe()).setValue(tempRecipe.toMap(), new DatabaseReference.CompletionListener(){
+
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                dataManager.groupsListReference().child(dataManager.getCurrentIdGroup())
+                        .child(Keys.KEY_GROUP_RECIPES_LIST).child(tempRecipe.getIdRecipe()).setValue(tempRecipe.getName(), new DatabaseReference.CompletionListener() {
+                            @Override
+                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                dataManager.setCurrentIdRecipe(tempRecipe.getIdRecipe());
+                                finish();
+                            }
+                        });
+
+
+
+//                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<Void> task) {
+//                                dataManager.setCurrentIdRecipe(tempRecipe.getIdRecipe());
+//                                finish();
+//                            }
+//                        });
+            }
+        });
+//        ref.child(Keys.KEY_RECIPE_ID).setValue(tempRecipe.getIdRecipe());
+//        ref.child(Keys.KEY_RECIPE_NAME).setValue(tempRecipe.getName());
+//        ref.child(Keys.KEY_RECIPE_DESCRIPTION).setValue(tempRecipe.getDescription());
+//        ref.child(Keys.KEY_RECIPE_IMG).setValue(tempRecipe.getImg());
+//        ref.child(Keys.KEY_RECIPE_STEPS).setValue(tempRecipe.getSteps());
+//        ref.child(Keys.KEY_RECIPE_INGREDIENTS_LIST).setValue(tempRecipe.getIngredients());
+//        ref.child(Keys.KEY_RECIPE_FACTS_LIST).setValue(tempRecipe.getNutritionFacts());
 
         //Add the recipe Id to the current Group recipes ids list
 // TODO: 30/06/2022 get back
@@ -297,14 +307,6 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
 
 //        if (dataManager.getCurrentIdRecipe().isEmpty())
 
-        dataManager.groupsListReference().child(dataManager.getCurrentIdGroup())
-                .child(Keys.KEY_GROUP_RECIPES_LIST).child(tempRecipe.getIdRecipe()).setValue(tempRecipe.getName()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                       dataManager.setCurrentIdRecipe(tempRecipe.getIdRecipe());
-                        finish();
-                    }
-                });
     }
 
     // TODO: 29/06/2022 Change next activity if needed

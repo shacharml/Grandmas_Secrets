@@ -1,7 +1,6 @@
 package com.example.grandmassecrets.Fragments;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.grandmassecrets.Activities.CreateGroupActivity;
 import com.example.grandmassecrets.Constants.Keys;
 import com.example.grandmassecrets.Firebase.DataManager;
@@ -34,12 +32,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
-
 public class Try1Fragment extends Fragment {
-
-//    public interface CallBack_GroupClicked {
-//        void GroupClicked(Group Group, int position);
-//    }
 
     private View view;
     private RecyclerView listRecycler;
@@ -98,8 +91,6 @@ public class Try1Fragment extends Fragment {
             }
         });
 
-
-
         return view;
     }
 
@@ -140,17 +131,17 @@ public class Try1Fragment extends Fragment {
 
                                holder.group_TXV_group_name.setText(name);
                                holder.group_TXV_subtitle_description.setText(des);
-                               Glide.with(getContext()).load(img)
-                                       .into(holder.group_IMG_img_ltr);
+                               Glide.with(getContext()).load(img).into(holder.group_IMG_img_ltr);
 
                                holder.itemView.setOnClickListener(new View.OnClickListener() {
                                    @Override
                                    public void onClick(View view) {
-//                                       Intent intent = new Intent(getContext(), RecipeListFragment.class);
                                        dataManager.setCurrentIdGroup(groupIDs);
-                                       getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_FRG_container,new RecipeListFragment())
-                                               .addToBackStack(null).commit();
-
+                                       getActivity().getSupportFragmentManager()
+                                               .beginTransaction()
+                                               .addToBackStack("groups fragment")
+                                               .replace(R.id.main_FRG_container,new RecipeListFragment())
+                                               .commit();
                                    }
                                });
                            }

@@ -30,17 +30,18 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".Activities.CreateRecipeActivity"
             android:exported="false"
-            android:windowSoftInputMode="stateVisible|adjustPan"></activity>
+            android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity
             android:name=".Activities.CreateGroupActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="stateVisible|adjustPan"
+            />
         <activity
             android:name=".Activities.SignUpActivity"
             android:exported="false" />
@@ -52,7 +53,7 @@
             android:exported="false" />
         <activity
             android:name=".Activities.MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
 
         <meta-data
             android:name="preloaded_fonts"

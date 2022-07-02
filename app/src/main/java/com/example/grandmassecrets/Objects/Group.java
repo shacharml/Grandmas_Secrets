@@ -1,7 +1,11 @@
 package com.example.grandmassecrets.Objects;
 
+import com.example.grandmassecrets.Constants.Keys;
+import com.google.firebase.database.Exclude;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class Group {
@@ -14,10 +18,6 @@ public class Group {
     private HashMap<String,Boolean> recipesIds ;
     private HashMap<String,Boolean> usersIds ;       //list of all the users that the group share with them
 
-//    private ArrayList<String> recipesIds;
-//    private ArrayList<String> usersIds; //list of all the users that the group share with them
-
-
     public Group() {
     }
 
@@ -27,23 +27,14 @@ public class Group {
         this.description = description;
         this.imgGroup = "https://firebasestorage.googleapis.com/v0/b/grandma-s-secrets.appspot.com/o/userPng.png?alt=media&token=3fa265c9-66f4-42ed-81d5-390177206207"; // TODO: 29/06/2022 change to url from fire base storage
         this.recipesIds = new HashMap<>();
-//        this.recipesIds = new ArrayList<>();
         this.groupCreator = groupCreator;
         this.usersIds = new HashMap<>();
-//        this.usersIds = new ArrayList<>();
         this.usersIds.put(groupCreator,true);
-//        this.usersIds.add(groupCreator);
-
     }
 
     public String getIdGroup() {
         return idGroup;
     }
-
-//    public Group setIdGroup(String idGroup) {
-//        this.idGroup = idGroup;
-//        return this;
-//    }
 
     public String getName() {
         return name;
@@ -71,17 +62,6 @@ public class Group {
         this.imgGroup = imgGroup;
         return this;
     }
-
-//    public ArrayList<String> getRecipesIds() {
-//        return recipesIds;
-//    }
-
-//    public Group setRecipesIds(ArrayList<String> recipesIds) {
-//        this.recipesIds = recipesIds;
-//        return this;
-//    }
-
-
     public String getGroupCreator() {
         return groupCreator;
     }
@@ -90,15 +70,6 @@ public class Group {
         this.groupCreator = groupCreator;
         return this;
     }
-
-//    public ArrayList<String> getUsersIds() {
-//        return usersIds;
-//    }
-//
-//    public Group setUsersIds(ArrayList<String> usersIds) {
-//        this.usersIds = usersIds;
-//        return this;
-//    }
 
     public HashMap<String, Boolean> getRecipesIds() {
         return recipesIds;
@@ -129,5 +100,18 @@ public class Group {
                 ", recipesIds=" + recipesIds +
                 ", usersIds=" + usersIds +
                 '}';
+    }
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> mapRes = new HashMap<>();
+        mapRes.put(Keys.KEY_GROUP_ID, idGroup);
+        mapRes.put(Keys.KEY_GROUP_IMG, imgGroup);
+        mapRes.put(Keys.KEY_GROUP_NAME, name);
+        mapRes.put(Keys.KEY_GROUP_DESCRIPTION, description);
+        mapRes.put(Keys.KEY_GROUP_CREATOR, groupCreator);
+        mapRes.put(Keys.KEY_GROUP_RECIPES_LIST, recipesIds);
+        mapRes.put(Keys.KEY_GROUP_USERS_LIST, usersIds);
+        return mapRes;
     }
 }

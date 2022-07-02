@@ -1,7 +1,11 @@
 package com.example.grandmassecrets.Objects;
 
+import com.example.grandmassecrets.Constants.Keys;
+import com.google.firebase.database.Exclude;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class Recipe {
@@ -14,9 +18,6 @@ public class Recipe {
     private HashMap<String,Ingredient> ingredients;
     private HashMap<String,NutritionFacts> nutritionFacts;
 
-//    private ArrayList<Ingredient> ingredients;
-//    private ArrayList<NutritionFacts> nutritionFacts;
-
     public Recipe() { }
 
     public Recipe(String name) {
@@ -27,19 +28,11 @@ public class Recipe {
         this.steps = "steps";
         this.ingredients = new HashMap<>();
         this.nutritionFacts = new HashMap<>();
-//        this.ingredients = new ArrayList<>();
-//        this.nutritionFacts = new ArrayList<>();
     }
 
     public String getIdRecipe() {
         return idRecipe;
     }
-
-//    public void setIdRecipe(String idRecipe) {
-//        this.idRecipe = idRecipe;
-//    }
-
-// ------- Builder --------
 
     public String getName() {
         return name;
@@ -67,25 +60,6 @@ public class Recipe {
         this.img = img;
         return this;
     }
-
-//    public ArrayList<Ingredient> getIngredients() {
-//        return ingredients;
-//    }
-//
-//    public Recipe setIngredients(ArrayList<Ingredient> ingredients) {
-//        this.ingredients = ingredients;
-//        return this;
-//    }
-//
-//    public ArrayList<NutritionFacts> getNutritionFacts() {
-//        return nutritionFacts;
-//    }
-//
-//    public Recipe setNutritionFacts(ArrayList<NutritionFacts> nutritionFacts) {
-//        this.nutritionFacts = nutritionFacts;
-//        return this;
-//    }
-
 
     public HashMap<String, Ingredient> getIngredients() {
         return ingredients;
@@ -125,5 +99,18 @@ public class Recipe {
                 ", ingredients=" + ingredients +
                 ", nutritionFacts=" + nutritionFacts +
                 '}';
+    }
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> mapRes = new HashMap<>();
+        mapRes.put(Keys.KEY_RECIPE_ID, idRecipe);
+        mapRes.put(Keys.KEY_RECIPE_NAME, name);
+        mapRes.put(Keys.KEY_RECIPE_IMG, img);
+        mapRes.put(Keys.KEY_RECIPE_DESCRIPTION, description);
+        mapRes.put(Keys.KEY_RECIPE_STEPS, steps);
+        mapRes.put(Keys.KEY_RECIPE_FACTS_LIST, nutritionFacts);
+        mapRes.put(Keys.KEY_RECIPE_INGREDIENTS_LIST, ingredients);
+        return mapRes;
     }
 }

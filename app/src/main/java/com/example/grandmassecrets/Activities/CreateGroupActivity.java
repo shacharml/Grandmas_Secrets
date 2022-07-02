@@ -124,52 +124,6 @@ public class CreateGroupActivity extends AppCompatActivity {
         create_group_IMG_img.setImageURI(resultUri);
         fireStorage.uploadImgToStorage(resultUri, dataManager.getCurrentIdGroup(), Keys.KEY_GROUP_PICTURES, CreateGroupActivity.this);
 
-        /*
-        //View Indicates the process of the image uploading by Disabling the button
-        sign_up_BTN_sign.setEnabled(false);
-
-        //Get URI Data and show the image on the ImageView
-        Uri uri = data.getData();
-        sign_up_IMG_profile.setImageURI(uri);
-
-
-        //Reference to where image will store in Storage
-        // the UID in the images profiles
-        StorageReference userRef = dataManager.getStorage()
-                .getReference()
-                .child(Keys.KEY_PROFILE_PICTURES)
-                .child(dataManager.getFirebaseAuth().getCurrentUser().getUid());
-
-        //Get the data from an ImageView as bytes
-        sign_up_IMG_profile.setDrawingCacheEnabled(true);
-        sign_up_IMG_profile.buildDrawingCache();
-        Bitmap bitmap = ((BitmapDrawable) sign_up_IMG_profile.getDrawable()).getBitmap();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] bytes = baos.toByteArray();
-
-        //Start The upload task
-        UploadTask uploadTask = userRef.putBytes(bytes);
-        uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                if (task.isSuccessful()) {
-                    //If upload was successful, We want to get the image url from the storage
-                    userRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            //Set the profile URL to the object we created
-                            uriImg = uri.toString();
-
-
-                            //View Indicates the process of the image uploading Done by making the button Enabled
-                            sign_up_BTN_sign.setEnabled(true);
-                        }
-                    });
-                }
-            }
-        });
-*/
     }
 
     //create  the new Group to database
@@ -189,6 +143,7 @@ public class CreateGroupActivity extends AppCompatActivity {
 //            Toast.makeText(this, "U need to upload IMG ", Toast.LENGTH_SHORT).show();
 //            return;
 //        }
+
         // TODO: 29/06/2022 Add Validator 
         //Get Group Name
         if (create_group_EDT_name.getText().toString().isEmpty()) {
@@ -206,14 +161,15 @@ public class CreateGroupActivity extends AppCompatActivity {
 
     private void SaveNewGroupToDatabase(Group tempGroup) {
         //Save tempGroup to Recipe List
-        DatabaseReference ref = dataManager.getRealTimeDB().getReference(Keys.KEY_GROUPS).child(tempGroup.getIdGroup());
-        ref.child(Keys.KEY_GROUP_ID).setValue(tempGroup.getIdGroup());
-        ref.child(Keys.KEY_GROUP_NAME).setValue(tempGroup.getName());
-        ref.child(Keys.KEY_GROUP_DESCRIPTION).setValue(tempGroup.getDescription());
-        ref.child(Keys.KEY_GROUP_IMG).setValue(tempGroup.getImgGroup());
-        ref.child(Keys.KEY_GROUP_CREATOR).setValue(tempGroup.getGroupCreator());
-        ref.child(Keys.KEY_GROUP_RECIPES_LIST).setValue(tempGroup.getRecipesIds());
-        ref.child(Keys.KEY_GROUP_USERS_LIST).setValue(tempGroup.getUsersIds());
+        DatabaseReference ref = dataManager.groupsListReference();
+        ref.child(tempGroup.getIdGroup()).setValue(tempGroup.toMap());
+        //        ref.child(Keys.KEY_GROUP_ID).setValue(tempGroup.getIdGroup());
+//        ref.child(Keys.KEY_GROUP_NAME).setValue(tempGroup.getName());
+//        ref.child(Keys.KEY_GROUP_DESCRIPTION).setValue(tempGroup.getDescription());
+//        ref.child(Keys.KEY_GROUP_IMG).setValue(tempGroup.getImgGroup());
+//        ref.child(Keys.KEY_GROUP_CREATOR).setValue(tempGroup.getGroupCreator());
+//        ref.child(Keys.KEY_GROUP_RECIPES_LIST).setValue(tempGroup.getRecipesIds());
+//        ref.child(Keys.KEY_GROUP_USERS_LIST).setValue(tempGroup.getUsersIds());
 
         /**
          * After The Save - need to add this Group to the User (creator) Group List

@@ -43,7 +43,6 @@ public class LoginActivity extends AppCompatActivity {
             login_BTN_send.setVisibility(View.VISIBLE);
             login_PRB_progress_bar.setVisibility(View.GONE);
             Toast.makeText(LoginActivity.this, "OTP is successfully send.", Toast.LENGTH_SHORT).show();
-
             // Move to verify activity
             Intent intent = new Intent(LoginActivity.this, VerifyActivity.class);
             intent.putExtra(getString(R.string.LBL_phone), login_EDT_phone_number.getText().toString().trim()); //pass the phone number
@@ -90,7 +89,8 @@ public class LoginActivity extends AppCompatActivity {
                 else if (login_EDT_phone_number.getText().toString().length() != 9)
                     Toast.makeText(LoginActivity.this, "Type valid Phone Number", Toast.LENGTH_SHORT).show();
                 else {
-                    login_PRB_progress_bar.setVisibility(View.VISIBLE); // Show progress bar
+                    login_BTN_send.setVisibility(View.GONE);
+                    login_PRB_progress_bar.setVisibility(View.VISIBLE);
                     String number = login_EDT_phone_number.getText().toString(); // Get the phone number that insert
                     sendVerificationCode(number);
                 }

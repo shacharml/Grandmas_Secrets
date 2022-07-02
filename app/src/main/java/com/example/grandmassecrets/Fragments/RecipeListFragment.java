@@ -84,6 +84,7 @@ public class RecipeListFragment extends Fragment {
             }
         });
 
+
         listRecycler = view.findViewById(R.id.recipe_list);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2,GridLayoutManager.VERTICAL,false);
         listRecycler.setLayoutManager(gridLayoutManager);

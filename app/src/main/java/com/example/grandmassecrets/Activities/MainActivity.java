@@ -1,29 +1,32 @@
 package com.example.grandmassecrets.Activities;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.grandmassecrets.Constants.Keys;
 import com.example.grandmassecrets.Firebase.DataManager;
 import com.example.grandmassecrets.Firebase.FireStorage;
-import com.example.grandmassecrets.Fragments.GroupListFragment;
 import com.example.grandmassecrets.Fragments.Try1Fragment;
+import com.example.grandmassecrets.Listeners.CallBack_ImageUpload;
 import com.example.grandmassecrets.Objects.User;
 import com.example.grandmassecrets.R;
 import com.firebase.ui.auth.AuthUI;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -44,10 +47,20 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity<FirebaseFirestore> extends AppCompatActivity {
 
+    //CallBack
+    CallBack_ImageUpload callBack_Image_upload = new CallBack_ImageUpload() {
+        @Override
+        public void imageUrlAvailable(String url, Activity activity) {
+            //update the database
+            DatabaseReference reference = dataManager.usersListReference().child(dataManager.getCurrentUser().getUid());
+            reference.child(Keys.KEY_USER_IMG).setValue(url);
+        }
+    };
+
     private final DataManager dataManager = DataManager.getInstance();
-    private final FireStorage fireStorage = FireStorage.getInstance();
+    private FireStorage fireStorage = FireStorage.getInstance();
     private final User currentUser = dataManager.getCurrentUser();
-    private final FirebaseDatabase realtimeDB = dataManager.getRealTimeDB();
+//    private final FirebaseDatabase realtimeDB = dataManager.getRealTimeDB();
 
     private BottomNavigationView bottom_nav_menu;
     private FloatingActionButton main_FAB_fab;
@@ -59,24 +72,23 @@ public class MainActivity<FirebaseFirestore> extends AppCompatActivity {
     private MaterialTextView profile_TXT_username;
     private ShapeableImageView profile_IMG_user;
     private CircularProgressIndicator profile_BAR_progress;
-
     private FragmentContainerView main_FRG_container;
-    private FragmentManager fragmentManager;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         setSupportActionBar(main_TOB_up);
 
         findViews();
-
+        //Init fireStorage
+        fireStorage = FireStorage.getInstance();
+        fireStorage.setCallBack_imageUpload(callBack_Image_upload);
         getSupportFragmentManager().beginTransaction().replace(R.id.main_FRG_container, new Try1Fragment()).commit();
 //        getSupportFragmentManager().beginTransaction().replace(R.id.main_FRG_container, new GroupListFragment()).commit();
-
-
-
         initButtons();
 
         //Check if user still logged-in, if not -> will transfer to login
@@ -102,9 +114,8 @@ public class MainActivity<FirebaseFirestore> extends AppCompatActivity {
 //                .commit();
 
         //Update side menu - profile
+        bottom_nav_menu.getMenu().getItem(3).setEnabled(true);
         initUserProfileSide();
-
-
     }
 
     private void initUserProfileSide() {
@@ -114,7 +125,7 @@ public class MainActivity<FirebaseFirestore> extends AppCompatActivity {
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User user = dataManager.getCurrentUser();
+                User user = currentUser;
                 Glide.with(MainActivity.this).load(user.getImg()).apply(RequestOptions.circleCropTransform()).into(profile_IMG_user);
                 profile_TXT_username.setText(user.getFirstName()+" "+user.getLastName());
             }
@@ -124,9 +135,6 @@ public class MainActivity<FirebaseFirestore> extends AppCompatActivity {
 
             }
         });
-
-
-
     }
 
     private void initButtons() {
@@ -166,7 +174,6 @@ public class MainActivity<FirebaseFirestore> extends AppCompatActivity {
             }
         });
 
-        // TODO: 30/06/2022 Add move Fragments
         //Bottom Menu
         bottom_nav_menu.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -182,9 +189,7 @@ public class MainActivity<FirebaseFirestore> extends AppCompatActivity {
                         //Click Groups
 //                       fragment = new GroupListFragment();
                         Toast.makeText(MainActivity.this, "maybe on the future", Toast.LENGTH_SHORT).show();
-
 //                        getSupportFragmentManager().beginTransaction().replace(R.id.main_FRG_container, new GroupListFragment()).commit();
-                        bottom_nav_menu.getMenu().getItem(3).setEnabled(true);
                         break;
                 }
 
@@ -201,18 +206,16 @@ public class MainActivity<FirebaseFirestore> extends AppCompatActivity {
             }
         });
 
-
-//        profile_FAB_edit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                // TODO: 30/06/2022 Add this Option
-////                ImagePicker.with(MainActivity.this)
-////                        .compress(1024)            //Final image size will be less than 1 MB(Optional)
-////                        .crop(1f, 1f)
-////                        .maxResultSize(1080, 1080)  //Final image resolution will be less than 1080 x 1080(Optional)
-////                        .start();
-//            }
-//        });
+        profile_FAB_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ImagePicker.with(MainActivity.this)
+                        .compress(1024)            //Final image size will be less than 1 MB(Optional)
+                        .crop(1f, 1f)
+                        .maxResultSize(1080, 1080)  //Final image resolution will be less than 1080 x 1080(Optional)
+                        .start();
+            }
+        });
 
     }
 
@@ -236,9 +239,29 @@ public class MainActivity<FirebaseFirestore> extends AppCompatActivity {
         profile_BAR_progress= header.findViewById(R.id.profile_BAR_progress);
     }
 
+    /**
+     * This function Handel the Image Picker Result
+     * The image will be store in the Firebase Storage.
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Uri resultUri = data.getData();
+        //Change the view to the new image
+        profile_IMG_user.setImageURI(resultUri);
+        fireStorage.uploadImgToStorage(resultUri, currentUser.getUid(), Keys.KEY_PROFILE_PICTURES, this);
+
+    }
+
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+        } else {
+            // Behaves like you would have pressed the home-button
+            moveTaskToBack(true);
+//            this.finish();
+        }
     }
 
     @Override

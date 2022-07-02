@@ -63,6 +63,7 @@
         android:elevation="7dp"
         android:scaleType="centerCrop"
         app:shapeAppearanceOverlay="@style/specific_rounded_corner"
-        app:srcCompat="@drawable/img_profile" />
+        app:srcCompat="@drawable/img_profile"
+        />
 
 </RelativeLayout>

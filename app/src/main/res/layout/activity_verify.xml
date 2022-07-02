@@ -73,7 +73,7 @@
             <EditText
                 android:id="@+id/verify_EDT_code1"
                 android:layout_width="40dp"
-                android:layout_height="45dp"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:imeOptions="actionNext"
                 android:importantForAutofill="no"
@@ -87,7 +87,7 @@
             <EditText
                 android:id="@+id/verify_EDT_code2"
                 android:layout_width="40dp"
-                android:layout_height="45dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:gravity="center"
                 android:imeOptions="actionNext"
@@ -102,7 +102,7 @@
             <EditText
                 android:id="@+id/verify_EDT_code3"
                 android:layout_width="40dp"
-                android:layout_height="45dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:gravity="center"
                 android:imeOptions="actionNext"
@@ -117,7 +117,7 @@
             <EditText
                 android:id="@+id/verify_EDT_code4"
                 android:layout_width="40dp"
-                android:layout_height="45dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:gravity="center"
                 android:imeOptions="actionNext"
@@ -132,7 +132,7 @@
             <EditText
                 android:id="@+id/verify_EDT_code5"
                 android:layout_width="40dp"
-                android:layout_height="45dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:gravity="center"
                 android:imeOptions="actionNext"
@@ -147,7 +147,7 @@
             <EditText
                 android:id="@+id/verify_EDT_code6"
                 android:layout_width="40dp"
-                android:layout_height="45dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:gravity="center"
                 android:imeOptions="actionDone"

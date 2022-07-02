@@ -24,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Locale;
 import java.util.Map;
 
 public class RecipeActivity extends AppCompatActivity {
@@ -89,9 +90,9 @@ public class RecipeActivity extends AppCompatActivity {
         ArrayList<Ingredient> listOfValues= new ArrayList<>(values);       
         for (int i =0; i< listOfValues.size();i++){
             Ingredient temp = listOfValues.get(i);
-            buffer.append(temp.getNameIngredient() +"-\n Amount: ") ;
+            buffer.append(temp.getNameIngredient() +"-\nAmount: ") ;
             buffer.append(temp.getAmount() + ", Unit Of Measure: ") ;
-            buffer.append(temp.getUnitOfMeasure()+"\n" );
+            buffer.append(temp.getUnitOfMeasure().toString().toLowerCase(Locale.ROOT)+"\n" );
         }
         ingredients_txt.setText(buffer.toString().replace("\\n","\n"));
 

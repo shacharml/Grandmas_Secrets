@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp"
+    android:gravity="center"
     >
 <com.google.android.material.card.MaterialCardView
     android:id="@+id/card"
     android:layout_width="match_parent"
-    android:layout_height="75dp"
+    android:layout_height="wrap_content"
     android:backgroundTint="@color/white"
     android:elevation="7dp"
     app:cardCornerRadius="18dp"
@@ -21,7 +22,7 @@
     <!--  Background picture -->
     <com.google.android.material.imageview.ShapeableImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="80dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         app:shapeAppearanceOverlay="@style/roundedImageView"
@@ -37,7 +38,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="6dp"
             android:orientation="horizontal">
 
@@ -49,12 +50,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="Ingredients Name"
-                android:textColorHint="#C930275C"
+                app:hintTextAppearance="@style/TextAppearance.Material3.LabelSmall"
+                android:textColorHint="@color/dark_parpel"
                 app:boxCornerRadiusBottomEnd="15dp"
                 app:boxCornerRadiusBottomStart="15dp"
                 app:boxCornerRadiusTopEnd="15dp"
                 app:boxCornerRadiusTopStart="15dp"
-                app:boxStrokeColor="#C930275C"
+                app:boxStrokeColor="@color/dark_parpel"
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -64,7 +66,7 @@
                     android:fontFamily="@font/gafata"
                     android:inputType="text"
                     android:textColor="@color/dark_parpel"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -73,7 +75,7 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
-                android:layout_gravity="bottom"
+                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="6dp"
                 android:background="@drawable/shape_rounded_stroke"
                 android:gravity="center"
@@ -104,7 +106,7 @@
                     android:maxLines="1"
                     android:text="00.00"
                     android:textColor="#30275C"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/ingredients_card_BTN_plus"
