@@ -58,7 +58,8 @@ public class CreateGroupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_group);
-
+        tempGroup = new Group("","",dataManager.getCurrentUser().getUid());
+        dataManager.setCurrentIdGroup(tempGroup.getIdGroup());
         findViews();
         //Init fireStorage
         fireStorage = FireStorage.getInstance();
@@ -175,7 +176,6 @@ public class CreateGroupActivity extends AppCompatActivity {
     private void createNewGroup() {
 
         //Temp Group Creation
-        tempGroup = new Group("","",dataManager.getCurrentUser().getUid());
         tempGroup.setGroupCreator(dataManager.getCurrentUser().getUid());
         tempGroup.getUsersIds().put(dataManager.getCurrentUser().getUid(),true);
         //current Group save on data manager and creator (IDS)
@@ -239,19 +239,10 @@ public class CreateGroupActivity extends AppCompatActivity {
                  * this layout will close and get back ro Main layout
                  * and see the new group there
                  */
-
                 finish();
-//                //Move to the Next Activity in the application
-//                nextActivity();
-
             }
         });
-
-
-
     }
-
-
 
     // TODO: 29/06/2022 Change next activity if needed
     private void nextActivity() {

@@ -58,8 +58,6 @@ public class GroupListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         currentActivity = getActivity();
-
-
     }
 
     @Override
@@ -239,6 +237,4 @@ public class GroupListFragment extends Fragment {
             }
         });
     }
-
-
 }

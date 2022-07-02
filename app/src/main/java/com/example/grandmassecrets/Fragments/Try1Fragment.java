@@ -1,6 +1,7 @@
 package com.example.grandmassecrets.Fragments;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,16 +11,21 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.example.grandmassecrets.Activities.CreateGroupActivity;
 import com.example.grandmassecrets.Constants.Keys;
 import com.example.grandmassecrets.Firebase.DataManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.grandmassecrets.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.database.ChildEventListener;
@@ -41,6 +47,9 @@ public class Try1Fragment extends Fragment {
     private DataManager dataManager = DataManager.getInstance();
     private DatabaseReference userGroupsRef,GroupRef;
 
+    private FloatingActionButton main_FAB_fab;
+    private MaterialToolbar main_TOB_up;
+
     public Try1Fragment() {
         // Required empty public constructor
     }
@@ -53,6 +62,10 @@ public class Try1Fragment extends Fragment {
 
         listRecycler = view.findViewById(R.id.listRecycler);
         listRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        main_FAB_fab = getActivity().findViewById(R.id.main_FAB_fab);
+        main_TOB_up = getActivity().findViewById(R.id.main_TOB_up);
+        main_TOB_up.setTitle("All Groups");
 
         userGroupsRef = dataManager.usersListReference().child(dataManager.getCurrentUser().getUid()).child(Keys.KEY_USER_GROUPS_IDS);
         GroupRef = dataManager.groupsListReference();
@@ -94,6 +107,18 @@ public class Try1Fragment extends Fragment {
     public void onStart() {
         super.onStart();
 
+        main_FAB_fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Add Group to Group Lists", Toast.LENGTH_LONG).show();
+                /**
+                 * Open Create new Group activity
+                 */
+                startActivity(new Intent(getContext(), CreateGroupActivity.class));
+            }
+        });
+
+
         FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<String>()
                 .setQuery(userGroupsRef,String.class)
                 .build();
@@ -115,7 +140,8 @@ public class Try1Fragment extends Fragment {
 
                                holder.group_TXV_group_name.setText(name);
                                holder.group_TXV_subtitle_description.setText(des);
-                               Glide.with(getActivity()).load(img).into(holder.group_IMG_img_ltr);
+                               Glide.with(getContext()).load(img)
+                                       .into(holder.group_IMG_img_ltr);
 
                                holder.itemView.setOnClickListener(new View.OnClickListener() {
                                    @Override
@@ -124,16 +150,10 @@ public class Try1Fragment extends Fragment {
                                        dataManager.setCurrentIdGroup(groupIDs);
                                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_FRG_container,new RecipeListFragment())
                                                .addToBackStack(null).commit();
-//                                       intent.putExtra("Group_id", groupIDs);
-//                                       intent.putExtra("Group_name", name);
-//                                       startActivity(intent);
 
                                    }
                                });
-
                            }
-
-
                         }
 
                     @Override

@@ -3,6 +3,7 @@ package com.example.grandmassecrets.Activities;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.grandmassecrets.Firebase.DataManager;
 import com.example.grandmassecrets.Firebase.FireStorage;
 import com.example.grandmassecrets.Fragments.GroupListFragment;
@@ -33,7 +35,12 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity<FirebaseFirestore> extends AppCompatActivity {
 
@@ -101,9 +108,25 @@ public class MainActivity<FirebaseFirestore> extends AppCompatActivity {
     }
 
     private void initUserProfileSide() {
-        User user = dataManager.getCurrentUser();
-        Glide.with(this).load(user.getImg()).into(profile_IMG_user);
-        profile_TXT_username.setText(user.getFirstName()+" "+user.getLastName());
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference myRef = dataManager.usersListReference().child(user.getUid());
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = dataManager.getCurrentUser();
+                Glide.with(MainActivity.this).load(user.getImg()).apply(RequestOptions.circleCropTransform()).into(profile_IMG_user);
+                profile_TXT_username.setText(user.getFirstName()+" "+user.getLastName());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
     }
 
     private void initButtons() {
@@ -153,11 +176,13 @@ public class MainActivity<FirebaseFirestore> extends AppCompatActivity {
                     case R.id.menu_ITM_itm1:
                         //Open Side menu - Clicked Profile
                         drawer_layout.openDrawer(drawer_layout.getForegroundGravity());
-                        Toast.makeText(MainActivity.this, "open drawer Profile", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(MainActivity.this, "open drawer Profile", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.menu_ITM_itm4:
                         //Click Groups
 //                       fragment = new GroupListFragment();
+                        Toast.makeText(MainActivity.this, "maybe on the future", Toast.LENGTH_SHORT).show();
+
 //                        getSupportFragmentManager().beginTransaction().replace(R.id.main_FRG_container, new GroupListFragment()).commit();
                         bottom_nav_menu.getMenu().getItem(3).setEnabled(true);
                         break;
@@ -214,6 +239,11 @@ public class MainActivity<FirebaseFirestore> extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override

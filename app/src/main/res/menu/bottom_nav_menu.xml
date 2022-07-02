@@ -31,7 +31,7 @@
     <item
         android:id="@+id/menu_ITM_itm4"
         android:icon="@drawable/ic_groups"
-        android:title="OP2"
+        android:title="CHAT"
         />
 
 </menu>

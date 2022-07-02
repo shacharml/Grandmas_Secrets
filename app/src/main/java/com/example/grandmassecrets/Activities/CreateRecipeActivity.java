@@ -9,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -223,53 +224,6 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
         //Change the view to the new image
         create_recipe_IMG_dish.setImageURI(resultUri);
         fireStorage.uploadImgToStorage(resultUri, dataManager.getCurrentUser().getUid(), Keys.KEY_PROFILE_PICTURES, this);
-
-        /*
-        //View Indicates the process of the image uploading by Disabling the button
-        sign_up_BTN_sign.setEnabled(false);
-
-        //Get URI Data and show the image on the ImageView
-        Uri uri = data.getData();
-        sign_up_IMG_profile.setImageURI(uri);
-
-
-        //Reference to where image will store in Storage
-        // the UID in the images profiles
-        StorageReference userRef = dataManager.getStorage()
-                .getReference()
-                .child(Keys.KEY_PROFILE_PICTURES)
-                .child(dataManager.getFirebaseAuth().getCurrentUser().getUid());
-
-        //Get the data from an ImageView as bytes
-        sign_up_IMG_profile.setDrawingCacheEnabled(true);
-        sign_up_IMG_profile.buildDrawingCache();
-        Bitmap bitmap = ((BitmapDrawable) sign_up_IMG_profile.getDrawable()).getBitmap();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] bytes = baos.toByteArray();
-
-        //Start The upload task
-        UploadTask uploadTask = userRef.putBytes(bytes);
-        uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                if (task.isSuccessful()) {
-                    //If upload was successful, We want to get the image url from the storage
-                    userRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            //Set the profile URL to the object we created
-                            uriImg = uri.toString();
-
-
-                            //View Indicates the process of the image uploading Done by making the button Enabled
-                            sign_up_BTN_sign.setEnabled(true);
-                        }
-                    });
-                }
-            }
-        });
-*/
     }
 
     /**
@@ -351,10 +305,6 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
                         finish();
                     }
                 });
-        //Move to the Next Activity in the application
-//        finish();
-//        nextActivity();
-
     }
 
     // TODO: 29/06/2022 Change next activity if needed
@@ -459,7 +409,7 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
             }
         });
 
-        create_recipe_LAY_ingredients_list.addView(ingredientCard);
+        ((LinearLayoutCompat)create_recipe_LAY_ingredients_list).addView(ingredientCard);
     }
 
     private void removeView(View view) {

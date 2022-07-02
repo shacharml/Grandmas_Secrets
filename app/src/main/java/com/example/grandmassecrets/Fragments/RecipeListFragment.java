@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.grandmassecrets.Activities.CreateGroupActivity;
 import com.example.grandmassecrets.Activities.CreateRecipeActivity;
 import com.example.grandmassecrets.Activities.RecipeActivity;
@@ -52,7 +53,6 @@ public class RecipeListFragment extends Fragment {
 
     private DataManager dataManager = DataManager.getInstance();
     private DatabaseReference groupRecipesRef,recipeRef;
-//    private RecipeAdapter adapter;
 
     private FloatingActionButton main_FAB_fab;
     private MaterialToolbar main_TOB_up;
@@ -145,12 +145,11 @@ public class RecipeListFragment extends Fragment {
                             Log.d("ppp",name+des+img);
                             holder.recipe_item_LBL_title.setText(name);
                             holder.recipe_item_LBL_sub_title.setText(des);
-                            Glide.with(getContext()).load(img).into(holder.recipe_item_IMG_img);
 
-//                            GenericTypeIndicator<NutritionFacts> t = new GenericTypeIndicator<NutritionFacts>() {};
-//                            ArrayList<NutritionFacts> nutFactsRecipe  = snapshot.child(Keys.KEY_RECIPE_FACTS_LIST).getValue()
-//                                    = recipe.getNutritionFacts().values().stream().collect(Collectors.toCollection(ArrayList::new));
-                            //get the Images of the nutrition facts (not from data Storage
+                            Glide.with(getContext()).load(img)
+                                    .apply(RequestOptions.circleCropTransform())
+                                    .into(holder.recipe_item_IMG_img);
+
                             HashMap<String, Objects> nutFactsRecipe = (HashMap<String, Objects>) snapshot.child(Keys.KEY_RECIPE_FACTS_LIST).getValue();
                             Collection<String> n = nutFactsRecipe.keySet();
                             ArrayList<String> names = new ArrayList<>(n);
@@ -178,8 +177,6 @@ public class RecipeListFragment extends Fragment {
                                         break;
                                 }
                             }
-
-
 
                             holder.itemView.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -241,6 +238,7 @@ public class RecipeListFragment extends Fragment {
             nutrition_IMG_nut4 = itemView.findViewById(R.id.nutrition_IMG_nut4);
             nutrition_IMG_nut5 = itemView.findViewById(R.id.nutrition_IMG_nut5);
 
+//            itemView.setVisibility(View.INVISIBLE);
         }
     }
 

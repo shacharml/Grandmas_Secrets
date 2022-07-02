@@ -12,16 +12,16 @@
         android:layout_width="match_parent"
         android:layout_height="110dp"
         android:layout_marginTop="24dp"
-        android:elevation="8dp"
-        app:cardElevation="8dp"
+        android:elevation="5dp"
+        app:cardElevation="5dp"
+        android:backgroundTint="@color/my_off_white"
         app:cardCornerRadius="15dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/my_off_white"
-            android:padding="10dp"
-            >
+
+            android:padding="10dp">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/group_TXV_group_name_list"
@@ -49,33 +49,20 @@
                 android:textStyle="bold" />
 
 
-
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/group_IMG_rounded_corner_background_ltr"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:layout_alignEnd="@id/card1"
-        android:layout_marginTop="9dp"
-        android:layout_marginEnd="9dp"
-        android:elevation="8dp"
-        android:scaleType="centerCrop"
-        app:shapeAppearanceOverlay="@style/specific_rounded_corner"
-        app:srcCompat="@color/white" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/group_IMG_img_ltr"
         android:layout_width="120dp"
         android:layout_height="120dp"
+        android:layout_alignEnd="@id/card1"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="18dp"
+        android:elevation="7dp"
         android:scaleType="centerCrop"
         app:shapeAppearanceOverlay="@style/specific_rounded_corner"
-        app:srcCompat="@drawable/img_profile"
-        android:elevation="8dp"
-        android:layout_alignEnd="@id/card1"
-        android:layout_marginEnd="18dp"
-        android:layout_marginTop="18dp"
-        />
+        app:srcCompat="@drawable/img_profile" />
 
 </RelativeLayout>

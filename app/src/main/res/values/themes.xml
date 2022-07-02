@@ -19,6 +19,12 @@
         <item name="cornerFamilyBottomRight">rounded</item>
     </style>
 
+    <!--  Specific image Corner-->
+    <style name="roundedImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">18dp</item>
+    </style>
+
     <!--  Specific Rounded Corner-->
     <style name="half_rounded_corner">
         <item name="cornerSizeTopLeft">50%</item>
