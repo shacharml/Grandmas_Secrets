@@ -62,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/transparent_background"
+                android:background="@drawable/background_transparent"
                 app:menu="@menu/bottom_nav_menu"
                 />
 
@@ -75,6 +75,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/light_pink"
             android:src="@drawable/ic_add"
+            app:borderWidth="0dp"
             app:layout_anchor="@id/main_BAP_bottom_app_bar"
             app:maxImageSize="33dp" />
 

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/wave_haikei_1"
+    android:background="@drawable/img_background_recipe"
     tools:context=".Activities.RecipeActivity">
 
     <com.google.android.material.imageview.ShapeableImageView
@@ -20,7 +20,7 @@
         android:elevation="2dp"
         android:scaleType="centerCrop"
         app:shapeAppearanceOverlay="@style/half_rounded_corner"
-        app:srcCompat="@drawable/food_dish" />
+        app:srcCompat="@drawable/img_dish" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/back_BTN"

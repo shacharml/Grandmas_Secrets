@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/wave_haikei_1"
+    android:background="@drawable/img_background_recipe"
     tools:context=".Activities.CreateRecipeActivity">
 
     <ScrollView
@@ -36,7 +36,7 @@
                     android:elevation="2dp"
                     android:scaleType="centerCrop"
                     app:shapeAppearanceOverlay="@style/half_rounded_corner"
-                    app:srcCompat="@drawable/food_dish" />
+                    app:srcCompat="@drawable/img_dish" />
 
                 <ImageButton
                     android:id="@+id/create_recipe_BTN_edit"

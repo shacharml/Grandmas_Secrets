@@ -20,6 +20,9 @@
         android:theme="@style/Theme.GrandmasSecrets"
         tools:targetApi="31">
         <activity
+            android:name=".Activities.ShareContactsActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activities.RecipeActivity"
             android:exported="false" />
         <activity
@@ -27,18 +30,16 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".Activities.CreateRecipeActivity"
-            android:exported="false"
-             />
+            android:exported="false" />
         <activity
             android:name=".Activities.CreateGroupActivity"
-            android:exported="false"
-
-            />
+            android:exported="false" />
         <activity
             android:name=".Activities.SignUpActivity"
             android:exported="false" />

@@ -11,10 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.grandmassecrets.Activities.CreateGroupActivity;
+import com.example.grandmassecrets.Activities.ShareContactsActivity;
 import com.example.grandmassecrets.Constants.Keys;
 import com.example.grandmassecrets.Firebase.DataManager;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -58,7 +60,9 @@ public class Try1Fragment extends Fragment {
 
         main_FAB_fab = getActivity().findViewById(R.id.main_FAB_fab);
         main_TOB_up = getActivity().findViewById(R.id.main_TOB_up);
-        main_TOB_up.setTitle("All Groups");
+        main_TOB_up.setTitle("My Groups");
+        main_TOB_up.getMenu().getItem(0).setVisible(false);
+
 
         userGroupsRef = dataManager.usersListReference().child(dataManager.getCurrentUser().getUid()).child(Keys.KEY_USER_GROUPS_IDS);
         GroupRef = dataManager.groupsListReference();

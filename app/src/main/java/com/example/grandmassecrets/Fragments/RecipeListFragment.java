@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.grandmassecrets.Activities.CreateGroupActivity;
 import com.example.grandmassecrets.Activities.CreateRecipeActivity;
 import com.example.grandmassecrets.Activities.RecipeActivity;
+import com.example.grandmassecrets.Activities.ShareContactsActivity;
 import com.example.grandmassecrets.Adapters.RecipeAdapter;
 import com.example.grandmassecrets.Constants.Keys;
 import com.example.grandmassecrets.Firebase.DataManager;
@@ -69,7 +71,15 @@ public class RecipeListFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_recip_list, container, false);
         main_FAB_fab = getActivity().findViewById(R.id.main_FAB_fab);
         main_TOB_up = getActivity().findViewById(R.id.main_TOB_up);
-        main_TOB_up.setTitle("All The Recipes");
+        main_TOB_up.setTitle("Group Recipes");
+        main_TOB_up.getMenu().getItem(0).setVisible(true).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Intent intent = new Intent(getContext(), ShareContactsActivity.class);
+                startActivity(intent);
+                return false;
+            }
+        });
 
         /**
          * Add button clicked = Move to add new Group activity

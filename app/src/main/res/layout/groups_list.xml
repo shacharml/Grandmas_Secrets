@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="155dp"
-            android:background="@drawable/vie_bg">
+            android:background="@drawable/background_creat_group">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/fragment_RECYC_items"

@@ -40,7 +40,7 @@
             android:layout_height="match_parent"
             android:layout_below="@id/create_group_TXV_title"
             android:layout_marginTop="30dp"
-            android:background="@drawable/vie_bg">
+            android:background="@drawable/background_creat_group">
 
     <!--        The photo and FloatingActionButton-->
             <FrameLayout
