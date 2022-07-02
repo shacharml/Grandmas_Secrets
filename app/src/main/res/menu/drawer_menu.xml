@@ -16,5 +16,10 @@
             android:id="@+id/item_log_out"
             android:icon="@drawable/ic_logout"
             android:title="Logout" />
+
+        <item
+            android:id="@+id/item_information"
+            android:icon="@drawable/ic_information"
+            android:title="Information" />
     </group>
 </menu>

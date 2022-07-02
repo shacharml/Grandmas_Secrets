@@ -69,7 +69,8 @@ public class RecipeListFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_recip_list, container, false);
         main_FAB_fab = getActivity().findViewById(R.id.main_FAB_fab);
         main_TOB_up = getActivity().findViewById(R.id.main_TOB_up);
-        main_TOB_up.setTitle("All Recipes");
+        main_TOB_up.setTitle("All The Recipes");
+
         /**
          * Add button clicked = Move to add new Group activity
          * this activity wont close
