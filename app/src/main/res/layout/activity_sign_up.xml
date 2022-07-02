@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="200dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_logout" />
+        android:src="@drawable/food_dish" />
 
     <RelativeLayout
         android:id="@+id/sign_up_RLY_cont_layout"
