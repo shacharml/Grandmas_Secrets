@@ -14,14 +14,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentContainerView;
-import androidx.fragment.app.FragmentManager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.grandmassecrets.Constants.Keys;
 import com.example.grandmassecrets.Firebase.DataManager;
 import com.example.grandmassecrets.Firebase.FireStorage;
-import com.example.grandmassecrets.Fragments.Try1Fragment;
+import com.example.grandmassecrets.Fragments.GroupListFragment;
 import com.example.grandmassecrets.Listeners.CallBack_ImageUpload;
 import com.example.grandmassecrets.Objects.User;
 import com.example.grandmassecrets.R;
@@ -42,7 +41,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity<FirebaseFirestore> extends AppCompatActivity {
@@ -87,7 +85,7 @@ public class MainActivity<FirebaseFirestore> extends AppCompatActivity {
         //Init fireStorage
         fireStorage = FireStorage.getInstance();
         fireStorage.setCallBack_imageUpload(callBack_Image_upload);
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_FRG_container, new Try1Fragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_FRG_container, new GroupListFragment()).commit();
 //        getSupportFragmentManager().beginTransaction().replace(R.id.main_FRG_container, new GroupListFragment()).commit();
         initButtons();
 

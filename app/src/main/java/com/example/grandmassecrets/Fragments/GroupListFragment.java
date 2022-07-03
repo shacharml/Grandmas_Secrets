@@ -36,7 +36,7 @@ public class GroupListFragment extends Fragment {
 
     private DataManager dataManager = DataManager.getInstance();
     private DatabaseReference userGroupsRef,GroupRef;
-
+    private GroupAdapter adapter;
     private FloatingActionButton main_FAB_fab;
     private MaterialToolbar main_TOB_up;
 
@@ -52,6 +52,8 @@ public class GroupListFragment extends Fragment {
 
         listRecycler = view.findViewById(R.id.listRecycler);
         listRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
 
         main_FAB_fab = getActivity().findViewById(R.id.main_FAB_fab);
         main_TOB_up = getActivity().findViewById(R.id.main_TOB_up);
@@ -107,15 +109,19 @@ public class GroupListFragment extends Fragment {
                 startActivity(new Intent(getContext(), CreateGroupActivity.class));
             }
         });
-
-
+//Adapter init
         FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<String>()
                 .setQuery(userGroupsRef,String.class)
                 .build();
-
-        GroupAdapter adapter = new GroupAdapter(options,this.getContext());
+        adapter = new GroupAdapter(options,this.getContext());
         listRecycler.setAdapter(adapter);
         adapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
     }
 
     public void setOnItemClickListener(OnItemClickListener clickListener){

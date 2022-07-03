@@ -2,50 +2,30 @@ package com.example.grandmassecrets.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.example.grandmassecrets.Activities.CreateGroupActivity;
 import com.example.grandmassecrets.Activities.CreateRecipeActivity;
-import com.example.grandmassecrets.Activities.RecipeActivity;
 import com.example.grandmassecrets.Activities.ShareContactsActivity;
 import com.example.grandmassecrets.Adapters.RecipeAdapter;
 import com.example.grandmassecrets.Constants.Keys;
 import com.example.grandmassecrets.Firebase.DataManager;
-import com.example.grandmassecrets.Objects.NutritionFacts;
 import com.example.grandmassecrets.R;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.imageview.ShapeableImageView;
-import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.GenericTypeIndicator;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 
 public class RecipeListFragment extends Fragment {
@@ -54,8 +34,8 @@ public class RecipeListFragment extends Fragment {
     private RecyclerView listRecycler;
 
     private DataManager dataManager = DataManager.getInstance();
-    private DatabaseReference groupRecipesRef,recipeRef;
-
+    private DatabaseReference groupRecipesRef, recipeRef;
+    private RecipeAdapter adapter;
     private FloatingActionButton main_FAB_fab;
     private MaterialToolbar main_TOB_up;
 
@@ -95,9 +75,8 @@ public class RecipeListFragment extends Fragment {
             }
         });
 
-
         listRecycler = view.findViewById(R.id.recipe_list);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2,GridLayoutManager.VERTICAL,false);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
         listRecycler.setLayoutManager(gridLayoutManager);
 
         groupRecipesRef = dataManager.groupsListReference().child(dataManager.getCurrentIdGroup()).child(Keys.KEY_GROUP_RECIPES_LIST);
@@ -135,12 +114,18 @@ public class RecipeListFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        //init Adapter
         FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<String>()
-                .setQuery(groupRecipesRef,String.class)
+                .setQuery(groupRecipesRef, String.class)
                 .build();
-
-        RecipeAdapter adapter = new RecipeAdapter(options,this.getContext());
+        adapter = new RecipeAdapter(options, this.getContext());
         listRecycler.setAdapter(adapter);
         adapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
     }
 }
