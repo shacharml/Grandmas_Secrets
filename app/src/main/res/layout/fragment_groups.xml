@@ -4,14 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_pink"
     tools:context=".Fragments.GroupListFragment">
 
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/groups_fragment_RECYC_all_groups"
+        android:id="@+id/listRecycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="20dp"
-        android:clipToPadding="false"
-        android:paddingBottom="60dp" />
+        android:layout_height="match_parent" />
 </RelativeLayout>

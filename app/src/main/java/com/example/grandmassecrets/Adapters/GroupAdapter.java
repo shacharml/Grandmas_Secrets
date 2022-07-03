@@ -1,99 +1,127 @@
 package com.example.grandmassecrets.Adapters;
 
-import android.app.Activity;
-import android.util.Log;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.grandmassecrets.Objects.Group;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
+import com.example.grandmassecrets.Constants.Keys;
+import com.example.grandmassecrets.Firebase.DataManager;
+import com.example.grandmassecrets.Fragments.RecipeListFragment;
 import com.example.grandmassecrets.R;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textview.MaterialTextView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
+public class GroupAdapter extends FirebaseRecyclerAdapter<String, GroupAdapter.GroupHolder> {
 
-public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private DataManager dataManager = DataManager.getInstance();
+    private DatabaseReference GroupRef = dataManager.groupsListReference();
+    private Context context;
 
-    private Activity activity;
-    //    private HashMap<String,Group> Groups = new HashMap<>();
-    private ArrayList<Group> groups = new ArrayList<>();
-    private CallBack_GroupClicked listener;
-    //Constructor
-    public GroupAdapter(Activity activity, ArrayList<Group> Groups) {
-        this.activity = activity;
-        this.groups = Groups;
+    /**
+     * Initialize Group Adapter
+     * @param options
+     * @param context
+     */
+    public GroupAdapter(@NonNull FirebaseRecyclerOptions<String> options, Context context) {
+        super(options);
+        this.context = context;
     }
 
-    public GroupAdapter setListener(CallBack_GroupClicked listener) {
-        this.listener = listener;
-        return this;
+    @Override
+    protected void onBindViewHolder(@NonNull GroupHolder holder, int position, @NonNull String model) {
+        String groupIDs = getRef(position).getKey();
+        GroupRef.child(groupIDs).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (snapshot.exists()) {
+                    String name = snapshot.child(Keys.KEY_GROUP_NAME).getValue(String.class);
+                    String des = snapshot.child(Keys.KEY_GROUP_DESCRIPTION).getValue(String.class);
+                    String img = snapshot.child(Keys.KEY_GROUP_IMG).getValue(String.class);
+
+                    Glide.with(context)
+                            .load(img)
+                            .listener(new RequestListener<Drawable>() {
+                                @Override
+                                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                                    holder.group_TXV_group_name.setText(name);
+                                    holder.group_TXV_subtitle_description.setText(des);
+                                    holder.group_IMG_img_ltr.setImageResource(R.drawable.ic_image_error);
+                                    return false;
+                                }
+
+                                @Override
+                                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                    holder.group_TXV_group_name.setText(name);
+                                    holder.group_TXV_subtitle_description.setText(des);
+                                    return false;
+                                }
+                            })
+                            .error(R.drawable.ic_image_error)
+                            .override(200, 200)
+                            .into(holder.group_IMG_img_ltr);
+
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dataManager.setCurrentIdGroup(groupIDs);
+                            ((FragmentActivity) context).getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .addToBackStack("groups fragment")
+                                    .replace(R.id.main_FRG_container, new RecipeListFragment())
+                                    .commit();
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public GroupHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.group_card_ltr, parent, false);
-        return new GroupHolder(view);
+        GroupHolder holder = new GroupHolder(view);
+
+        return holder;
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
 
-        GroupHolder holder = (GroupHolder) viewHolder;
-        //get the Group in the specific position
-        Group group = getGroup(position);
-        Log.d("pttt", "group- " + group.toString());
-        //Update the ui
-        holder.group_TXV_group_name.setText(group.getName());
-        holder.group_TXV_subtitle_description.setText(group.getDescription());
-
-        // Get the image of the Group dish from Data Storage WIth Glide
-        // TODO: 29/06/2022 Check if glide work with thr uri/l image
-        Glide.with(activity).load(group.getImgGroup()).into(holder.group_IMG_img_ltr);
-
-//                Check if don't work otherwise
-//                int resourceId = activity.getResources().getIdentifier(Group.getImage(), "drawable", activity.getPackageName());
-//                holder.Group_IMG_image.setImageResource(resourceId);
-    }
-
-    @Override
-    public int getItemCount() {
-        return groups.size();
-    }
-
-    // Get the Group in the specific position
-    public Group getGroup(int position) {
-        return groups.get(position);
-    }
-
-    public interface CallBack_GroupClicked {
-        void GroupClicked(Group Group, int position);
-    }
-
-    // External class - HOLDER
-    private class GroupHolder extends RecyclerView.ViewHolder {
+    public static class GroupHolder extends RecyclerView.ViewHolder {
 
         public ShapeableImageView group_IMG_img_ltr;
         public MaterialTextView group_TXV_group_name;
         public MaterialTextView group_TXV_subtitle_description;
 
-        public GroupHolder(View itemView) {
+        public GroupHolder(@NonNull View itemView) {
             super(itemView);
             this.group_IMG_img_ltr = itemView.findViewById(R.id.group_IMG_img_ltr);
             this.group_TXV_group_name = itemView.findViewById(R.id.group_TXV_group_name_list);
             this.group_TXV_subtitle_description = itemView.findViewById(R.id.group_TXV_subtitle_description_list);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    listener.GroupClicked(getGroup(getAdapterPosition()), getAdapterPosition());
-                }
-            });
         }
     }
+
 }
