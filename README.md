@@ -1,7 +1,9 @@
 # Grandmas_Secrets
 Android Share Recipes Application
 
-
+ <p align="center">
+<img src="https://firebasestorage.googleapis.com/v0/b/grandma-s-secrets.appspot.com/o/Screens%2Flarg.png?alt=media&token=9efb0ef5-d19c-4843-9352-2b1a3d93a85d" width="500" height="500" />
+</p>
 
 
 ## :iphone: Screenshots
@@ -26,3 +28,18 @@ Android Share Recipes Application
 >|Profile  |
 >|--|
 >|<img src="https://firebasestorage.googleapis.com/v0/b/grandma-s-secrets.appspot.com/o/Screens%2FProfile.png?alt=media&token=b0b97407-52fd-4910-a4d1-956eb894c81c" width="250" height="500" border="10"/>|
+>
+>## 	:hammer_and_wrench: Built Using:
+>- Android Studio
+>- Google Firebase
+>    - **Database:**  Realtime Firebase
+>    - **Storage:** Firebase Cloud Storage
+>    - **Authentication:** Firebase Auth Using Phone Number 
+## Credits:
+>- [Glide - bumptech](https://github.com/bumptech/glide)
+>- [ImagePicker - dhaval2404](https://github.com/Dhaval2404/ImagePicker)
+>- [Lottie-Android - airbnb](https://github.com/airbnb/lottie-android)
+>- [Icons - Flat Icons](www.flaticon.com)
+>- [Icons - icons8](https://icons8.com/)
+>- [Logo and Splash edit in - Vista Create ](https://create.vista.com/home/)
+>- [Splash Videos - Pexels ](https://www.pexels.com/)
