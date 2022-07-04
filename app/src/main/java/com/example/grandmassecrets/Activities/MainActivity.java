@@ -124,7 +124,10 @@ public class MainActivity<FirebaseFirestore> extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = currentUser;
-                Glide.with(MainActivity.this).load(user.getImg()).apply(RequestOptions.circleCropTransform()).into(profile_IMG_user);
+                Glide.with(MainActivity.this)
+                        .load(user.getImg())
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(profile_IMG_user);
                 profile_TXT_username.setText(user.getFirstName()+" "+user.getLastName());
             }
 

@@ -111,18 +111,18 @@ public class DataManager {
      * GET REFERENCES
      */
     public DatabaseReference usersListReference(){
-        return realTimeDB.getReference(Keys.KEY_USERS);
+        return realTimeDB.getReference().child(Keys.KEY_USERS);
     }
 
     public DatabaseReference groupsListReference(){
-        return realTimeDB.getReference(Keys.KEY_GROUPS);
+        return realTimeDB.getReference().child(Keys.KEY_GROUPS);
     }
     public DatabaseReference recipessListReference(){
-        return realTimeDB.getReference(Keys.KEY_RECIPES);
+        return realTimeDB.getReference().child(Keys.KEY_RECIPES);
     }
 
     public DatabaseReference recipesListReference(){
-        return realTimeDB.getReference(Keys.KEY_RECIPES);
+        return realTimeDB.getReference().child(Keys.KEY_RECIPES);
     }
     /**
      * READ FUNCTIONS
@@ -141,6 +141,7 @@ public class DataManager {
                 if (dataSnapshot.exists()){
                     User u = dataSnapshot.getValue(User.class);
                     setCurrentUser(u);
+                    Log.d("ptt","set: "+currentUser.toString());
                 }
                 else {
                     //don't have this user on DB
