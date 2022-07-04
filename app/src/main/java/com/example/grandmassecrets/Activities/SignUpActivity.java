@@ -123,6 +123,7 @@ public class SignUpActivity extends AppCompatActivity {
         DatabaseReference refPhone = dataManager.getRealTimeDB().getReference(Keys.KEY_PHONE_TO_UID).child(tempUser.getPhoneNumber());
         refPhone.setValue(tempUser.getUid());
 
+        dataManager.setCurrentUser(tempUser);
         //Move to the Next Activity in the application
         nextActivity();
 
@@ -154,54 +155,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         Uri resultUri = data.getData();
         sign_up_IMG_profile.setImageURI(resultUri);
-        fireStorage.uploadImgToStorage(resultUri,dataManager.getCurrentUser().getUid(),Keys.KEY_PROFILE_PICTURES,this);
-
-        /*
-        //View Indicates the process of the image uploading by Disabling the button
-        sign_up_BTN_sign.setEnabled(false);
-
-        //Get URI Data and show the image on the ImageView
-        Uri uri = data.getData();
-        sign_up_IMG_profile.setImageURI(uri);
-
-
-        //Reference to where image will store in Storage
-        // the UID in the images profiles
-        StorageReference userRef = dataManager.getStorage()
-                .getReference()
-                .child(Keys.KEY_PROFILE_PICTURES)
-                .child(dataManager.getFirebaseAuth().getCurrentUser().getUid());
-
-        //Get the data from an ImageView as bytes
-        sign_up_IMG_profile.setDrawingCacheEnabled(true);
-        sign_up_IMG_profile.buildDrawingCache();
-        Bitmap bitmap = ((BitmapDrawable) sign_up_IMG_profile.getDrawable()).getBitmap();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] bytes = baos.toByteArray();
-
-        //Start The upload task
-        UploadTask uploadTask = userRef.putBytes(bytes);
-        uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                if (task.isSuccessful()) {
-                    //If upload was successful, We want to get the image url from the storage
-                    userRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            //Set the profile URL to the object we created
-                            uriImg = uri.toString();
-
-
-                            //View Indicates the process of the image uploading Done by making the button Enabled
-                            sign_up_BTN_sign.setEnabled(true);
-                        }
-                    });
-                }
-            }
-        });
-*/
+        fireStorage.uploadImgToStorage(resultUri,dataManager.getFirebaseAuth().getUid(), Keys.KEY_PROFILE_PICTURES,this);
     }
 
     CallBack_ImageUpload callBack_Image_upload =new CallBack_ImageUpload() {

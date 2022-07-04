@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.example.grandmassecrets.Constants.Keys;
 import com.example.grandmassecrets.Objects.User;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -24,6 +25,8 @@ public class DataManager {
     private final FirebaseAuth firebaseAuth;    // for the login with phone number
     private final FirebaseDatabase realTimeDB;  // for save objects data
     private final FirebaseStorage storage;      // for pictures and videos
+
+    boolean isEmpty = true;
 
     //Current Object helpers
     private User currentUser;
@@ -132,18 +135,16 @@ public class DataManager {
     public void currentUserChangeListener(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference myRef = usersListReference().child(user.getUid());
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User u = snapshot.getValue(User.class);
-                Log.d("manager", "data changed" + u.toString());
-                setCurrentUser(u);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                // calling on cancelled method when we receive
-                // any error or we are not able to get the data.
+            public void onSuccess(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    User u = dataSnapshot.getValue(User.class);
+                    setCurrentUser(u);
+                }
+                else {
+                    //don't have this user on DB
+                }
             }
         });
     }
@@ -157,4 +158,5 @@ public class DataManager {
         DatabaseReference myRef = usersListReference().child(currentUser.getUid());
         myRef.updateChildren(currentUser.toMap());
     }
+
 }

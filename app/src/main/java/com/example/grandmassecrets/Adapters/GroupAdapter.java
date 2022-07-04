@@ -22,6 +22,7 @@ import com.example.grandmassecrets.Fragments.RecipeListFragment;
 import com.example.grandmassecrets.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.database.DataSnapshot;
@@ -48,10 +49,9 @@ public class GroupAdapter extends FirebaseRecyclerAdapter<String, GroupAdapter.G
     @Override
     protected void onBindViewHolder(@NonNull GroupHolder holder, int position, @NonNull String model) {
         String groupIDs = getRef(position).getKey();
-        GroupRef.child(groupIDs).addValueEventListener(new ValueEventListener() {
+        GroupRef.child(groupIDs).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+            public void onSuccess(DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     String name = snapshot.child(Keys.KEY_GROUP_NAME).getValue(String.class);
                     String des = snapshot.child(Keys.KEY_GROUP_DESCRIPTION).getValue(String.class);
@@ -92,12 +92,9 @@ public class GroupAdapter extends FirebaseRecyclerAdapter<String, GroupAdapter.G
                     });
                 }
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
         });
+
+
     }
 
     @NonNull

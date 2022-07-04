@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -32,7 +33,7 @@ import java.util.HashMap;
 public class CreateGroupActivity extends AppCompatActivity {
 
     //Firebase
-    private final DataManager dataManager = DataManager.getInstance();
+    private DataManager dataManager = DataManager.getInstance();
     private FireStorage fireStorage;
 
     //Views
@@ -60,6 +61,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_group);
         tempGroup = new Group("","",dataManager.getCurrentUser().getUid());
         dataManager.setCurrentIdGroup(tempGroup.getIdGroup());
+        Log.d("creat Group:", dataManager.getCurrentIdGroup());
         findViews();
         //Init fireStorage
         fireStorage = FireStorage.getInstance();

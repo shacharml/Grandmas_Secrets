@@ -19,7 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.grandmassecrets.Listeners.OnItemClickListener;
 import com.example.grandmassecrets.R;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -61,7 +60,7 @@ public class GroupListFragment extends Fragment {
         main_TOB_up.getMenu().getItem(0).setVisible(false);
 
 
-        userGroupsRef = dataManager.usersListReference().child(dataManager.getCurrentUser().getUid()).child(Keys.KEY_USER_GROUPS_IDS);
+        userGroupsRef = dataManager.usersListReference().child(dataManager.getFirebaseAuth().getUid()).child(Keys.KEY_USER_GROUPS_IDS);
         GroupRef = dataManager.groupsListReference();
         GroupRef.addChildEventListener(new ChildEventListener() {
             @Override
@@ -124,8 +123,6 @@ public class GroupListFragment extends Fragment {
         adapter.stopListening();
     }
 
-    public void setOnItemClickListener(OnItemClickListener clickListener){
 
-    }
 
 }

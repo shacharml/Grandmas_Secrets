@@ -86,6 +86,9 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_create_recipe);
 
         findViews();
+
+        tempRecipe = new Recipe("");
+
         //Init fireStorage
         fireStorage = FireStorage.getInstance();
         fireStorage.setCallBack_imageUpload(callBack_Image_upload);
@@ -215,7 +218,7 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
         Uri resultUri = data.getData();
         //Change the view to the new image
         create_recipe_IMG_dish.setImageURI(resultUri);
-        fireStorage.uploadImgToStorage(resultUri, dataManager.getCurrentIdRecipe(), Keys.KEY_RECIPE_PICTURES, this);
+        fireStorage.uploadImgToStorage(resultUri, tempRecipe.getIdRecipe(), Keys.KEY_RECIPE_PICTURES, this);
     }
 
     /**
@@ -226,8 +229,9 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
         if (create_recipe_EDT_name.getText().toString().isEmpty()) {
             Toast.makeText(this, "Recipe Name can't be empty ", Toast.LENGTH_SHORT).show();
             return;
-        } else
-            tempRecipe = new Recipe(create_recipe_EDT_name.getText().toString());
+        }else
+            tempRecipe.setName(create_recipe_EDT_name.getText().toString());
+//            tempRecipe = new Recipe(create_recipe_EDT_name.getText().toString());
 
         //Handel Image Picker & upload image to the Storage  and save the url
         if (urlImg != null)
@@ -371,7 +375,7 @@ public class CreateRecipeActivity extends AppCompatActivity implements View.OnCl
     // UI Updates
     private void addView() {
 
-        final View ingredientCard = getLayoutInflater().inflate(R.layout.ingredients_add_card, null, false);
+         View ingredientCard = getLayoutInflater().inflate(R.layout.ingredients_add_card, null, false);
         // Attributes In Card Ingredient Add
 //        TextInputEditText ingredientName = ingredientCard.findViewById(R.id.ingredients_card_EDT_name);
 //        RadioGroup radioGroup = ingredientCard.findViewById(R.id.ingredients_card_BTN_radioGroup);
