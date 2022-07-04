@@ -12,5 +12,6 @@ public class ShareContactsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share_contacs);
+        //new
     }
 }
