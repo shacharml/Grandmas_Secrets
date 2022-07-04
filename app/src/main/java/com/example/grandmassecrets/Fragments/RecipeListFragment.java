@@ -42,6 +42,7 @@ public class RecipeListFragment extends Fragment {
 
     public RecipeListFragment() {
         // Required empty public constructor
+        //
     }
 
     @Override
